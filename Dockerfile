@@ -2,14 +2,12 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-# Copier les fichiers de dépendances
-COPY pyproject.toml ./
+# Copier tous les fichiers nécessaires
+COPY pyproject.toml README.md ./
+COPY src/ ./src/
 
 # Installer les dépendances
-RUN pip install --no-cache-dir -e .
-
-# Copier le code source
-COPY src/ ./src/
+RUN pip install --no-cache-dir .
 
 # Exposer le port (Railway assignera automatiquement un port)
 EXPOSE 8000
