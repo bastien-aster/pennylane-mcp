@@ -10,7 +10,7 @@ from ..client import PennylaneClient
 
 @tool(
     name="pennylane_list_quotes",
-    description="List quotes. Lists quotes > ℹ️ > This endpoint requires one of the following scopes: `quotes:all`, `quotes:readonly`",
+    description="[Sales · Quotes / Devis] List quotes Lists quotes > ℹ️ > This endpoint requires one of the following scopes: `quotes:all`, `quotes:readonly` Mots-clés FR: devis, proposition commerciale, offre.",
     input_schema={   'type': 'object',
         'properties': {   'cursor': {   'type': 'string',
                                         'description': 'Cursor for pagination. Use this to fetch the '
@@ -41,6 +41,7 @@ from ..client import PennylaneClient
                                                      'Example : `id` will sort by ascending order, '
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields : `id`\n'}}},
+    resource="quotes",
 )
 async def list_quotes(
     client: PennylaneClient,
@@ -57,13 +58,14 @@ async def list_quotes(
 
 @tool(
     name="pennylane_post_quotes",
-    description="Create a quote. This endpoint allows you to create a quote > ℹ️ > This endpoint requires the following scope: `quotes:all`",
+    description="[Sales · Quotes / Devis] Create a quote This endpoint allows you to create a quote > ℹ️ > This endpoint requires the following scope: `quotes:all` Mots-clés FR: devis, proposition commerciale, offre.",
     input_schema={   'type': 'object',
         'properties': {   'body': {   'type': 'object',
                                       'description': 'Request body payload. See the Pennylane API '
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['body']},
+    resource="quotes",
 )
 async def post_quotes(
     client: PennylaneClient,
@@ -76,8 +78,9 @@ async def post_quotes(
 
 @tool(
     name="pennylane_get_quote",
-    description="Retrieve a quote. This endpoint retrieves a quote. > ℹ️ > This endpoint requires one of the following scopes: `quotes:all`, `quotes:readonly`",
+    description="[Sales · Quotes / Devis] Retrieve a quote This endpoint retrieves a quote. > ℹ️ > This endpoint requires one of the following scopes: `quotes:all`, `quotes:readonly` Mots-clés FR: devis, proposition commerciale, offre.",
     input_schema={'type': 'object', 'properties': {'id': {'type': 'integer'}}, 'required': ['id']},
+    resource="quotes",
 )
 async def get_quote(
     client: PennylaneClient,
@@ -90,7 +93,7 @@ async def get_quote(
 
 @tool(
     name="pennylane_update_quote",
-    description="Update a quote. This endpoint allows you to update a quote > ℹ️ > This endpoint requires the following scope: `quotes:all`",
+    description="[Sales · Quotes / Devis] Update a quote This endpoint allows you to update a quote > ℹ️ > This endpoint requires the following scope: `quotes:all` Mots-clés FR: devis, proposition commerciale, offre.",
     input_schema={   'type': 'object',
         'properties': {   'id': {'type': 'integer'},
                           'body': {   'type': 'object',
@@ -98,6 +101,7 @@ async def get_quote(
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['id', 'body']},
+    resource="quotes",
 )
 async def update_quote(
     client: PennylaneClient,
@@ -111,7 +115,7 @@ async def update_quote(
 
 @tool(
     name="pennylane_get_quote_appendices",
-    description="List appendices of a quote. List appendices of a quote > ℹ️ > This endpoint requires one of the following scopes: `quotes:all`, `quotes:readonly`",
+    description="[Sales · Quotes / Devis] List appendices of a quote List appendices of a quote > ℹ️ > This endpoint requires one of the following scopes: `quotes:all`, `quotes:readonly` Mots-clés FR: devis, proposition commerciale, offre.",
     input_schema={   'type': 'object',
         'properties': {   'quote_id': {'type': 'integer'},
                           'cursor': {   'type': 'string',
@@ -125,6 +129,7 @@ async def update_quote(
                                                       'Defaults to 20 if not specified.\n'
                                                       'Must be between 1 and 100.\n'}},
         'required': ['quote_id']},
+    resource="quotes",
 )
 async def get_quote_appendices(
     client: PennylaneClient,
@@ -140,7 +145,7 @@ async def get_quote_appendices(
 
 @tool(
     name="pennylane_post_quote_appendices",
-    description="Upload an appendix for a quote. Upload a file that will be an appendix attached to a quote. Note that this will not upload a file into the DMS (GED). > ℹ️ > This endpoint requires the following scope: `quotes:all`",
+    description="[Sales · Quotes / Devis] Upload an appendix for a quote Upload a file that will be an appendix attached to a quote. Note that this will not upload a file into the DMS (GED). > ℹ️ > This endpoint requires the following scope: `quotes:all` Mots-clés FR: devis, proposition commerciale, offre.",
     input_schema={   'type': 'object',
         'properties': {   'quote_id': {'type': 'integer'},
                           'body': {   'type': 'object',
@@ -148,6 +153,7 @@ async def get_quote_appendices(
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['quote_id', 'body']},
+    resource="quotes",
 )
 async def post_quote_appendices(
     client: PennylaneClient,
@@ -161,7 +167,7 @@ async def post_quote_appendices(
 
 @tool(
     name="pennylane_get_quote_invoice_lines",
-    description="List invoice lines for a quote. List invoice lines for a quote > ℹ️ > This endpoint requires one of the following scopes: `quotes:all`, `quotes:readonly`",
+    description="[Sales · Quotes / Devis] List invoice lines for a quote List invoice lines for a quote > ℹ️ > This endpoint requires one of the following scopes: `quotes:all`, `quotes:readonly` Mots-clés FR: devis, proposition commerciale, offre.",
     input_schema={   'type': 'object',
         'properties': {   'quote_id': {'type': 'integer'},
                           'cursor': {   'type': 'string',
@@ -183,6 +189,7 @@ async def post_quote_appendices(
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields : `id`\n'}},
         'required': ['quote_id']},
+    resource="quotes",
 )
 async def get_quote_invoice_lines(
     client: PennylaneClient,
@@ -199,7 +206,7 @@ async def get_quote_invoice_lines(
 
 @tool(
     name="pennylane_get_quote_invoice_line_sections",
-    description="List invoice line sections for a quote. List invoice line sections for a quote > ℹ️ > This endpoint requires one of the following scopes: `quotes:all`, `quotes:readonly`",
+    description="[Sales · Quotes / Devis] List invoice line sections for a quote List invoice line sections for a quote > ℹ️ > This endpoint requires one of the following scopes: `quotes:all`, `quotes:readonly` Mots-clés FR: devis, proposition commerciale, offre.",
     input_schema={   'type': 'object',
         'properties': {   'quote_id': {'type': 'integer'},
                           'cursor': {   'type': 'string',
@@ -221,6 +228,7 @@ async def get_quote_invoice_lines(
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields : `id`\n'}},
         'required': ['quote_id']},
+    resource="quotes",
 )
 async def get_quote_invoice_line_sections(
     client: PennylaneClient,
@@ -237,7 +245,7 @@ async def get_quote_invoice_line_sections(
 
 @tool(
     name="pennylane_send_by_email_quote",
-    description="Send a quote by email. This endpoint allows you to send a quote by email to your customer. This requires that the PDF file for that document has been generated (this process can take a few minutes), so if you just created the quote in our system, we may return a 409 error. You should retry the request in a few minutes - if you receive a 204 response, that means that the email is on its way. For more information about email sending, please read \\[this guide\\](https://pennylane.readme.io/v2.0/docs/sending-documents-b...",
+    description="[Sales · Quotes / Devis] Send a quote by email This endpoint allows you to send a quote by email to your customer. This requires that the PDF file for that document has been generated (this process can take a few minutes), so if you just created the quote in our system, we may return a 409 error. You should retry the request in a few minutes - if you receive a 204 response, that means that the email is on its way. For more information about... Mots-clés FR: devis, proposition commerciale, offre.",
     input_schema={   'type': 'object',
         'properties': {   'id': {'type': 'integer'},
                           'body': {   'type': 'object',
@@ -245,6 +253,7 @@ async def get_quote_invoice_line_sections(
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['id']},
+    resource="quotes",
 )
 async def send_by_email_quote(
     client: PennylaneClient,
@@ -258,7 +267,7 @@ async def send_by_email_quote(
 
 @tool(
     name="pennylane_update_status_quote",
-    description="Update status of a quote. This endpoint allows you to update the status of a quote > ℹ️ > This endpoint requires the following scope: `quotes:all`",
+    description="[Sales · Quotes / Devis] Update status of a quote This endpoint allows you to update the status of a quote > ℹ️ > This endpoint requires the following scope: `quotes:all` Mots-clés FR: devis, proposition commerciale, offre.",
     input_schema={   'type': 'object',
         'properties': {   'id': {'type': 'integer'},
                           'body': {   'type': 'object',
@@ -266,6 +275,7 @@ async def send_by_email_quote(
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['id', 'body']},
+    resource="quotes",
 )
 async def update_status_quote(
     client: PennylaneClient,

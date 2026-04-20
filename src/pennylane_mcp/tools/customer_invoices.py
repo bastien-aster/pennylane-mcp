@@ -10,7 +10,7 @@ from ..client import PennylaneClient
 
 @tool(
     name="pennylane_post_customer_invoices",
-    description="Create a customer invoice. This endpoint allows you to create a draft or finalized customer invoice or credit note > ℹ️ > This endpoint requires the following scope: `customer_invoices:all`",
+    description="[Sales · Customer Invoices / Factures clients] Create a customer invoice This endpoint allows you to create a draft or finalized customer invoice or credit note > ℹ️ > This endpoint requires the following scope: `customer_invoices:all` Mots-clés FR: facture client, facturation, vente, encaissement, avoir client.",
     input_schema={   'type': 'object',
         'properties': {   'use_2026_api_changes': {   'type': 'boolean',
                                                       'description': 'If you are already using the '
@@ -30,6 +30,7 @@ from ..client import PennylaneClient
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['body']},
+    resource="customer_invoices",
 )
 async def post_customer_invoices(
     client: PennylaneClient,
@@ -44,7 +45,7 @@ async def post_customer_invoices(
 
 @tool(
     name="pennylane_get_customer_invoices",
-    description="List customer invoices. List customer invoices and credit notes > ℹ️ > This endpoint requires one of the following scopes: `customer_invoices:all`, `customer_invoices:readonly`",
+    description="[Sales · Customer Invoices / Factures clients] List customer invoices List customer invoices and credit notes > ℹ️ > This endpoint requires one of the following scopes: `customer_invoices:all`, `customer_invoices:readonly` Mots-clés FR: facture client, facturation, vente, encaissement, avoir client.",
     input_schema={   'type': 'object',
         'properties': {   'use_2026_api_changes': {   'type': 'boolean',
                                                       'description': 'If you are already using the '
@@ -100,6 +101,7 @@ async def post_customer_invoices(
                                                         'experimental and may change or be removed in '
                                                         'future releases.\n'
                                                         'We'}}},
+    resource="customer_invoices",
 )
 async def get_customer_invoices(
     client: PennylaneClient,
@@ -118,7 +120,7 @@ async def get_customer_invoices(
 
 @tool(
     name="pennylane_import_customer_invoices",
-    description="Import an invoice with file attached. This endpoint allows you to import an invoice. ℹ️ To ensure consistency, **we will apply validations on amounts in accordance with our rounding policy**. We allow a difference up to 1 cent per invoice_line between the total amounts and the sum of invoice lines. For further details, please refer to our [article](https://help.pennylane.com/fr/articles/61575-comprendre-l-arrondi-de-tva-d-un-produit) on rounding policy. > ℹ️ > This endpoint requires the following scope: `customer_invoices:all`",
+    description="[Sales · Customer Invoices / Factures clients] Import an invoice with file attached This endpoint allows you to import an invoice. ℹ️ To ensure consistency, **we will apply validations on amounts in accordance with our rounding policy**. We allow a difference up to 1 cent per invoice_line between the total amounts and the sum of invoice lines. For further details, please refer to our [article](https://help.pennylane.com/fr/articles/61575-comprendre-l-arrondi-de-tva-d-un-produi... Mots-clés FR: facture client, facturation, vente, encaissement, avoir client.",
     input_schema={   'type': 'object',
         'properties': {   'use_2026_api_changes': {   'type': 'boolean',
                                                       'description': 'If you are already using the '
@@ -138,6 +140,7 @@ async def get_customer_invoices(
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['body']},
+    resource="customer_invoices",
 )
 async def import_customer_invoices(
     client: PennylaneClient,
@@ -152,13 +155,14 @@ async def import_customer_invoices(
 
 @tool(
     name="pennylane_create_customer_invoice_e_invoice_import",
-    description="Import a customer e-invoice. Import a customer invoice from an e-invoice file (Factur-X format). The file must be a valid Factur-X PDF. Optionally provide `invoice_options` to pre-fill customer and line-level data. Invoice line `e_invoice_line_id` must match Factur-X BT-126 (LineID). > ℹ️ > This endpoint requires the following scope: `customer_invoices:all`",
+    description="[Sales · Customer Invoices / Factures clients] Import a customer e-invoice Import a customer invoice from an e-invoice file (Factur-X format). The file must be a valid Factur-X PDF. Optionally provide `invoice_options` to pre-fill customer and line-level data. Invoice line `e_invoice_line_id` must match Factur-X BT-126 (LineID). > ℹ️ > This endpoint requires the following scope: `customer_invoices:all` Mots-clés FR: facture client, facturation, vente, encaissement, avoir client.",
     input_schema={   'type': 'object',
         'properties': {   'body': {   'type': 'object',
                                       'description': 'Request body payload. See the Pennylane API '
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['body']},
+    resource="customer_invoices",
 )
 async def create_customer_invoice_e_invoice_import(
     client: PennylaneClient,
@@ -171,7 +175,7 @@ async def create_customer_invoice_e_invoice_import(
 
 @tool(
     name="pennylane_create_customer_invoice_from_quote",
-    description="Create a customer invoice from a quote. This endpoint allows you to create a customer invoice from an existing quote. The invoice will inherit the quote's data (customer, lines, etc.). > ℹ️ > This endpoint requires the following scope: `customer_invoices:all`",
+    description="[Sales · Customer Invoices / Factures clients] Create a customer invoice from a quote This endpoint allows you to create a customer invoice from an existing quote. The invoice will inherit the quote's data (customer, lines, etc.). > ℹ️ > This endpoint requires the following scope: `customer_invoices:all` Mots-clés FR: facture client, facturation, vente, encaissement, avoir client.",
     input_schema={   'type': 'object',
         'properties': {   'use_2026_api_changes': {   'type': 'boolean',
                                                       'description': 'If you are already using the '
@@ -191,6 +195,7 @@ async def create_customer_invoice_e_invoice_import(
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['body']},
+    resource="customer_invoices",
 )
 async def create_customer_invoice_from_quote(
     client: PennylaneClient,
@@ -205,7 +210,7 @@ async def create_customer_invoice_from_quote(
 
 @tool(
     name="pennylane_get_customer_invoice_invoice_line_sections",
-    description="List invoice line sections for a customer invoice. List invoice line sections for a customer invoice > ℹ️ > This endpoint requires one of the following scopes: `customer_invoices:all`, `customer_invoices:readonly`",
+    description="[Sales · Customer Invoices / Factures clients] List invoice line sections for a customer invoice List invoice line sections for a customer invoice > ℹ️ > This endpoint requires one of the following scopes: `customer_invoices:all`, `customer_invoices:readonly` Mots-clés FR: facture client, facturation, vente, encaissement, avoir client.",
     input_schema={   'type': 'object',
         'properties': {   'customer_invoice_id': {'type': 'integer'},
                           'cursor': {   'type': 'string',
@@ -227,6 +232,7 @@ async def create_customer_invoice_from_quote(
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields : `id`\n'}},
         'required': ['customer_invoice_id']},
+    resource="customer_invoices",
 )
 async def get_customer_invoice_invoice_line_sections(
     client: PennylaneClient,
@@ -243,7 +249,7 @@ async def get_customer_invoice_invoice_line_sections(
 
 @tool(
     name="pennylane_get_customer_invoice_invoice_lines",
-    description="List invoice lines for a customer invoice. List invoice lines for a customer invoice > ℹ️ > This endpoint requires one of the following scopes: `customer_invoices:all`, `customer_invoices:readonly`",
+    description="[Sales · Customer Invoices / Factures clients] List invoice lines for a customer invoice List invoice lines for a customer invoice > ℹ️ > This endpoint requires one of the following scopes: `customer_invoices:all`, `customer_invoices:readonly` Mots-clés FR: facture client, facturation, vente, encaissement, avoir client.",
     input_schema={   'type': 'object',
         'properties': {   'customer_invoice_id': {'type': 'integer'},
                           'cursor': {   'type': 'string',
@@ -265,6 +271,7 @@ async def get_customer_invoice_invoice_line_sections(
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields : `id`, `rank`\n'}},
         'required': ['customer_invoice_id']},
+    resource="customer_invoices",
 )
 async def get_customer_invoice_invoice_lines(
     client: PennylaneClient,
@@ -281,7 +288,7 @@ async def get_customer_invoice_invoice_lines(
 
 @tool(
     name="pennylane_get_customer_invoice_payments",
-    description="List payments for a customer invoice. List payments for a customer invoice > ℹ️ > This endpoint requires one of the following scopes: `customer_invoices:all`, `customer_invoices:readonly`",
+    description="[Sales · Customer Invoices / Factures clients] List payments for a customer invoice List payments for a customer invoice > ℹ️ > This endpoint requires one of the following scopes: `customer_invoices:all`, `customer_invoices:readonly` Mots-clés FR: facture client, facturation, vente, encaissement, avoir client.",
     input_schema={   'type': 'object',
         'properties': {   'customer_invoice_id': {'type': 'integer'},
                           'cursor': {   'type': 'string',
@@ -303,6 +310,7 @@ async def get_customer_invoice_invoice_lines(
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields : `id`\n'}},
         'required': ['customer_invoice_id']},
+    resource="customer_invoices",
 )
 async def get_customer_invoice_payments(
     client: PennylaneClient,
@@ -319,7 +327,7 @@ async def get_customer_invoice_payments(
 
 @tool(
     name="pennylane_get_customer_invoice_matched_transactions",
-    description="List matched transactions for a customer invoice. List matched transactions for a customer invoice > ℹ️ > This endpoint requires one of the following scopes: `customer_invoices:all`, `customer_invoices:readonly`",
+    description="[Sales · Customer Invoices / Factures clients] List matched transactions for a customer invoice List matched transactions for a customer invoice > ℹ️ > This endpoint requires one of the following scopes: `customer_invoices:all`, `customer_invoices:readonly` Mots-clés FR: facture client, facturation, vente, encaissement, avoir client.",
     input_schema={   'type': 'object',
         'properties': {   'customer_invoice_id': {'type': 'integer'},
                           'cursor': {   'type': 'string',
@@ -341,6 +349,7 @@ async def get_customer_invoice_payments(
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields : `id`\n'}},
         'required': ['customer_invoice_id']},
+    resource="customer_invoices",
 )
 async def get_customer_invoice_matched_transactions(
     client: PennylaneClient,
@@ -357,7 +366,7 @@ async def get_customer_invoice_matched_transactions(
 
 @tool(
     name="pennylane_post_customer_invoice_matched_transactions",
-    description="Match a transaction to a customer invoice. This endpoint allows you to match a transaction to a customer invoice. It is not applicable for draft invoices. You can match one transaction with one customer invoice at a time. To match multiple transactions to a customer invoice, you need to call this endpoint multiple times. It's possible to match a transaction to multiple customer invoices too. > ℹ️ > This endpoint requires the following scope: `customer_invoices:all`",
+    description="[Sales · Customer Invoices / Factures clients] Match a transaction to a customer invoice This endpoint allows you to match a transaction to a customer invoice. It is not applicable for draft invoices. You can match one transaction with one customer invoice at a time. To match multiple transactions to a customer invoice, you need to call this endpoint multiple times. It's possible to match a transaction to multiple customer invoices too. > ℹ️ > This endpoint requires the following s... Mots-clés FR: facture client, facturation, vente, encaissement, avoir client.",
     input_schema={   'type': 'object',
         'properties': {   'customer_invoice_id': {'type': 'integer'},
                           'body': {   'type': 'object',
@@ -365,6 +374,7 @@ async def get_customer_invoice_matched_transactions(
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['customer_invoice_id', 'body']},
+    resource="customer_invoices",
 )
 async def post_customer_invoice_matched_transactions(
     client: PennylaneClient,
@@ -378,10 +388,11 @@ async def post_customer_invoice_matched_transactions(
 
 @tool(
     name="pennylane_delete_customer_invoice_matched_transactions",
-    description="Unmatch a transaction to a customer invoice. This endpoint allows you to unmatch a transaction to a customer invoice. It is not applicable for draft invoices. > ℹ️ > This endpoint requires the following scope: `customer_invoices:all`",
+    description="[Sales · Customer Invoices / Factures clients] Unmatch a transaction to a customer invoice This endpoint allows you to unmatch a transaction to a customer invoice. It is not applicable for draft invoices. > ℹ️ > This endpoint requires the following scope: `customer_invoices:all` Mots-clés FR: facture client, facturation, vente, encaissement, avoir client.",
     input_schema={   'type': 'object',
         'properties': {'customer_invoice_id': {'type': 'integer'}, 'id': {'type': 'integer'}},
         'required': ['customer_invoice_id', 'id']},
+    resource="customer_invoices",
 )
 async def delete_customer_invoice_matched_transactions(
     client: PennylaneClient,
@@ -395,7 +406,7 @@ async def delete_customer_invoice_matched_transactions(
 
 @tool(
     name="pennylane_get_customer_invoice_appendices",
-    description="List appendices of a customer invoice. List appendices of a customer invoice > ℹ️ > This endpoint requires one of the following scopes: `customer_invoices:all`, `customer_invoices:readonly`",
+    description="[Sales · Customer Invoices / Factures clients] List appendices of a customer invoice List appendices of a customer invoice > ℹ️ > This endpoint requires one of the following scopes: `customer_invoices:all`, `customer_invoices:readonly` Mots-clés FR: facture client, facturation, vente, encaissement, avoir client.",
     input_schema={   'type': 'object',
         'properties': {   'customer_invoice_id': {'type': 'integer'},
                           'cursor': {   'type': 'string',
@@ -409,6 +420,7 @@ async def delete_customer_invoice_matched_transactions(
                                                       'Defaults to 20 if not specified.\n'
                                                       'Must be between 1 and 100.\n'}},
         'required': ['customer_invoice_id']},
+    resource="customer_invoices",
 )
 async def get_customer_invoice_appendices(
     client: PennylaneClient,
@@ -424,7 +436,7 @@ async def get_customer_invoice_appendices(
 
 @tool(
     name="pennylane_post_customer_invoice_appendices",
-    description="Upload an appendix for a customer invoice. Upload a file that will be an appendix attached to a customer invoice. Note that this will not upload a file into the DMS (GED). > ℹ️ > This endpoint requires the following scope: `customer_invoices:all`",
+    description="[Sales · Customer Invoices / Factures clients] Upload an appendix for a customer invoice Upload a file that will be an appendix attached to a customer invoice. Note that this will not upload a file into the DMS (GED). > ℹ️ > This endpoint requires the following scope: `customer_invoices:all` Mots-clés FR: facture client, facturation, vente, encaissement, avoir client.",
     input_schema={   'type': 'object',
         'properties': {   'customer_invoice_id': {'type': 'integer'},
                           'body': {   'type': 'object',
@@ -432,6 +444,7 @@ async def get_customer_invoice_appendices(
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['customer_invoice_id', 'body']},
+    resource="customer_invoices",
 )
 async def post_customer_invoice_appendices(
     client: PennylaneClient,
@@ -445,7 +458,7 @@ async def post_customer_invoice_appendices(
 
 @tool(
     name="pennylane_get_customer_invoice",
-    description="Retrieve a customer invoice. Retrieve a customer invoice or a credit note > ℹ️ > This endpoint requires one of the following scopes: `customer_invoices:all`, `customer_invoices:readonly`",
+    description="[Sales · Customer Invoices / Factures clients] Retrieve a customer invoice Retrieve a customer invoice or a credit note > ℹ️ > This endpoint requires one of the following scopes: `customer_invoices:all`, `customer_invoices:readonly` Mots-clés FR: facture client, facturation, vente, encaissement, avoir client.",
     input_schema={   'type': 'object',
         'properties': {   'id': {   'type': 'integer',
                                     'description': 'The unique identifier of the customer invoice'},
@@ -463,6 +476,7 @@ async def post_customer_invoice_appendices(
                                                                      'this parameter with `true` value '
                                                                      'to opt in directly t'}},
         'required': ['id']},
+    resource="customer_invoices",
 )
 async def get_customer_invoice(
     client: PennylaneClient,
@@ -477,7 +491,7 @@ async def get_customer_invoice(
 
 @tool(
     name="pennylane_update_customer_invoice",
-    description="Update a customer invoice. Update a customer invoice > ℹ️ > This endpoint requires the following scope: `customer_invoices:all`",
+    description="[Sales · Customer Invoices / Factures clients] Update a customer invoice Update a customer invoice > ℹ️ > This endpoint requires the following scope: `customer_invoices:all` Mots-clés FR: facture client, facturation, vente, encaissement, avoir client.",
     input_schema={   'type': 'object',
         'properties': {   'id': {   'type': 'integer',
                                     'description': 'The unique identifier of the customer invoice'},
@@ -499,6 +513,7 @@ async def get_customer_invoice(
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['id', 'body']},
+    resource="customer_invoices",
 )
 async def update_customer_invoice(
     client: PennylaneClient,
@@ -514,11 +529,12 @@ async def update_customer_invoice(
 
 @tool(
     name="pennylane_delete_customer_invoices",
-    description="Delete draft invoice. Delete a draft customer invoice or draft credit note > ℹ️ > This endpoint requires the following scope: `customer_invoices:all`",
+    description="[Sales · Customer Invoices / Factures clients] Delete draft invoice Delete a draft customer invoice or draft credit note > ℹ️ > This endpoint requires the following scope: `customer_invoices:all` Mots-clés FR: facture client, facturation, vente, encaissement, avoir client.",
     input_schema={   'type': 'object',
         'properties': {   'id': {   'type': 'integer',
                                     'description': 'The unique identifier of the customer invoice'}},
         'required': ['id']},
+    resource="customer_invoices",
 )
 async def delete_customer_invoices(
     client: PennylaneClient,
@@ -531,11 +547,12 @@ async def delete_customer_invoices(
 
 @tool(
     name="pennylane_mark_as_paid_customer_invoice",
-    description="Mark a customer invoice as paid. Mark a customer invoice as paid. No automatic reconciliation will be done once the invoice is marked as paid > ℹ️ > This endpoint requires the following scope: `customer_invoices:all`",
+    description="[Sales · Customer Invoices / Factures clients] Mark a customer invoice as paid Mark a customer invoice as paid. No automatic reconciliation will be done once the invoice is marked as paid > ℹ️ > This endpoint requires the following scope: `customer_invoices:all` Mots-clés FR: facture client, facturation, vente, encaissement, avoir client.",
     input_schema={   'type': 'object',
         'properties': {   'id': {   'type': 'integer',
                                     'description': 'The unique identifier of the customer invoice'}},
         'required': ['id']},
+    resource="customer_invoices",
 )
 async def mark_as_paid_customer_invoice(
     client: PennylaneClient,
@@ -548,7 +565,7 @@ async def mark_as_paid_customer_invoice(
 
 @tool(
     name="pennylane_send_by_email_customer_invoice",
-    description="Send a customer invoice by email. This endpoint allows you to send a finalized, imported customer invoice or credit note by email to your customer. This requires that the PDF file for that document has been generated (this process can take a few minutes), so if you just created the invoice in our system, we may return a 409 error. You should retry the request in a few minutes - if you receive a 204 response, that means that the email is on its way. For more information about email sending, please read [this guide](https://pen...",
+    description="[Sales · Customer Invoices / Factures clients] Send a customer invoice by email This endpoint allows you to send a finalized, imported customer invoice or credit note by email to your customer. This requires that the PDF file for that document has been generated (this process can take a few minutes), so if you just created the invoice in our system, we may return a 409 error. You should retry the request in a few minutes - if you receive a 204 response, that means that the... Mots-clés FR: facture client, facturation, vente, encaissement, avoir client.",
     input_schema={   'type': 'object',
         'properties': {   'id': {   'type': 'integer',
                                     'description': 'The unique identifier of the customer invoice'},
@@ -557,6 +574,7 @@ async def mark_as_paid_customer_invoice(
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['id']},
+    resource="customer_invoices",
 )
 async def send_by_email_customer_invoice(
     client: PennylaneClient,
@@ -570,7 +588,7 @@ async def send_by_email_customer_invoice(
 
 @tool(
     name="pennylane_get_customer_invoice_categories",
-    description="List categories of a customer invoice. List categories of a customer invoice > ℹ️ > This endpoint requires one of the following scopes: `customer_invoices:all`, `customer_invoices:readonly`",
+    description="[Sales · Customer Invoices / Factures clients] List categories of a customer invoice List categories of a customer invoice > ℹ️ > This endpoint requires one of the following scopes: `customer_invoices:all`, `customer_invoices:readonly` Mots-clés FR: facture client, facturation, vente, encaissement, avoir client.",
     input_schema={   'type': 'object',
         'properties': {   'customer_invoice_id': {'type': 'integer'},
                           'cursor': {   'type': 'string',
@@ -584,6 +602,7 @@ async def send_by_email_customer_invoice(
                                                       'Defaults to 20 if not specified.\n'
                                                       'Must be between 1 and 100.\n'}},
         'required': ['customer_invoice_id']},
+    resource="customer_invoices",
 )
 async def get_customer_invoice_categories(
     client: PennylaneClient,
@@ -599,7 +618,7 @@ async def get_customer_invoice_categories(
 
 @tool(
     name="pennylane_put_customer_invoice_categories",
-    description="Categorize a customer invoice. This endpoint is not applicable for draft invoices. Update the categories of a customer invoice. You can pass categories that don't belong to the same category group. The sum of categories of a same group must equal `1`. In the following example, the two first categories belong to the same category group A, the sum of the weights is `1`. The third category belongs to a category group B, its weight is `1`. ``` [ { 'id': 59, 'weight': '0.5' }, // category group A { 'id': 33, 'weight': '0.5' }, ...",
+    description="[Sales · Customer Invoices / Factures clients] Categorize a customer invoice This endpoint is not applicable for draft invoices. Update the categories of a customer invoice. You can pass categories that don't belong to the same category group. The sum of categories of a same group must equal `1`. In the following example, the two first categories belong to the same category group A, the sum of the weights is `1`. The third category belongs to a category group B, its wei... Mots-clés FR: facture client, facturation, vente, encaissement, avoir client.",
     input_schema={   'type': 'object',
         'properties': {   'customer_invoice_id': {'type': 'integer'},
                           'body': {   'type': 'object',
@@ -607,6 +626,7 @@ async def get_customer_invoice_categories(
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['customer_invoice_id', 'body']},
+    resource="customer_invoices",
 )
 async def put_customer_invoice_categories(
     client: PennylaneClient,
@@ -620,7 +640,7 @@ async def put_customer_invoice_categories(
 
 @tool(
     name="pennylane_update_imported_customer_invoice",
-    description="Update an Imported customer invoice. Update an imported customer invoice or credit note. It is not applicable for draft invoices. > ℹ️ > This endpoint requires the following scope: `customer_invoices:all`",
+    description="[Sales · Customer Invoices / Factures clients] Update an Imported customer invoice Update an imported customer invoice or credit note. It is not applicable for draft invoices. > ℹ️ > This endpoint requires the following scope: `customer_invoices:all` Mots-clés FR: facture client, facturation, vente, encaissement, avoir client.",
     input_schema={   'type': 'object',
         'properties': {   'id': {   'type': 'integer',
                                     'description': 'The ID of the imported customer invoice'},
@@ -642,6 +662,7 @@ async def put_customer_invoice_categories(
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['id', 'body']},
+    resource="customer_invoices",
 )
 async def update_imported_customer_invoice(
     client: PennylaneClient,
@@ -657,7 +678,7 @@ async def update_imported_customer_invoice(
 
 @tool(
     name="pennylane_finalize_customer_invoice",
-    description="Turn the draft invoice into a finalized invoice.. Convert the draft customer invoice or credit note into a finalized one. Once finalized, the resource can no longer be edited. > ℹ️ > This endpoint requires the following scope: `customer_invoices:all`",
+    description="[Sales · Customer Invoices / Factures clients] Turn the draft invoice into a finalized invoice. Convert the draft customer invoice or credit note into a finalized one. Once finalized, the resource can no longer be edited. > ℹ️ > This endpoint requires the following scope: `customer_invoices:all` Mots-clés FR: facture client, facturation, vente, encaissement, avoir client.",
     input_schema={   'type': 'object',
         'properties': {   'id': {   'type': 'integer',
                                     'description': 'The unique identifier of the customer invoice'},
@@ -675,6 +696,7 @@ async def update_imported_customer_invoice(
                                                                      'this parameter with `true` value '
                                                                      'to opt in directly t'}},
         'required': ['id']},
+    resource="customer_invoices",
 )
 async def finalize_customer_invoice(
     client: PennylaneClient,
@@ -689,7 +711,7 @@ async def finalize_customer_invoice(
 
 @tool(
     name="pennylane_link_credit_note",
-    description="Link a credit note to a customer invoice. Link a credit note to a customer invoice > ℹ️ > This endpoint requires the following scope: `customer_invoices:all`",
+    description="[Sales · Customer Invoices / Factures clients] Link a credit note to a customer invoice Link a credit note to a customer invoice > ℹ️ > This endpoint requires the following scope: `customer_invoices:all` Mots-clés FR: facture client, facturation, vente, encaissement, avoir client.",
     input_schema={   'type': 'object',
         'properties': {   'id': {   'type': 'integer',
                                     'description': 'The unique identifier of the customer invoice'},
@@ -711,6 +733,7 @@ async def finalize_customer_invoice(
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['id', 'body']},
+    resource="customer_invoices",
 )
 async def link_credit_note(
     client: PennylaneClient,
@@ -726,7 +749,7 @@ async def link_credit_note(
 
 @tool(
     name="pennylane_get_customer_invoice_custom_header_fields",
-    description="List custom header fields for a customer invoice. List custom header fields for a customer invoice > ℹ️ > This endpoint requires one of the following scopes: `customer_invoices:all`, `customer_invoices:readonly`",
+    description="[Sales · Customer Invoices / Factures clients] List custom header fields for a customer invoice List custom header fields for a customer invoice > ℹ️ > This endpoint requires one of the following scopes: `customer_invoices:all`, `customer_invoices:readonly` Mots-clés FR: facture client, facturation, vente, encaissement, avoir client.",
     input_schema={   'type': 'object',
         'properties': {   'customer_invoice_id': {'type': 'integer'},
                           'cursor': {   'type': 'string',
@@ -748,6 +771,7 @@ async def link_credit_note(
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields : `id`\n'}},
         'required': ['customer_invoice_id']},
+    resource="customer_invoices",
 )
 async def get_customer_invoice_custom_header_fields(
     client: PennylaneClient,

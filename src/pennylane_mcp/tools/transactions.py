@@ -10,7 +10,7 @@ from ..client import PennylaneClient
 
 @tool(
     name="pennylane_get_transactions",
-    description="List transactions. List transactions > ℹ️ > This endpoint requires one of the following scopes: `transactions:readonly`, `transactions:all`",
+    description="[Banking · Bank Transactions / Transactions bancaires] List transactions List transactions > ℹ️ > This endpoint requires one of the following scopes: `transactions:readonly`, `transactions:all` Mots-clés FR: transaction bancaire, opération bancaire, mouvement.",
     input_schema={   'type': 'object',
         'properties': {   'cursor': {   'type': 'string',
                                         'description': 'Cursor for pagination. Use this to fetch the '
@@ -41,6 +41,7 @@ from ..client import PennylaneClient
                                                      'Example : `id` will sort by ascending order, '
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields : `id`\n'}}},
+    resource="transactions",
 )
 async def get_transactions(
     client: PennylaneClient,
@@ -57,13 +58,14 @@ async def get_transactions(
 
 @tool(
     name="pennylane_create_transaction",
-    description="Create a transaction. Create a banking transaction > ℹ️ > This endpoint requires the following scope: `transactions:all`",
+    description="[Banking · Bank Transactions / Transactions bancaires] Create a transaction Create a banking transaction > ℹ️ > This endpoint requires the following scope: `transactions:all` Mots-clés FR: transaction bancaire, opération bancaire, mouvement.",
     input_schema={   'type': 'object',
         'properties': {   'body': {   'type': 'object',
                                       'description': 'Request body payload. See the Pennylane API '
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['body']},
+    resource="transactions",
 )
 async def create_transaction(
     client: PennylaneClient,
@@ -76,8 +78,9 @@ async def create_transaction(
 
 @tool(
     name="pennylane_get_transaction",
-    description="Retrieve a transaction. Retrieve a transaction > ℹ️ > This endpoint requires one of the following scopes: `transactions:readonly`, `transactions:all`",
+    description="[Banking · Bank Transactions / Transactions bancaires] Retrieve a transaction Retrieve a transaction > ℹ️ > This endpoint requires one of the following scopes: `transactions:readonly`, `transactions:all` Mots-clés FR: transaction bancaire, opération bancaire, mouvement.",
     input_schema={'type': 'object', 'properties': {'id': {'type': 'integer'}}, 'required': ['id']},
+    resource="transactions",
 )
 async def get_transaction(
     client: PennylaneClient,
@@ -90,7 +93,7 @@ async def get_transaction(
 
 @tool(
     name="pennylane_update_transaction",
-    description="Update a transaction. This endpoint returns the updated transaction. > ℹ️ > This endpoint requires the following scope: `transactions:all`",
+    description="[Banking · Bank Transactions / Transactions bancaires] Update a transaction This endpoint returns the updated transaction. > ℹ️ > This endpoint requires the following scope: `transactions:all` Mots-clés FR: transaction bancaire, opération bancaire, mouvement.",
     input_schema={   'type': 'object',
         'properties': {   'id': {'type': 'integer'},
                           'body': {   'type': 'object',
@@ -98,6 +101,7 @@ async def get_transaction(
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['id', 'body']},
+    resource="transactions",
 )
 async def update_transaction(
     client: PennylaneClient,
@@ -111,7 +115,7 @@ async def update_transaction(
 
 @tool(
     name="pennylane_get_transaction_categories",
-    description="List categories of a bank transaction. List categories of a bank transaction > ℹ️ > This endpoint requires one of the following scopes: `transactions:readonly`, `transactions:all`",
+    description="[Banking · Bank Transactions / Transactions bancaires] List categories of a bank transaction List categories of a bank transaction > ℹ️ > This endpoint requires one of the following scopes: `transactions:readonly`, `transactions:all` Mots-clés FR: transaction bancaire, opération bancaire, mouvement.",
     input_schema={   'type': 'object',
         'properties': {   'transaction_id': {'type': 'integer'},
                           'cursor': {   'type': 'string',
@@ -125,6 +129,7 @@ async def update_transaction(
                                                       'Defaults to 20 if not specified.\n'
                                                       'Must be between 1 and 100.\n'}},
         'required': ['transaction_id']},
+    resource="transactions",
 )
 async def get_transaction_categories(
     client: PennylaneClient,
@@ -140,7 +145,7 @@ async def get_transaction_categories(
 
 @tool(
     name="pennylane_put_transaction_categories",
-    description="Categorize a bank transaction. Update the categories of a transaction. You can pass categories that don't belong to the same category group. The sum of categories of a same group must equal `1`. In the following example, the two first categories belong to the same category group A, the sum of the weights is `1`. The third category belongs to a category group B, its weight is `1`. ``` [ { 'id': 59, 'weight': '0.5' }, // category group A { 'id': 33, 'weight': '0.5' }, // category group A { 'id': 65, 'weight': '1' } // catego...",
+    description="[Banking · Bank Transactions / Transactions bancaires] Categorize a bank transaction Update the categories of a transaction. You can pass categories that don't belong to the same category group. The sum of categories of a same group must equal `1`. In the following example, the two first categories belong to the same category group A, the sum of the weights is `1`. The third category belongs to a category group B, its weight is `1`. ``` [ { 'id': 59, 'weight': '0.5' }, // categ... Mots-clés FR: transaction bancaire, opération bancaire, mouvement.",
     input_schema={   'type': 'object',
         'properties': {   'transaction_id': {'type': 'integer'},
                           'body': {   'type': 'object',
@@ -148,6 +153,7 @@ async def get_transaction_categories(
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['transaction_id', 'body']},
+    resource="transactions",
 )
 async def put_transaction_categories(
     client: PennylaneClient,
@@ -161,7 +167,7 @@ async def put_transaction_categories(
 
 @tool(
     name="pennylane_get_transaction_matched_invoices",
-    description="List invoices matched to a bank transaction. List invoices matched to a bank transaction > ℹ️ > This endpoint requires one of the following scopes: `transactions:readonly`, `transactions:all`",
+    description="[Banking · Bank Transactions / Transactions bancaires] List invoices matched to a bank transaction List invoices matched to a bank transaction > ℹ️ > This endpoint requires one of the following scopes: `transactions:readonly`, `transactions:all` Mots-clés FR: transaction bancaire, opération bancaire, mouvement.",
     input_schema={   'type': 'object',
         'properties': {   'transaction_id': {'type': 'integer'},
                           'cursor': {   'type': 'string',
@@ -175,6 +181,7 @@ async def put_transaction_categories(
                                                       'Defaults to 20 if not specified.\n'
                                                       'Must be between 1 and 100.\n'}},
         'required': ['transaction_id']},
+    resource="transactions",
 )
 async def get_transaction_matched_invoices(
     client: PennylaneClient,

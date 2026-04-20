@@ -10,7 +10,7 @@ from ..client import PennylaneClient
 
 @tool(
     name="pennylane_get_ledger_accounts",
-    description="List Ledger Accounts. List Ledger Accounts **DEPRECATED BEHAVIOR:** By default, returns ledger accounts ordered by ascending IDs **NEW BEHAVIOR:** By default, returns ledger accounts ordered by descending IDs The old `ledger` scope will only work on the old behavior system. As soon as you opt in to the new version, or when the sunset phase starts and you haven't explicitly opted out of the old behavior, the ledger scope will no longer work. For more details, see our API documentation https://pennylane.readme.io/do...",
+    description="[Accounting · Ledger Accounts / Comptes du grand livre] List Ledger Accounts List Ledger Accounts **DEPRECATED BEHAVIOR:** By default, returns ledger accounts ordered by ascending IDs **NEW BEHAVIOR:** By default, returns ledger accounts ordered by descending IDs The old `ledger` scope will only work on the old behavior system. As soon as you opt in to the new version, or when the sunset phase starts and you haven't explicitly opted out of the old behavior, the ledger s... Mots-clés FR: compte comptable, grand livre, plan comptable.",
     input_schema={   'type': 'object',
         'properties': {   'use_2026_api_changes': {   'type': 'boolean',
                                                       'description': 'If you are already using the '
@@ -76,6 +76,7 @@ from ..client import PennylaneClient
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields :\n'
                                                      '- `id`\n'}}},
+    resource="ledger_accounts",
 )
 async def get_ledger_accounts(
     client: PennylaneClient,
@@ -95,7 +96,7 @@ async def get_ledger_accounts(
 
 @tool(
     name="pennylane_post_ledger_accounts",
-    description="Create a ledger account. Create a ledger account **NEW BEHAVIOR :** The old `ledger` scope will only work on the old behavior system. As soon as you opt in to the new version, or when the sunset phase starts and you haven't explicitly opted out of the old behavior, the ledger scope will no longer work. For more details, see our API documentation https://pennylane.readme.io/docs/2026-api-changes-guide for migration instructions. > ℹ️ > This endpoint requires one of the following scopes: `ledger (DEPRECATED)`, `ledger_...",
+    description="[Accounting · Ledger Accounts / Comptes du grand livre] Create a ledger account Create a ledger account **NEW BEHAVIOR :** The old `ledger` scope will only work on the old behavior system. As soon as you opt in to the new version, or when the sunset phase starts and you haven't explicitly opted out of the old behavior, the ledger scope will no longer work. For more details, see our API documentation https://pennylane.readme.io/docs/2026-api-changes-guide for migration inst... Mots-clés FR: compte comptable, grand livre, plan comptable.",
     input_schema={   'type': 'object',
         'properties': {   'use_2026_api_changes': {   'type': 'boolean',
                                                       'description': 'If you are already using the '
@@ -115,6 +116,7 @@ async def get_ledger_accounts(
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['body']},
+    resource="ledger_accounts",
 )
 async def post_ledger_accounts(
     client: PennylaneClient,
@@ -129,7 +131,7 @@ async def post_ledger_accounts(
 
 @tool(
     name="pennylane_get_ledger_account",
-    description="Get a ledger account. Get a ledger account **NEW BEHAVIOR :** The old `ledger` scope will only work on the old behavior system. As soon as you opt in to the new version, or when the sunset phase starts and you haven't explicitly opted out of the old behavior, the ledger scope will no longer work. For more details, see our API documentation https://pennylane.readme.io/docs/2026-api-changes-guide for migration instructions. > ℹ️ > This endpoint requires one of the following scopes: `ledger (DEPRECATED)`, `ledger_acc...",
+    description="[Accounting · Ledger Accounts / Comptes du grand livre] Get a ledger account Get a ledger account **NEW BEHAVIOR :** The old `ledger` scope will only work on the old behavior system. As soon as you opt in to the new version, or when the sunset phase starts and you haven't explicitly opted out of the old behavior, the ledger scope will no longer work. For more details, see our API documentation https://pennylane.readme.io/docs/2026-api-changes-guide for migration instruc... Mots-clés FR: compte comptable, grand livre, plan comptable.",
     input_schema={   'type': 'object',
         'properties': {   'id': {'type': 'integer', 'description': 'Ledger Account ID'},
                           'use_2026_api_changes': {   'type': 'boolean',
@@ -146,6 +148,7 @@ async def post_ledger_accounts(
                                                                      'this parameter with `true` value '
                                                                      'to opt in directly t'}},
         'required': ['id']},
+    resource="ledger_accounts",
 )
 async def get_ledger_account(
     client: PennylaneClient,
@@ -160,7 +163,7 @@ async def get_ledger_account(
 
 @tool(
     name="pennylane_update_ledger_account",
-    description="Update a ledger account. Update a ledger account > ℹ️ > This endpoint requires the following scope: `ledger_accounts:all`",
+    description="[Accounting · Ledger Accounts / Comptes du grand livre] Update a ledger account Update a ledger account > ℹ️ > This endpoint requires the following scope: `ledger_accounts:all` Mots-clés FR: compte comptable, grand livre, plan comptable.",
     input_schema={   'type': 'object',
         'properties': {   'id': {'type': 'integer', 'description': 'Ledger Account ID'},
                           'use_2026_api_changes': {   'type': 'boolean',
@@ -181,6 +184,7 @@ async def get_ledger_account(
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['id', 'body']},
+    resource="ledger_accounts",
 )
 async def update_ledger_account(
     client: PennylaneClient,

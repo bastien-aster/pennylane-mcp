@@ -10,7 +10,7 @@ from ..client import PennylaneClient
 
 @tool(
     name="pennylane_get_category_groups",
-    description="List category groups. This endpoint returns a list of category groups > ℹ️ > This endpoint requires one of the following scopes: `categories:all`, `categories:readonly`",
+    description="[Accounting · Category Groups / Groupes de catégories] List category groups This endpoint returns a list of category groups > ℹ️ > This endpoint requires one of the following scopes: `categories:all`, `categories:readonly` Mots-clés FR: groupe de catégories, axe analytique.",
     input_schema={   'type': 'object',
         'properties': {   'cursor': {   'type': 'string',
                                         'description': 'Cursor for pagination. Use this to fetch the '
@@ -22,6 +22,7 @@ from ..client import PennylaneClient
                                        'description': 'Number of items to return per request.\n'
                                                       'Defaults to 20 if not specified.\n'
                                                       'Must be between 1 and 100.\n'}}},
+    resource="category_groups",
 )
 async def get_category_groups(
     client: PennylaneClient,
@@ -36,11 +37,12 @@ async def get_category_groups(
 
 @tool(
     name="pennylane_get_category_group",
-    description="Retrieve a category group. This endpoint returns a specific category group. > ℹ️ > This endpoint requires one of the following scopes: `categories:all`, `categories:readonly`",
+    description="[Accounting · Category Groups / Groupes de catégories] Retrieve a category group This endpoint returns a specific category group. > ℹ️ > This endpoint requires one of the following scopes: `categories:all`, `categories:readonly` Mots-clés FR: groupe de catégories, axe analytique.",
     input_schema={   'type': 'object',
         'properties': {   'id': {   'type': 'string',
                                     'description': 'The unique identifier of the category group'}},
         'required': ['id']},
+    resource="category_groups",
 )
 async def get_category_group(
     client: PennylaneClient,
@@ -53,7 +55,7 @@ async def get_category_group(
 
 @tool(
     name="pennylane_get_category_group_categories",
-    description="List categories of a category group. List categories of a category group > ℹ️ > This endpoint requires one of the following scopes: `categories:all`, `categories:readonly`",
+    description="[Accounting · Category Groups / Groupes de catégories] List categories of a category group List categories of a category group > ℹ️ > This endpoint requires one of the following scopes: `categories:all`, `categories:readonly` Mots-clés FR: groupe de catégories, axe analytique.",
     input_schema={   'type': 'object',
         'properties': {   'category_group_id': {   'type': 'integer',
                                                    'description': 'The unique identifier of the '
@@ -69,6 +71,7 @@ async def get_category_group(
                                                       'Defaults to 20 if not specified.\n'
                                                       'Must be between 1 and 100.\n'}},
         'required': ['category_group_id']},
+    resource="category_groups",
 )
 async def get_category_group_categories(
     client: PennylaneClient,

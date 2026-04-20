@@ -10,7 +10,7 @@ from ..client import PennylaneClient
 
 @tool(
     name="pennylane_get_journals",
-    description="List journals. List journals **DEPRECATED BEHAVIOR:** By default, returns journals ordered by ascending IDs **NEW BEHAVIOR:** By default, returns journals ordered by descending IDs The old `ledger` scope will only work on the old behavior system. As soon as you opt in to the new version, or when the sunset phase starts and you haven't explicitly opted out of the old behavior, the ledger scope will no longer work. For more details, see our API documentation https://pennylane.readme.io/docs/2026-api-changes-g...",
+    description="[Accounting · Journals / Journaux] List journals List journals **DEPRECATED BEHAVIOR:** By default, returns journals ordered by ascending IDs **NEW BEHAVIOR:** By default, returns journals ordered by descending IDs The old `ledger` scope will only work on the old behavior system. As soon as you opt in to the new version, or when the sunset phase starts and you haven't explicitly opted out of the old behavior, the ledger scope will no longer w... Mots-clés FR: journal comptable, journal de vente, journal d'achat.",
     input_schema={   'type': 'object',
         'properties': {   'use_2026_api_changes': {   'type': 'boolean',
                                                       'description': 'If you are already using the '
@@ -74,6 +74,7 @@ from ..client import PennylaneClient
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields :\n'
                                                      '- `id`\n'}}},
+    resource="journals",
 )
 async def get_journals(
     client: PennylaneClient,
@@ -93,7 +94,7 @@ async def get_journals(
 
 @tool(
     name="pennylane_post_journals",
-    description="Create a journal. Create a journal **NEW BEHAVIOR :** The old `ledger` scope will only work on the old behavior system. As soon as you opt in to the new version, or when the sunset phase starts and you haven't explicitly opted out of the old behavior, the ledger scope will no longer work. For more details, see our API documentation https://pennylane.readme.io/docs/2026-api-changes-guide for migration instructions. > ℹ️ > This endpoint requires one of the following scopes: `ledger (DEPRECATED)`, `journals:all`",
+    description="[Accounting · Journals / Journaux] Create a journal Create a journal **NEW BEHAVIOR :** The old `ledger` scope will only work on the old behavior system. As soon as you opt in to the new version, or when the sunset phase starts and you haven't explicitly opted out of the old behavior, the ledger scope will no longer work. For more details, see our API documentation https://pennylane.readme.io/docs/2026-api-changes-guide for migration instruction... Mots-clés FR: journal comptable, journal de vente, journal d'achat.",
     input_schema={   'type': 'object',
         'properties': {   'use_2026_api_changes': {   'type': 'boolean',
                                                       'description': 'If you are already using the '
@@ -113,6 +114,7 @@ async def get_journals(
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['body']},
+    resource="journals",
 )
 async def post_journals(
     client: PennylaneClient,
@@ -127,7 +129,7 @@ async def post_journals(
 
 @tool(
     name="pennylane_get_journal",
-    description="Retrieve a journal. Retrieve a journal **NEW BEHAVIOR :** The old `ledger` scope will only work on the old behavior system. As soon as you opt in to the new version, or when the sunset phase starts and you haven't explicitly opted out of the old behavior, the ledger scope will no longer work. For more details, see our API documentation https://pennylane.readme.io/docs/2026-api-changes-guide for migration instructions. > ℹ️ > This endpoint requires one of the following scopes: `ledger (DEPRECATED)`, `journals:rea...",
+    description="[Accounting · Journals / Journaux] Retrieve a journal Retrieve a journal **NEW BEHAVIOR :** The old `ledger` scope will only work on the old behavior system. As soon as you opt in to the new version, or when the sunset phase starts and you haven't explicitly opted out of the old behavior, the ledger scope will no longer work. For more details, see our API documentation https://pennylane.readme.io/docs/2026-api-changes-guide for migration instructi... Mots-clés FR: journal comptable, journal de vente, journal d'achat.",
     input_schema={   'type': 'object',
         'properties': {   'id': {   'type': 'integer',
                                     'description': 'The unique identifier of the journal'},
@@ -145,6 +147,7 @@ async def post_journals(
                                                                      'this parameter with `true` value '
                                                                      'to opt in directly t'}},
         'required': ['id']},
+    resource="journals",
 )
 async def get_journal(
     client: PennylaneClient,

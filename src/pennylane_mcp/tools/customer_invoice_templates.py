@@ -10,7 +10,7 @@ from ..client import PennylaneClient
 
 @tool(
     name="pennylane_get_customer_invoice_templates",
-    description="List customer invoice templates. List customer invoice templates > ℹ️ > This endpoint requires the following scope: `customer_invoice_templates:readonly`",
+    description="[Sales · Customer Invoice Templates / Modèles de factures clients] List customer invoice templates List customer invoice templates > ℹ️ > This endpoint requires the following scope: `customer_invoice_templates:readonly` Mots-clés FR: modèle de facture, template facture.",
     input_schema={   'type': 'object',
         'properties': {   'cursor': {   'type': 'string',
                                         'description': 'Cursor for pagination. Use this to fetch the '
@@ -30,6 +30,7 @@ from ..client import PennylaneClient
                                                      'Example : `id` will sort by ascending order, '
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields : `id`\n'}}},
+    resource="customer_invoice_templates",
 )
 async def get_customer_invoice_templates(
     client: PennylaneClient,

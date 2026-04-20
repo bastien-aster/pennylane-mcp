@@ -10,13 +10,14 @@ from ..client import PennylaneClient
 
 @tool(
     name="pennylane_post_company_customer",
-    description="Create a company customer. This endpoint returns the created company customer. > ℹ️ > This endpoint requires the following scope: `customers:all`",
+    description="[Sales · Company Customers / Clients entreprise] Create a company customer This endpoint returns the created company customer. > ℹ️ > This endpoint requires the following scope: `customers:all` Mots-clés FR: client entreprise, client B2B, société cliente.",
     input_schema={   'type': 'object',
         'properties': {   'body': {   'type': 'object',
                                       'description': 'Request body payload. See the Pennylane API '
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['body']},
+    resource="company_customers",
 )
 async def post_company_customer(
     client: PennylaneClient,
@@ -29,7 +30,7 @@ async def post_company_customer(
 
 @tool(
     name="pennylane_get_company_customer",
-    description="Retrieve a company customer. This endpoint returns a company customer. > ℹ️ > This endpoint requires one of the following scopes: `customers:all`, `customers:readonly`",
+    description="[Sales · Company Customers / Clients entreprise] Retrieve a company customer This endpoint returns a company customer. > ℹ️ > This endpoint requires one of the following scopes: `customers:all`, `customers:readonly` Mots-clés FR: client entreprise, client B2B, société cliente.",
     input_schema={   'type': 'object',
         'properties': {   'id': {'type': 'string', 'description': 'Company customer identifier'},
                           'use_2026_api_changes': {   'type': 'boolean',
@@ -46,6 +47,7 @@ async def post_company_customer(
                                                                      'this parameter with `true` value '
                                                                      'to opt in directly t'}},
         'required': ['id']},
+    resource="company_customers",
 )
 async def get_company_customer(
     client: PennylaneClient,
@@ -60,7 +62,7 @@ async def get_company_customer(
 
 @tool(
     name="pennylane_put_company_customer",
-    description="Update a company customer. This endpoint returns the updated company customer. > ℹ️ > This endpoint requires the following scope: `customers:all`",
+    description="[Sales · Company Customers / Clients entreprise] Update a company customer This endpoint returns the updated company customer. > ℹ️ > This endpoint requires the following scope: `customers:all` Mots-clés FR: client entreprise, client B2B, société cliente.",
     input_schema={   'type': 'object',
         'properties': {   'id': {'type': 'string', 'description': 'Company customer identifier'},
                           'use_2026_api_changes': {   'type': 'boolean',
@@ -81,6 +83,7 @@ async def get_company_customer(
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['id', 'body']},
+    resource="company_customers",
 )
 async def put_company_customer(
     client: PennylaneClient,

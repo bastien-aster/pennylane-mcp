@@ -10,7 +10,7 @@ from ..client import PennylaneClient
 
 @tool(
     name="pennylane_get_suppliers",
-    description="List suppliers. List suppliers > ℹ️ > This endpoint requires one of the following scopes: `suppliers:all`, `suppliers:readonly`",
+    description="[Purchasing · Suppliers / Fournisseurs] List suppliers List suppliers > ℹ️ > This endpoint requires one of the following scopes: `suppliers:all`, `suppliers:readonly` Mots-clés FR: fournisseur, prestataire.",
     input_schema={   'type': 'object',
         'properties': {   'cursor': {   'type': 'string',
                                         'description': 'Cursor for pagination. Use this to fetch the '
@@ -41,6 +41,7 @@ from ..client import PennylaneClient
                                                      'Example : `id` will sort by ascending order, '
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields : `id`\n'}}},
+    resource="suppliers",
 )
 async def get_suppliers(
     client: PennylaneClient,
@@ -57,13 +58,14 @@ async def get_suppliers(
 
 @tool(
     name="pennylane_post_supplier",
-    description="Create a Supplier. This endpoint returns the created supplier. > ℹ️ > This endpoint requires the following scope: `suppliers:all`",
+    description="[Purchasing · Suppliers / Fournisseurs] Create a Supplier This endpoint returns the created supplier. > ℹ️ > This endpoint requires the following scope: `suppliers:all` Mots-clés FR: fournisseur, prestataire.",
     input_schema={   'type': 'object',
         'properties': {   'body': {   'type': 'object',
                                       'description': 'Request body payload. See the Pennylane API '
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['body']},
+    resource="suppliers",
 )
 async def post_supplier(
     client: PennylaneClient,
@@ -76,7 +78,7 @@ async def post_supplier(
 
 @tool(
     name="pennylane_get_supplier",
-    description="Retrieve a supplier. This endpoint returns a supplier. > ℹ️ > This endpoint requires one of the following scopes: `suppliers:all`, `suppliers:readonly`",
+    description="[Purchasing · Suppliers / Fournisseurs] Retrieve a supplier This endpoint returns a supplier. > ℹ️ > This endpoint requires one of the following scopes: `suppliers:all`, `suppliers:readonly` Mots-clés FR: fournisseur, prestataire.",
     input_schema={   'type': 'object',
         'properties': {   'id': {'type': 'integer', 'description': 'Supplier identifier'},
                           'use_2026_api_changes': {   'type': 'boolean',
@@ -93,6 +95,7 @@ async def post_supplier(
                                                                      'this parameter with `true` value '
                                                                      'to opt in directly t'}},
         'required': ['id']},
+    resource="suppliers",
 )
 async def get_supplier(
     client: PennylaneClient,
@@ -107,7 +110,7 @@ async def get_supplier(
 
 @tool(
     name="pennylane_put_supplier",
-    description="Update a supplier. This endpoint returns the updated supplier. > ℹ️ > This endpoint requires the following scope: `suppliers:all`",
+    description="[Purchasing · Suppliers / Fournisseurs] Update a supplier This endpoint returns the updated supplier. > ℹ️ > This endpoint requires the following scope: `suppliers:all` Mots-clés FR: fournisseur, prestataire.",
     input_schema={   'type': 'object',
         'properties': {   'id': {'type': 'integer'},
                           'use_2026_api_changes': {   'type': 'boolean',
@@ -128,6 +131,7 @@ async def get_supplier(
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['id', 'body']},
+    resource="suppliers",
 )
 async def put_supplier(
     client: PennylaneClient,
@@ -143,7 +147,7 @@ async def put_supplier(
 
 @tool(
     name="pennylane_get_supplier_categories",
-    description="List categories of a supplier. List categories of a supplier > ℹ️ > This endpoint requires one of the following scopes: `suppliers:readonly`, `suppliers:all`",
+    description="[Purchasing · Suppliers / Fournisseurs] List categories of a supplier List categories of a supplier > ℹ️ > This endpoint requires one of the following scopes: `suppliers:readonly`, `suppliers:all` Mots-clés FR: fournisseur, prestataire.",
     input_schema={   'type': 'object',
         'properties': {   'supplier_id': {'type': 'integer'},
                           'cursor': {   'type': 'string',
@@ -157,6 +161,7 @@ async def put_supplier(
                                                       'Defaults to 20 if not specified.\n'
                                                       'Must be between 1 and 100.\n'}},
         'required': ['supplier_id']},
+    resource="suppliers",
 )
 async def get_supplier_categories(
     client: PennylaneClient,
@@ -172,7 +177,7 @@ async def get_supplier_categories(
 
 @tool(
     name="pennylane_put_supplier_categories",
-    description="Categorize a supplier. Update the categories of a supplier. You can pass categories that don't belong to the same category group. The sum of categories of a same group must equal `1`. In the following example, the two first categories belong to the same category group A, the sum of the weights is `1`. The third category belongs to a category group B, its weight is `1`. ``` [ { 'id': 59, 'weight': '0.5' }, // category group A { 'id': 33, 'weight': '0.5' }, // category group A { 'id': 65, 'weight': '1' } // category ...",
+    description="[Purchasing · Suppliers / Fournisseurs] Categorize a supplier Update the categories of a supplier. You can pass categories that don't belong to the same category group. The sum of categories of a same group must equal `1`. In the following example, the two first categories belong to the same category group A, the sum of the weights is `1`. The third category belongs to a category group B, its weight is `1`. ``` [ { 'id': 59, 'weight': '0.5' }, // category... Mots-clés FR: fournisseur, prestataire.",
     input_schema={   'type': 'object',
         'properties': {   'supplier_id': {'type': 'integer'},
                           'body': {   'type': 'object',
@@ -180,6 +185,7 @@ async def get_supplier_categories(
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['supplier_id', 'body']},
+    resource="suppliers",
 )
 async def put_supplier_categories(
     client: PennylaneClient,

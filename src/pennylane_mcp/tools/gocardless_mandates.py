@@ -10,7 +10,7 @@ from ..client import PennylaneClient
 
 @tool(
     name="pennylane_get_gocardless_mandates",
-    description="List gocardless mandates. List gocardless mandates > ℹ️ > This endpoint requires one of the following scopes: `customer_mandates:all`, `customer_mandates:readonly`",
+    description="[Mandates · GoCardless Mandates / Mandats GoCardless] List gocardless mandates List gocardless mandates > ℹ️ > This endpoint requires one of the following scopes: `customer_mandates:all`, `customer_mandates:readonly` Mots-clés FR: mandat GoCardless, prélèvement GoCardless.",
     input_schema={   'type': 'object',
         'properties': {   'cursor': {   'type': 'string',
                                         'description': 'Cursor for pagination. Use this to fetch the '
@@ -39,6 +39,7 @@ from ..client import PennylaneClient
                                                      'Example: `id` will sort by ascending order, '
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields: `id`\n'}}},
+    resource="gocardless_mandates",
 )
 async def get_gocardless_mandates(
     client: PennylaneClient,
@@ -55,11 +56,12 @@ async def get_gocardless_mandates(
 
 @tool(
     name="pennylane_get_gocardless_mandate",
-    description="Get a Gocardless mandate. This endpoint allows you to retrieve a specific Gocardless mandate by ID. > ℹ️ > This endpoint requires one of the following scopes: `customer_mandates:all`, `customer_mandates:readonly`",
+    description="[Mandates · GoCardless Mandates / Mandats GoCardless] Get a Gocardless mandate This endpoint allows you to retrieve a specific Gocardless mandate by ID. > ℹ️ > This endpoint requires one of the following scopes: `customer_mandates:all`, `customer_mandates:readonly` Mots-clés FR: mandat GoCardless, prélèvement GoCardless.",
     input_schema={   'type': 'object',
         'properties': {   'id': {   'type': 'integer',
                                     'description': 'ID of the Gocardless mandate to retrieve'}},
         'required': ['id']},
+    resource="gocardless_mandates",
 )
 async def get_gocardless_mandate(
     client: PennylaneClient,
@@ -72,7 +74,7 @@ async def get_gocardless_mandate(
 
 @tool(
     name="pennylane_post_gocardless_mandate_mail_requests",
-    description="Send a GoCardless mandate email request. This endpoint allows you to send an email request for a GoCardless mandate to a recipient. > ℹ️ > This endpoint requires the following scope: `customer_mandates:all`",
+    description="[Mandates · GoCardless Mandates / Mandats GoCardless] Send a GoCardless mandate email request This endpoint allows you to send an email request for a GoCardless mandate to a recipient. > ℹ️ > This endpoint requires the following scope: `customer_mandates:all` Mots-clés FR: mandat GoCardless, prélèvement GoCardless.",
     input_schema={   'type': 'object',
         'properties': {   'use_2026_api_changes': {   'type': 'boolean',
                                                       'description': 'If you are already using the '
@@ -92,6 +94,7 @@ async def get_gocardless_mandate(
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['body']},
+    resource="gocardless_mandates",
 )
 async def post_gocardless_mandate_mail_requests(
     client: PennylaneClient,
@@ -106,12 +109,13 @@ async def post_gocardless_mandate_mail_requests(
 
 @tool(
     name="pennylane_post_gocardless_mandate_cancellations",
-    description="Cancel a Gocardless mandate. Cancels a specific Gocardless mandate by ID. The mandate must be in a cancellable state, having one of the following statuses: `pending_submission`, `submitted` or `active`. > ℹ️ > This endpoint requires the following scope: `customer_mandates:all`",
+    description="[Mandates · GoCardless Mandates / Mandats GoCardless] Cancel a Gocardless mandate Cancels a specific Gocardless mandate by ID. The mandate must be in a cancellable state, having one of the following statuses: `pending_submission`, `submitted` or `active`. > ℹ️ > This endpoint requires the following scope: `customer_mandates:all` Mots-clés FR: mandat GoCardless, prélèvement GoCardless.",
     input_schema={   'type': 'object',
         'properties': {   'gocardless_mandate_id': {   'type': 'integer',
                                                        'description': 'ID of the Gocardless mandate to '
                                                                       'cancel'}},
         'required': ['gocardless_mandate_id']},
+    resource="gocardless_mandates",
 )
 async def post_gocardless_mandate_cancellations(
     client: PennylaneClient,
@@ -124,7 +128,7 @@ async def post_gocardless_mandate_cancellations(
 
 @tool(
     name="pennylane_post_gocardless_mandate_associations",
-    description="Associate a GoCardless mandate to a customer. This endpoint allows you to associate a GoCardless mandate to a customer. > ℹ️ > This endpoint requires the following scope: `customer_mandates:all`",
+    description="[Mandates · GoCardless Mandates / Mandats GoCardless] Associate a GoCardless mandate to a customer This endpoint allows you to associate a GoCardless mandate to a customer. > ℹ️ > This endpoint requires the following scope: `customer_mandates:all` Mots-clés FR: mandat GoCardless, prélèvement GoCardless.",
     input_schema={   'type': 'object',
         'properties': {   'gocardless_mandate_id': {   'type': 'integer',
                                                        'description': 'GoCardless Mandate identifier'},
@@ -146,6 +150,7 @@ async def post_gocardless_mandate_cancellations(
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['gocardless_mandate_id', 'body']},
+    resource="gocardless_mandates",
 )
 async def post_gocardless_mandate_associations(
     client: PennylaneClient,

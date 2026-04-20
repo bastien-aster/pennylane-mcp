@@ -10,7 +10,7 @@ from ..client import PennylaneClient
 
 @tool(
     name="pennylane_list_commercial_documents",
-    description="List commercial documents. This endpoint lists commercial documents. > ℹ️ > This endpoint requires one of the following scopes: `commercial_documents:all`, `commercial_documents:readonly`",
+    description="[Sales · Commercial Documents / Documents commerciaux] List commercial documents This endpoint lists commercial documents. > ℹ️ > This endpoint requires one of the following scopes: `commercial_documents:all`, `commercial_documents:readonly` Mots-clés FR: bon de commande, bon de livraison, document commercial.",
     input_schema={   'type': 'object',
         'properties': {   'cursor': {   'type': 'string',
                                         'description': 'Cursor for pagination. Use this to fetch the '
@@ -43,6 +43,7 @@ from ..client import PennylaneClient
                                                      'Example : `id` will sort by ascending order, '
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields : `id`\n'}}},
+    resource="commercial_documents",
 )
 async def list_commercial_documents(
     client: PennylaneClient,
@@ -59,8 +60,9 @@ async def list_commercial_documents(
 
 @tool(
     name="pennylane_get_commercial_document",
-    description="Retrieve a commercial document. This endpoint retrieves a commercial document. > ℹ️ > This endpoint requires one of the following scopes: `commercial_documents:all`, `commercial_documents:readonly`",
+    description="[Sales · Commercial Documents / Documents commerciaux] Retrieve a commercial document This endpoint retrieves a commercial document. > ℹ️ > This endpoint requires one of the following scopes: `commercial_documents:all`, `commercial_documents:readonly` Mots-clés FR: bon de commande, bon de livraison, document commercial.",
     input_schema={'type': 'object', 'properties': {'id': {'type': 'integer'}}, 'required': ['id']},
+    resource="commercial_documents",
 )
 async def get_commercial_document(
     client: PennylaneClient,
@@ -73,7 +75,7 @@ async def get_commercial_document(
 
 @tool(
     name="pennylane_get_commercial_document_appendices",
-    description="List appendices of a commercial document. List appendices of a commercial document > ℹ️ > This endpoint requires one of the following scopes: `commercial_documents:all`, `commercial_documents:readonly`",
+    description="[Sales · Commercial Documents / Documents commerciaux] List appendices of a commercial document List appendices of a commercial document > ℹ️ > This endpoint requires one of the following scopes: `commercial_documents:all`, `commercial_documents:readonly` Mots-clés FR: bon de commande, bon de livraison, document commercial.",
     input_schema={   'type': 'object',
         'properties': {   'commercial_document_id': {'type': 'integer'},
                           'cursor': {   'type': 'string',
@@ -87,6 +89,7 @@ async def get_commercial_document(
                                                       'Defaults to 20 if not specified.\n'
                                                       'Must be between 1 and 100.\n'}},
         'required': ['commercial_document_id']},
+    resource="commercial_documents",
 )
 async def get_commercial_document_appendices(
     client: PennylaneClient,
@@ -102,7 +105,7 @@ async def get_commercial_document_appendices(
 
 @tool(
     name="pennylane_post_commercial_document_appendices",
-    description="Upload an appendix for a commercial document. Upload a file that will be an appendix attached to a commercial document. Note that this will not upload a file into the DMS (GED). > ℹ️ > This endpoint requires the following scope: `commercial_documents:all`",
+    description="[Sales · Commercial Documents / Documents commerciaux] Upload an appendix for a commercial document Upload a file that will be an appendix attached to a commercial document. Note that this will not upload a file into the DMS (GED). > ℹ️ > This endpoint requires the following scope: `commercial_documents:all` Mots-clés FR: bon de commande, bon de livraison, document commercial.",
     input_schema={   'type': 'object',
         'properties': {   'commercial_document_id': {'type': 'integer'},
                           'body': {   'type': 'object',
@@ -110,6 +113,7 @@ async def get_commercial_document_appendices(
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['commercial_document_id', 'body']},
+    resource="commercial_documents",
 )
 async def post_commercial_document_appendices(
     client: PennylaneClient,
@@ -123,7 +127,7 @@ async def post_commercial_document_appendices(
 
 @tool(
     name="pennylane_get_commercial_document_invoice_lines",
-    description="List invoice lines for a commercial document. List invoice lines for a commercial document > ℹ️ > This endpoint requires one of the following scopes: `commercial_documents:all`, `commercial_documents:readonly`",
+    description="[Sales · Commercial Documents / Documents commerciaux] List invoice lines for a commercial document List invoice lines for a commercial document > ℹ️ > This endpoint requires one of the following scopes: `commercial_documents:all`, `commercial_documents:readonly` Mots-clés FR: bon de commande, bon de livraison, document commercial.",
     input_schema={   'type': 'object',
         'properties': {   'commercial_document_id': {'type': 'integer'},
                           'cursor': {   'type': 'string',
@@ -145,6 +149,7 @@ async def post_commercial_document_appendices(
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields : `id`\n'}},
         'required': ['commercial_document_id']},
+    resource="commercial_documents",
 )
 async def get_commercial_document_invoice_lines(
     client: PennylaneClient,
@@ -161,7 +166,7 @@ async def get_commercial_document_invoice_lines(
 
 @tool(
     name="pennylane_get_commercial_document_invoice_line_sections",
-    description="List invoice line sections for a commercial document. List invoice line sections for a commercial document > ℹ️ > This endpoint requires one of the following scopes: `commercial_documents:all`, `commercial_documents:readonly`",
+    description="[Sales · Commercial Documents / Documents commerciaux] List invoice line sections for a commercial document List invoice line sections for a commercial document > ℹ️ > This endpoint requires one of the following scopes: `commercial_documents:all`, `commercial_documents:readonly` Mots-clés FR: bon de commande, bon de livraison, document commercial.",
     input_schema={   'type': 'object',
         'properties': {   'commercial_document_id': {'type': 'integer'},
                           'cursor': {   'type': 'string',
@@ -183,6 +188,7 @@ async def get_commercial_document_invoice_lines(
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields : `id`\n'}},
         'required': ['commercial_document_id']},
+    resource="commercial_documents",
 )
 async def get_commercial_document_invoice_line_sections(
     client: PennylaneClient,

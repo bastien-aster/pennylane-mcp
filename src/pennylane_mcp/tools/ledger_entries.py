@@ -10,7 +10,7 @@ from ..client import PennylaneClient
 
 @tool(
     name="pennylane_get_ledger_entries",
-    description="List Ledger Entries. Returns a list of ledger entries. **DEPRECATED BEHAVIOR:** Draft entries are filtered out. By default, entries from fiscal periods that are closed or frozen are excluded. However, if a 'date' filter is provided, it will return all entries within the specified date range, even if they fall within a closed or frozen fiscal period. **NEW BEHAVIOR :** By default, all entries (including draft ones) are rendered regardless of their fiscal year status (open, closed, or frozen). The old `ledger` scop...",
+    description="[Accounting · Ledger Entries / Écritures comptables] List Ledger Entries Returns a list of ledger entries. **DEPRECATED BEHAVIOR:** Draft entries are filtered out. By default, entries from fiscal periods that are closed or frozen are excluded. However, if a 'date' filter is provided, it will return all entries within the specified date range, even if they fall within a closed or frozen fiscal period. **NEW BEHAVIOR :** By default, all entries (including draft ones) ... Mots-clés FR: écriture comptable, écriture, journal.",
     input_schema={   'type': 'object',
         'properties': {   'use_2026_api_changes': {   'type': 'boolean',
                                                       'description': 'If you are already using the '
@@ -80,6 +80,7 @@ from ..client import PennylaneClient
                                                      'Available fields :\n'
                                                      '- 🆕 `id` (only available on the new version of '
                                                      'the API : For more details, see our AP'}}},
+    resource="ledger_entries",
 )
 async def get_ledger_entries(
     client: PennylaneClient,
@@ -99,7 +100,7 @@ async def get_ledger_entries(
 
 @tool(
     name="pennylane_post_ledger_entries",
-    description="Create a ledger entry. Create a ledger entry **DEPRECATED BEHAVIOR:** The old `ledger` scope will only work on the old behavior system. As soon as you opt in to the new version, or when the sunset phase starts and you haven't explicitly opted out of the old behavior, the ledger scope will no longer work. For more details, see our API documentation https://pennylane.readme.io/docs/2026-api-changes-guide for migration instructions. > ℹ️ > This endpoint requires one of the following scopes: `ledger (DEPRECATED)`, `led...",
+    description="[Accounting · Ledger Entries / Écritures comptables] Create a ledger entry Create a ledger entry **DEPRECATED BEHAVIOR:** The old `ledger` scope will only work on the old behavior system. As soon as you opt in to the new version, or when the sunset phase starts and you haven't explicitly opted out of the old behavior, the ledger scope will no longer work. For more details, see our API documentation https://pennylane.readme.io/docs/2026-api-changes-guide for migration ... Mots-clés FR: écriture comptable, écriture, journal.",
     input_schema={   'type': 'object',
         'properties': {   'use_2026_api_changes': {   'type': 'boolean',
                                                       'description': 'If you are already using the '
@@ -119,6 +120,7 @@ async def get_ledger_entries(
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['body']},
+    resource="ledger_entries",
 )
 async def post_ledger_entries(
     client: PennylaneClient,
@@ -133,7 +135,7 @@ async def post_ledger_entries(
 
 @tool(
     name="pennylane_get_ledger_entry",
-    description="Retrieve a Ledger entry. Retrieve a ledger entry **NEW BEHAVIOR :** The old `ledger` scope will only work on the old behavior system. As soon as you opt in to the new version, or when the sunset phase starts and you haven't explicitly opted out of the old behavior, the ledger scope will no longer work. For more details, see our API documentation https://pennylane.readme.io/docs/2026-api-changes-guide for migration instructions. > ℹ️ > This endpoint requires one of the following scopes: `ledger (DEPRECATED)`, `ledger_...",
+    description="[Accounting · Ledger Entries / Écritures comptables] Retrieve a Ledger entry Retrieve a ledger entry **NEW BEHAVIOR :** The old `ledger` scope will only work on the old behavior system. As soon as you opt in to the new version, or when the sunset phase starts and you haven't explicitly opted out of the old behavior, the ledger scope will no longer work. For more details, see our API documentation https://pennylane.readme.io/docs/2026-api-changes-guide for migration inst... Mots-clés FR: écriture comptable, écriture, journal.",
     input_schema={   'type': 'object',
         'properties': {   'id': {   'type': 'integer',
                                     'description': 'The unique identifier of the ledger entry'},
@@ -151,6 +153,7 @@ async def post_ledger_entries(
                                                                      'this parameter with `true` value '
                                                                      'to opt in directly t'}},
         'required': ['id']},
+    resource="ledger_entries",
 )
 async def get_ledger_entry(
     client: PennylaneClient,
@@ -165,7 +168,7 @@ async def get_ledger_entry(
 
 @tool(
     name="pennylane_put_ledger_entries",
-    description="Update a ledger entry. Update a ledger entry **NEW BEHAVIOR :** The old `ledger` scope will only work on the old behavior system. As soon as you opt in to the new version, or when the sunset phase starts and you haven't explicitly opted out of the old behavior, the ledger scope will no longer work. For more details, see our API documentation https://pennylane.readme.io/docs/2026-api-changes-guide for migration instructions. > ℹ️ > This endpoint requires one of the following scopes: `ledger (DEPRECATED)`, `ledger_en...",
+    description="[Accounting · Ledger Entries / Écritures comptables] Update a ledger entry Update a ledger entry **NEW BEHAVIOR :** The old `ledger` scope will only work on the old behavior system. As soon as you opt in to the new version, or when the sunset phase starts and you haven't explicitly opted out of the old behavior, the ledger scope will no longer work. For more details, see our API documentation https://pennylane.readme.io/docs/2026-api-changes-guide for migration instru... Mots-clés FR: écriture comptable, écriture, journal.",
     input_schema={   'type': 'object',
         'properties': {   'id': {   'type': 'string',
                                     'description': 'The unique identifier of the ledger entry'},
@@ -187,6 +190,7 @@ async def get_ledger_entry(
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['id', 'body']},
+    resource="ledger_entries",
 )
 async def put_ledger_entries(
     client: PennylaneClient,
@@ -202,7 +206,7 @@ async def put_ledger_entries(
 
 @tool(
     name="pennylane_get_ledger_entries_ledger_entry_lines",
-    description="List ledger entry lines of a Ledger Entry. List ledger entry lines of a Ledger Entry **DEPRECATED BEHAVIOR:** By default, returns ledger entry lines ordered by ascending IDs **NEW BEHAVIOR:** By default, returns ledger entry lines ordered by descending IDs The old `ledger` scope will only work on the old behavior system. As soon as you opt in to the new version, or when the sunset phase starts and you haven't explicitly opted out of the old behavior, the ledger scope will no longer work. For more details, see our API documentation htt...",
+    description="[Accounting · Ledger Entries / Écritures comptables] List ledger entry lines of a Ledger Entry List ledger entry lines of a Ledger Entry **DEPRECATED BEHAVIOR:** By default, returns ledger entry lines ordered by ascending IDs **NEW BEHAVIOR:** By default, returns ledger entry lines ordered by descending IDs The old `ledger` scope will only work on the old behavior system. As soon as you opt in to the new version, or when the sunset phase starts and you haven't explicitly opted out of the... Mots-clés FR: écriture comptable, écriture, journal.",
     input_schema={   'type': 'object',
         'properties': {   'ledger_entry_id': {   'type': 'number',
                                                  'description': 'Existing Ledger Entry (id)'},
@@ -269,6 +273,7 @@ async def put_ledger_entries(
                                                      'Available fields :\n'
                                                      '- `id`\n'}},
         'required': ['ledger_entry_id']},
+    resource="ledger_entries",
 )
 async def get_ledger_entries_ledger_entry_lines(
     client: PennylaneClient,

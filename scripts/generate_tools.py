@@ -14,6 +14,7 @@ from __future__ import annotations
 import json
 import pprint
 import re
+import sys
 from pathlib import Path
 from collections import defaultdict
 
@@ -21,6 +22,12 @@ from collections import defaultdict
 SKIP_RESOURCES = {"webhook_subscription"}
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(REPO_ROOT / "src"))
+
+# Import after sys.path setup so we can pull resource metadata from the
+# shipped package (single source of truth for profile / label / keywords).
+from pennylane_mcp._metadata import RESOURCE_METADATA, resource_to_profile  # noqa: E402
+
 SPEC_PATH = REPO_ROOT / "docs" / "pennylane-openapi.json"
 TOOLS_DIR = REPO_ROOT / "src" / "pennylane_mcp" / "tools"
 
@@ -106,6 +113,40 @@ def build_input_schema(op: dict, spec: dict) -> tuple[dict, list[str], list[str]
     return schema, path_params, query_params
 
 
+def enrich_description(
+    *,
+    summary: str,
+    description: str,
+    operation_id: str,
+    resource: str,
+) -> str:
+    """Build a rich description: [Profile · Label] Summary. Description. [Keywords FR: ...]
+
+    Claude matches tool selection on the full description, so we front-load the
+    domain label and weave French keywords in so French-speaking users' intent
+    lines up naturally without translating every API summary.
+    """
+    meta = RESOURCE_METADATA.get(resource, {})
+    profile = resource_to_profile(resource).capitalize()
+    label_en = meta.get("label_en") or resource.replace("_", " ").title()
+    label_fr = meta.get("label_fr") or label_en
+    keywords_fr = meta.get("keywords_fr") or []
+
+    safe_summary = (summary or operation_id).replace('"', "'")
+    long_desc = description or ""
+    long_desc = long_desc.replace('"', "'").replace("\n", " ").strip()
+    long_desc = re.sub(r"\s+", " ", long_desc)
+    if len(long_desc) > 400:
+        long_desc = long_desc[:397] + "..."
+
+    parts = [f"[{profile} · {label_en} / {label_fr}] {safe_summary}"]
+    if long_desc and long_desc.lower() != safe_summary.lower():
+        parts.append(long_desc)
+    if keywords_fr:
+        parts.append(f"Mots-clés FR: {', '.join(keywords_fr)}.")
+    return " ".join(parts)
+
+
 def generate_handler(
     *,
     tool_name: str,
@@ -114,6 +155,7 @@ def generate_handler(
     description: str,
     method: str,
     path: str,
+    resource: str,
     input_schema: dict,
     path_params: list[str],
     query_params: list[str],
@@ -121,14 +163,12 @@ def generate_handler(
 ) -> str:
     """Emit a Python function body that calls the API and registers as a tool."""
     fn_name = clean_name(camel_to_snake(operation_id))
-
-    safe_summary = (summary or operation_id).replace('"', "'")
-    long_desc = description or summary or operation_id
-    long_desc = long_desc.replace('"', "'").replace("\n", " ").strip()
-    long_desc = re.sub(r"\s+", " ", long_desc)
-    if len(long_desc) > 500:
-        long_desc = long_desc[:497] + "..."
-    full_desc = f"{safe_summary}. {long_desc}" if long_desc and long_desc != safe_summary else safe_summary
+    full_desc = enrich_description(
+        summary=summary,
+        description=description,
+        operation_id=operation_id,
+        resource=resource,
+    )
 
     # pprint emits valid Python (True/False/None) rather than JSON literals.
     schema_repr = pprint.pformat(input_schema, indent=4, width=100, sort_dicts=False)
@@ -182,6 +222,7 @@ def generate_handler(
         f"    name=\"{tool_name}\",\n"
         f"    description={json.dumps(full_desc, ensure_ascii=False)},\n"
         f"    input_schema={schema_repr},\n"
+        f"    resource=\"{resource}\",\n"
         f")\n"
         f"async def {fn_name}(\n    {signature},\n) -> Any:\n"
         f"{path_lines[0]}\n"
@@ -221,6 +262,7 @@ def main() -> None:
                 description=description,
                 method=method,
                 path=path,
+                resource=resource,
                 input_schema=input_schema,
                 path_params=path_params,
                 query_params=query_params,

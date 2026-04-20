@@ -10,13 +10,14 @@ from ..client import PennylaneClient
 
 @tool(
     name="pennylane_post_individual_customer",
-    description="Create an individual customer. This endpoint returns the created individual customer. > ℹ️ > This endpoint requires the following scope: `customers:all`",
+    description="[Sales · Individual Customers / Clients particuliers] Create an individual customer This endpoint returns the created individual customer. > ℹ️ > This endpoint requires the following scope: `customers:all` Mots-clés FR: client particulier, client B2C, personne physique.",
     input_schema={   'type': 'object',
         'properties': {   'body': {   'type': 'object',
                                       'description': 'Request body payload. See the Pennylane API '
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['body']},
+    resource="individual_customers",
 )
 async def post_individual_customer(
     client: PennylaneClient,
@@ -29,7 +30,7 @@ async def post_individual_customer(
 
 @tool(
     name="pennylane_get_individual_customer",
-    description="Retrieve an individual customer. This endpoint returns an individual customer. > ℹ️ > This endpoint requires one of the following scopes: `customers:all`, `customers:readonly`",
+    description="[Sales · Individual Customers / Clients particuliers] Retrieve an individual customer This endpoint returns an individual customer. > ℹ️ > This endpoint requires one of the following scopes: `customers:all`, `customers:readonly` Mots-clés FR: client particulier, client B2C, personne physique.",
     input_schema={   'type': 'object',
         'properties': {   'id': {'type': 'string', 'description': 'Individual customer identifier'},
                           'use_2026_api_changes': {   'type': 'boolean',
@@ -46,6 +47,7 @@ async def post_individual_customer(
                                                                      'this parameter with `true` value '
                                                                      'to opt in directly t'}},
         'required': ['id']},
+    resource="individual_customers",
 )
 async def get_individual_customer(
     client: PennylaneClient,
@@ -60,7 +62,7 @@ async def get_individual_customer(
 
 @tool(
     name="pennylane_put_individual_customer",
-    description="Update an individual customer. This endpoint returns the updated individual customer. > ℹ️ > This endpoint requires the following scope: `customers:all`",
+    description="[Sales · Individual Customers / Clients particuliers] Update an individual customer This endpoint returns the updated individual customer. > ℹ️ > This endpoint requires the following scope: `customers:all` Mots-clés FR: client particulier, client B2C, personne physique.",
     input_schema={   'type': 'object',
         'properties': {   'id': {'type': 'string', 'description': 'Individual customer identifier'},
                           'use_2026_api_changes': {   'type': 'boolean',
@@ -81,6 +83,7 @@ async def get_individual_customer(
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['id', 'body']},
+    resource="individual_customers",
 )
 async def put_individual_customer(
     client: PennylaneClient,

@@ -10,13 +10,14 @@ from ..client import PennylaneClient
 
 @tool(
     name="pennylane_post_pro_account_mandate_mail_requests",
-    description="Send a Pro Account SEPA mandate request. This endpoint allows you to send a mandate request for a Pro Account SEPA Direct Debit mandate to a customer. Requirements: - Company must have a Pro Account (returns 404 if not) - Company must have an enabled merchant profile (returns 403 if not) > ℹ️ > This endpoint requires the following scope: `customer_mandates:all`",
+    description="[Mandates · Pro Account / Compte Pro Pennylane] Send a Pro Account SEPA mandate request This endpoint allows you to send a mandate request for a Pro Account SEPA Direct Debit mandate to a customer. Requirements: - Company must have a Pro Account (returns 404 if not) - Company must have an enabled merchant profile (returns 403 if not) > ℹ️ > This endpoint requires the following scope: `customer_mandates:all` Mots-clés FR: compte pro, Pennylane Pro Account.",
     input_schema={   'type': 'object',
         'properties': {   'body': {   'type': 'object',
                                       'description': 'Request body payload. See the Pennylane API '
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['body']},
+    resource="pro_account",
 )
 async def post_pro_account_mandate_mail_requests(
     client: PennylaneClient,
@@ -29,7 +30,7 @@ async def post_pro_account_mandate_mail_requests(
 
 @tool(
     name="pennylane_get_pro_account_mandate_migrations",
-    description="List mandate migration candidates. This endpoint allows you to retrieve all mandate migration candidates for your company. These are mandates that can be migrated to a Pro Account. Requirements: - Company must have a Pro Account (returns 404 if not) - Company must have an enabled merchant profile (returns 403 if not) > ℹ️ > This endpoint requires one of the following scopes: `customer_mandates:readonly`, `customer_mandates:all`",
+    description="[Mandates · Pro Account / Compte Pro Pennylane] List mandate migration candidates This endpoint allows you to retrieve all mandate migration candidates for your company. These are mandates that can be migrated to a Pro Account. Requirements: - Company must have a Pro Account (returns 404 if not) - Company must have an enabled merchant profile (returns 403 if not) > ℹ️ > This endpoint requires one of the following scopes: `customer_mandates:readonly`, `customer_mandates:all` Mots-clés FR: compte pro, Pennylane Pro Account.",
     input_schema={   'type': 'object',
         'properties': {   'cursor': {   'type': 'string',
                                         'description': 'Cursor for pagination. Use this to fetch the '
@@ -57,6 +58,7 @@ async def post_pro_account_mandate_mail_requests(
                                                      'Example: `id` will sort by ascending order, '
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields: `id`\n'}}},
+    resource="pro_account",
 )
 async def get_pro_account_mandate_migrations(
     client: PennylaneClient,
@@ -73,13 +75,14 @@ async def get_pro_account_mandate_migrations(
 
 @tool(
     name="pennylane_post_pro_account_mandate_migrations",
-    description="Migrate a mandate to Pro Account. This endpoint allows you to migrate a mandate to a Pro Account. Only mandates with status 'available' are eligible for migration. **Requirements:** - Company must have a Pro Account (returns 404 if not) - Company must have an enabled merchant profile (returns 403 if not) > ℹ️ > This endpoint requires the following scope: `customer_mandates:all`",
+    description="[Mandates · Pro Account / Compte Pro Pennylane] Migrate a mandate to Pro Account This endpoint allows you to migrate a mandate to a Pro Account. Only mandates with status 'available' are eligible for migration. **Requirements:** - Company must have a Pro Account (returns 404 if not) - Company must have an enabled merchant profile (returns 403 if not) > ℹ️ > This endpoint requires the following scope: `customer_mandates:all` Mots-clés FR: compte pro, Pennylane Pro Account.",
     input_schema={   'type': 'object',
         'properties': {   'body': {   'type': 'object',
                                       'description': 'Request body payload. See the Pennylane API '
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['body']},
+    resource="pro_account",
 )
 async def post_pro_account_mandate_migrations(
     client: PennylaneClient,
@@ -92,7 +95,7 @@ async def post_pro_account_mandate_migrations(
 
 @tool(
     name="pennylane_get_pro_account_mandates",
-    description="List Pro Account payment mandates. This endpoint allows you to retrieve all payment mandates associated with your company's pro account. Requirements: - Company must have a Pro Account (returns 404 if not) - Company must have an enabled merchant profile (returns 403 if not) > ℹ️ > This endpoint requires one of the following scopes: `customer_mandates:readonly`, `customer_mandates:all`",
+    description="[Mandates · Pro Account / Compte Pro Pennylane] List Pro Account payment mandates This endpoint allows you to retrieve all payment mandates associated with your company's pro account. Requirements: - Company must have a Pro Account (returns 404 if not) - Company must have an enabled merchant profile (returns 403 if not) > ℹ️ > This endpoint requires one of the following scopes: `customer_mandates:readonly`, `customer_mandates:all` Mots-clés FR: compte pro, Pennylane Pro Account.",
     input_schema={   'type': 'object',
         'properties': {   'cursor': {   'type': 'string',
                                         'description': 'Cursor for pagination. Use this to fetch the '
@@ -119,6 +122,7 @@ async def post_pro_account_mandate_migrations(
                                                      'Example: `id` will sort by ascending order, '
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields: `id`\n'}}},
+    resource="pro_account",
 )
 async def get_pro_account_mandates(
     client: PennylaneClient,

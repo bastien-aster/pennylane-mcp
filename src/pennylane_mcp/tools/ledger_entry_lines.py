@@ -10,7 +10,7 @@ from ..client import PennylaneClient
 
 @tool(
     name="pennylane_get_ledger_entry_lines",
-    description="List ledger entry lines. List ledger entry lines > ℹ️ > This endpoint requires one of the following scopes: `ledger (DEPRECATED)`, `ledger_entries:readonly`, `ledger_entries:all`",
+    description="[Accounting · Ledger Entry Lines / Lignes d'écriture] List ledger entry lines List ledger entry lines > ℹ️ > This endpoint requires one of the following scopes: `ledger (DEPRECATED)`, `ledger_entries:readonly`, `ledger_entries:all` Mots-clés FR: ligne d'écriture, lettrage, rapprochement comptable.",
     input_schema={   'type': 'object',
         'properties': {   'use_2026_api_changes': {   'type': 'boolean',
                                                       'description': 'If you are already using the '
@@ -50,6 +50,7 @@ from ..client import PennylaneClient
                                                      'Example : `id` will sort by ascending order, '
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields : `id`, `date`\n'}}},
+    resource="ledger_entry_lines",
 )
 async def get_ledger_entry_lines(
     client: PennylaneClient,
@@ -67,7 +68,7 @@ async def get_ledger_entry_lines(
 
 @tool(
     name="pennylane_get_ledger_entry_line",
-    description="Retrieve a Ledger entry line. Retrieve a ledger entry line > ℹ️ > This endpoint requires one of the following scopes: `ledger (DEPRECATED)`, `ledger_entries:readonly`, `ledger_entries:all`",
+    description="[Accounting · Ledger Entry Lines / Lignes d'écriture] Retrieve a Ledger entry line Retrieve a ledger entry line > ℹ️ > This endpoint requires one of the following scopes: `ledger (DEPRECATED)`, `ledger_entries:readonly`, `ledger_entries:all` Mots-clés FR: ligne d'écriture, lettrage, rapprochement comptable.",
     input_schema={   'type': 'object',
         'properties': {   'id': {   'type': 'integer',
                                     'description': 'The unique identifier of the ledger entry line'},
@@ -85,6 +86,7 @@ async def get_ledger_entry_lines(
                                                                      'this parameter with `true` value '
                                                                      'to opt in directly t'}},
         'required': ['id']},
+    resource="ledger_entry_lines",
 )
 async def get_ledger_entry_line(
     client: PennylaneClient,
@@ -99,7 +101,7 @@ async def get_ledger_entry_line(
 
 @tool(
     name="pennylane_post_ledger_entry_lines_letter",
-    description="Letter ledger entry lines. This endpoint lets you letter ledger entry lines together. All received entry lines will be lettered together. If a passed entry line is already lettered, then the lettering will be applied to its associated lettered entry lines as well. > ℹ️ > This endpoint requires one of the following scopes: `ledger (DEPRECATED)`, `ledger_entries:all`",
+    description="[Accounting · Ledger Entry Lines / Lignes d'écriture] Letter ledger entry lines This endpoint lets you letter ledger entry lines together. All received entry lines will be lettered together. If a passed entry line is already lettered, then the lettering will be applied to its associated lettered entry lines as well. > ℹ️ > This endpoint requires one of the following scopes: `ledger (DEPRECATED)`, `ledger_entries:all` Mots-clés FR: ligne d'écriture, lettrage, rapprochement comptable.",
     input_schema={   'type': 'object',
         'properties': {   'use_2026_api_changes': {   'type': 'boolean',
                                                       'description': 'If you are already using the '
@@ -119,6 +121,7 @@ async def get_ledger_entry_line(
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['body']},
+    resource="ledger_entry_lines",
 )
 async def post_ledger_entry_lines_letter(
     client: PennylaneClient,
@@ -133,7 +136,7 @@ async def post_ledger_entry_lines_letter(
 
 @tool(
     name="pennylane_delete_ledger_entry_lines_unletter",
-    description="Unletter ledger entry lines. This endpoint lets you unletter ledger entry lines. > ℹ️ > This endpoint requires one of the following scopes: `ledger (DEPRECATED)`, `ledger_entries:all`",
+    description="[Accounting · Ledger Entry Lines / Lignes d'écriture] Unletter ledger entry lines This endpoint lets you unletter ledger entry lines. > ℹ️ > This endpoint requires one of the following scopes: `ledger (DEPRECATED)`, `ledger_entries:all` Mots-clés FR: ligne d'écriture, lettrage, rapprochement comptable.",
     input_schema={   'type': 'object',
         'properties': {   'use_2026_api_changes': {   'type': 'boolean',
                                                       'description': 'If you are already using the '
@@ -153,6 +156,7 @@ async def post_ledger_entry_lines_letter(
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['body']},
+    resource="ledger_entry_lines",
 )
 async def delete_ledger_entry_lines_unletter(
     client: PennylaneClient,
@@ -167,7 +171,7 @@ async def delete_ledger_entry_lines_unletter(
 
 @tool(
     name="pennylane_get_ledger_entry_lines_lettered_ledger_entry_lines",
-    description="List ledger entry lines lettered to a given ledger entry line. List ledger entry lines lettered to a given ledger entry line **DEPRECATED BEHAVIOR:** The items rendered are sorted ordered by ascending `id`. **NEW BEHAVIOR:** The items rendered are sorted ordered by descending `id` by default. A new sort param is available to customize the sorting behavior (see 'sort' query parameter description). The old `ledger` scope will only work on the old behavior system. As soon as you opt in to the new version, or when the sunset phase starts and you haven't expl...",
+    description="[Accounting · Ledger Entry Lines / Lignes d'écriture] List ledger entry lines lettered to a given ledger entry line List ledger entry lines lettered to a given ledger entry line **DEPRECATED BEHAVIOR:** The items rendered are sorted ordered by ascending `id`. **NEW BEHAVIOR:** The items rendered are sorted ordered by descending `id` by default. A new sort param is available to customize the sorting behavior (see 'sort' query parameter description). The old `ledger` scope will only work on the old behavior sy... Mots-clés FR: ligne d'écriture, lettrage, rapprochement comptable.",
     input_schema={   'type': 'object',
         'properties': {   'ledger_entry_line_id': {   'type': 'number',
                                                       'description': 'Ledger Entry line (id)'},
@@ -231,6 +235,7 @@ async def delete_ledger_entry_lines_unletter(
                                                      'descending order.\n'
                                                      'Example : `id` '}},
         'required': ['ledger_entry_line_id']},
+    resource="ledger_entry_lines",
 )
 async def get_ledger_entry_lines_lettered_ledger_entry_lines(
     client: PennylaneClient,
@@ -250,7 +255,7 @@ async def get_ledger_entry_lines_lettered_ledger_entry_lines(
 
 @tool(
     name="pennylane_get_ledger_entry_lines_categories",
-    description="List categories of a Ledger Entry line. List categories of a Ledger Entry line **NEW BEHAVIOR :** The old `ledger` scope will only work on the old behavior system. As soon as you opt in to the new version, or when the sunset phase starts and you haven't explicitly opted out of the old behavior, the ledger scope will no longer work. For more details, see our API documentation https://pennylane.readme.io/docs/2026-api-changes-guide for migration instructions. > ℹ️ > This endpoint requires one of the following scopes: `ledger (DEPRECA...",
+    description="[Accounting · Ledger Entry Lines / Lignes d'écriture] List categories of a Ledger Entry line List categories of a Ledger Entry line **NEW BEHAVIOR :** The old `ledger` scope will only work on the old behavior system. As soon as you opt in to the new version, or when the sunset phase starts and you haven't explicitly opted out of the old behavior, the ledger scope will no longer work. For more details, see our API documentation https://pennylane.readme.io/docs/2026-api-changes-guide for... Mots-clés FR: ligne d'écriture, lettrage, rapprochement comptable.",
     input_schema={   'type': 'object',
         'properties': {   'ledger_entry_line_id': {   'type': 'integer',
                                                       'description': 'Existing Ledger Entry line (id)'},
@@ -311,6 +316,7 @@ async def get_ledger_entry_lines_lettered_ledger_entry_lines(
                                                      'Available fields :\n'
                                                      '- `id`\n'}},
         'required': ['ledger_entry_line_id']},
+    resource="ledger_entry_lines",
 )
 async def get_ledger_entry_lines_categories(
     client: PennylaneClient,
@@ -330,7 +336,7 @@ async def get_ledger_entry_lines_categories(
 
 @tool(
     name="pennylane_put_ledger_entry_lines_categories",
-    description="Link Analytical Categories to a Ledger Entry line. This endpoint replaces already existing categories on the Ledger Entry line with new values. If an empty array of categories_ids is provided, it will remove all categories from the Ledger Entry line. **NEW BEHAVIOR :** The old `ledger` scope will only work on the old behavior system. As soon as you opt in to the new version, or when the sunset phase starts and you haven't explicitly opted out of the old behavior, the ledger scope will no longer work. For more details, see our API documentatio...",
+    description="[Accounting · Ledger Entry Lines / Lignes d'écriture] Link Analytical Categories to a Ledger Entry line This endpoint replaces already existing categories on the Ledger Entry line with new values. If an empty array of categories_ids is provided, it will remove all categories from the Ledger Entry line. **NEW BEHAVIOR :** The old `ledger` scope will only work on the old behavior system. As soon as you opt in to the new version, or when the sunset phase starts and you haven't explicitly opted out o... Mots-clés FR: ligne d'écriture, lettrage, rapprochement comptable.",
     input_schema={   'type': 'object',
         'properties': {   'ledger_entry_line_id': {   'type': 'number',
                                                       'description': 'Existing Ledger Entry line (id)'},
@@ -352,6 +358,7 @@ async def get_ledger_entry_lines_categories(
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['ledger_entry_line_id', 'body']},
+    resource="ledger_entry_lines",
 )
 async def put_ledger_entry_lines_categories(
     client: PennylaneClient,

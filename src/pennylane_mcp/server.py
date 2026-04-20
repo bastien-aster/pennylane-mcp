@@ -13,7 +13,8 @@ from mcp.server.stdio import stdio_server
 from mcp.types import TextContent, Tool
 
 from . import tools  # noqa: F401 — triggers @tool registration for every module
-from ._registry import TOOLS
+from ._metadata import resolve_allowed_resources
+from ._registry import TOOLS, ToolSpec
 from .client import PennylaneClient
 
 logging.basicConfig(level=logging.INFO)
@@ -23,13 +24,14 @@ load_dotenv()
 
 app: Server = Server("pennylane-mcp")
 pennylane_client: Optional[PennylaneClient] = None
+_active_tools: list[ToolSpec] = []
 
 
 @app.list_tools()
 async def list_tools() -> list[Tool]:
     return [
         Tool(name=t.name, description=t.description, inputSchema=t.input_schema)
-        for t in TOOLS
+        for t in _active_tools
     ]
 
 
@@ -39,9 +41,9 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
     if pennylane_client is None:
         raise RuntimeError("Pennylane client not initialized")
 
-    spec = next((t for t in TOOLS if t.name == name), None)
+    spec = next((t for t in _active_tools if t.name == name), None)
     if spec is None:
-        return [TextContent(type="text", text=f"Error: unknown tool '{name}'")]
+        return [TextContent(type="text", text=f"Error: unknown or disabled tool '{name}'")]
 
     try:
         result = await spec.handler(pennylane_client, **(arguments or {}))
@@ -51,8 +53,15 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
         return [TextContent(type="text", text=f"Error executing {name}: {exc}")]
 
 
+def _select_tools() -> list[ToolSpec]:
+    allowed = resolve_allowed_resources(os.getenv("PENNYLANE_TOOLS"))
+    if allowed is None:
+        return list(TOOLS)
+    return [t for t in TOOLS if t.resource in allowed]
+
+
 async def main() -> None:
-    global pennylane_client
+    global pennylane_client, _active_tools
 
     api_key = os.getenv("PENNYLANE_API_KEY")
     if not api_key:
@@ -60,8 +69,12 @@ async def main() -> None:
 
     base_url = os.getenv("PENNYLANE_BASE_URL", "https://app.pennylane.com/api/external/v2")
 
+    _active_tools = _select_tools()
     pennylane_client = PennylaneClient(api_key, base_url)
-    logger.info("Pennylane MCP server starting — %d tools registered", len(TOOLS))
+    logger.info(
+        "Pennylane MCP server starting — %d/%d tools active (PENNYLANE_TOOLS=%s)",
+        len(_active_tools), len(TOOLS), os.getenv("PENNYLANE_TOOLS", "all"),
+    )
     logger.info("Base URL: %s", base_url)
 
     try:

@@ -10,7 +10,7 @@ from ..client import PennylaneClient
 
 @tool(
     name="pennylane_get_customers",
-    description="List customers (company and individual). This endpoint returns a list of both company and individual customers > ℹ️ > This endpoint requires one of the following scopes: `customers:all`, `customers:readonly`",
+    description="[Sales · Customers (unified) / Clients (unifié)] List customers (company and individual) This endpoint returns a list of both company and individual customers > ℹ️ > This endpoint requires one of the following scopes: `customers:all`, `customers:readonly` Mots-clés FR: client, contact, acheteur.",
     input_schema={   'type': 'object',
         'properties': {   'cursor': {   'type': 'string',
                                         'description': 'Cursor for pagination. Use this to fetch the '
@@ -41,6 +41,7 @@ from ..client import PennylaneClient
                                                      'Example : `id` will sort by ascending order, '
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields : `id`\n'}}},
+    resource="customers",
 )
 async def get_customers(
     client: PennylaneClient,
@@ -57,7 +58,7 @@ async def get_customers(
 
 @tool(
     name="pennylane_get_customer",
-    description="Retrieve a customer. This endpoint returns a customer. > ℹ️ > This endpoint requires one of the following scopes: `customers:all`, `customers:readonly`",
+    description="[Sales · Customers (unified) / Clients (unifié)] Retrieve a customer This endpoint returns a customer. > ℹ️ > This endpoint requires one of the following scopes: `customers:all`, `customers:readonly` Mots-clés FR: client, contact, acheteur.",
     input_schema={   'type': 'object',
         'properties': {   'id': {'type': 'integer', 'description': 'Customer identifier'},
                           'use_2026_api_changes': {   'type': 'boolean',
@@ -74,6 +75,7 @@ async def get_customers(
                                                                      'this parameter with `true` value '
                                                                      'to opt in directly t'}},
         'required': ['id']},
+    resource="customers",
 )
 async def get_customer(
     client: PennylaneClient,
@@ -88,7 +90,7 @@ async def get_customer(
 
 @tool(
     name="pennylane_get_customer_categories",
-    description="List categories of a customer. List categories of a customer > ℹ️ > This endpoint requires one of the following scopes: `customers:readonly`, `customers:all`",
+    description="[Sales · Customers (unified) / Clients (unifié)] List categories of a customer List categories of a customer > ℹ️ > This endpoint requires one of the following scopes: `customers:readonly`, `customers:all` Mots-clés FR: client, contact, acheteur.",
     input_schema={   'type': 'object',
         'properties': {   'customer_id': {'type': 'integer'},
                           'cursor': {   'type': 'string',
@@ -102,6 +104,7 @@ async def get_customer(
                                                       'Defaults to 20 if not specified.\n'
                                                       'Must be between 1 and 100.\n'}},
         'required': ['customer_id']},
+    resource="customers",
 )
 async def get_customer_categories(
     client: PennylaneClient,
@@ -117,7 +120,7 @@ async def get_customer_categories(
 
 @tool(
     name="pennylane_put_customer_categories",
-    description="Categorize a customer. Update the categories of a customer. You can pass categories that don't belong to the same category group. The sum of categories of a same group must equal `1`. In the following example, the two first categories belong to the same category group A, the sum of the weights is `1`. The third category belongs to a category group B, its weight is `1`. ``` [ { 'id': 59, 'weight': '0.5' }, // category group A { 'id': 33, 'weight': '0.5' }, // category group A { 'id': 65, 'weight': '1' } // category ...",
+    description="[Sales · Customers (unified) / Clients (unifié)] Categorize a customer Update the categories of a customer. You can pass categories that don't belong to the same category group. The sum of categories of a same group must equal `1`. In the following example, the two first categories belong to the same category group A, the sum of the weights is `1`. The third category belongs to a category group B, its weight is `1`. ``` [ { 'id': 59, 'weight': '0.5' }, // category... Mots-clés FR: client, contact, acheteur.",
     input_schema={   'type': 'object',
         'properties': {   'customer_id': {'type': 'integer'},
                           'body': {   'type': 'object',
@@ -125,6 +128,7 @@ async def get_customer_categories(
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['customer_id', 'body']},
+    resource="customers",
 )
 async def put_customer_categories(
     client: PennylaneClient,
@@ -138,7 +142,7 @@ async def put_customer_categories(
 
 @tool(
     name="pennylane_get_customer_contacts",
-    description="List contacts of a customer. List contacts of a customer > ℹ️ > This endpoint requires one of the following scopes: `customers:all`, `customers:readonly`",
+    description="[Sales · Customers (unified) / Clients (unifié)] List contacts of a customer List contacts of a customer > ℹ️ > This endpoint requires one of the following scopes: `customers:all`, `customers:readonly` Mots-clés FR: client, contact, acheteur.",
     input_schema={   'type': 'object',
         'properties': {   'customer_id': {'type': 'integer'},
                           'cursor': {   'type': 'string',
@@ -160,6 +164,7 @@ async def put_customer_categories(
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields : `id`\n'}},
         'required': ['customer_id']},
+    resource="customers",
 )
 async def get_customer_contacts(
     client: PennylaneClient,

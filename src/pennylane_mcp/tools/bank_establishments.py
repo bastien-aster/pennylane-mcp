@@ -10,7 +10,7 @@ from ..client import PennylaneClient
 
 @tool(
     name="pennylane_get_bank_establishments",
-    description="List bank establishments. List bank establishments > ℹ️ > This endpoint requires the following scope: `bank_establishments:readonly`",
+    description="[Banking · Bank Establishments / Établissements bancaires] List bank establishments List bank establishments > ℹ️ > This endpoint requires the following scope: `bank_establishments:readonly` Mots-clés FR: banque, établissement bancaire.",
     input_schema={   'type': 'object',
         'properties': {   'cursor': {   'type': 'string',
                                         'description': 'Cursor for pagination. Use this to fetch the '
@@ -36,6 +36,7 @@ from ..client import PennylaneClient
                                                      'Example : `id` will sort by ascending order, '
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields : `id`\n'}}},
+    resource="bank_establishments",
 )
 async def get_bank_establishments(
     client: PennylaneClient,

@@ -10,7 +10,7 @@ from ..client import PennylaneClient
 
 @tool(
     name="pennylane_get_categories",
-    description="List categories. List categories > ℹ️ > This endpoint requires one of the following scopes: `categories:all`, `categories:readonly`",
+    description="[Accounting · Categories (analytical) / Catégories (analytique)] List categories List categories > ℹ️ > This endpoint requires one of the following scopes: `categories:all`, `categories:readonly` Mots-clés FR: catégorie, analytique, comptabilité analytique.",
     input_schema={   'type': 'object',
         'properties': {   'cursor': {   'type': 'string',
                                         'description': 'Cursor for pagination. Use this to fetch the '
@@ -40,6 +40,7 @@ from ..client import PennylaneClient
                                                      'Example : `id` will sort by ascending order, '
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields : `id`\n'}}},
+    resource="categories",
 )
 async def get_categories(
     client: PennylaneClient,
@@ -56,13 +57,14 @@ async def get_categories(
 
 @tool(
     name="pennylane_post_categories",
-    description="Create a category. Create a category > ℹ️ > This endpoint requires the following scope: `categories:all`",
+    description="[Accounting · Categories (analytical) / Catégories (analytique)] Create a category Create a category > ℹ️ > This endpoint requires the following scope: `categories:all` Mots-clés FR: catégorie, analytique, comptabilité analytique.",
     input_schema={   'type': 'object',
         'properties': {   'body': {   'type': 'object',
                                       'description': 'Request body payload. See the Pennylane API '
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['body']},
+    resource="categories",
 )
 async def post_categories(
     client: PennylaneClient,
@@ -75,11 +77,12 @@ async def post_categories(
 
 @tool(
     name="pennylane_get_category",
-    description="Retrieve a category. This endpoint returns a specific category. > ℹ️ > This endpoint requires one of the following scopes: `categories:all`, `categories:readonly`",
+    description="[Accounting · Categories (analytical) / Catégories (analytique)] Retrieve a category This endpoint returns a specific category. > ℹ️ > This endpoint requires one of the following scopes: `categories:all`, `categories:readonly` Mots-clés FR: catégorie, analytique, comptabilité analytique.",
     input_schema={   'type': 'object',
         'properties': {   'id': {   'type': 'string',
                                     'description': 'The unique identifier of the category'}},
         'required': ['id']},
+    resource="categories",
 )
 async def get_category(
     client: PennylaneClient,
@@ -92,7 +95,7 @@ async def get_category(
 
 @tool(
     name="pennylane_update_category",
-    description="Update a category. This endpoint updates a category. > ℹ️ > This endpoint requires the following scope: `categories:all`",
+    description="[Accounting · Categories (analytical) / Catégories (analytique)] Update a category This endpoint updates a category. > ℹ️ > This endpoint requires the following scope: `categories:all` Mots-clés FR: catégorie, analytique, comptabilité analytique.",
     input_schema={   'type': 'object',
         'properties': {   'id': {   'type': 'string',
                                     'description': 'The unique identifier of the category'},
@@ -101,6 +104,7 @@ async def get_category(
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['id', 'body']},
+    resource="categories",
 )
 async def update_category(
     client: PennylaneClient,

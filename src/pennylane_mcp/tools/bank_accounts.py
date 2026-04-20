@@ -10,7 +10,7 @@ from ..client import PennylaneClient
 
 @tool(
     name="pennylane_get_bank_accounts",
-    description="List bank accounts. List bank_accounts > ℹ️ > This endpoint requires one of the following scopes: `bank_accounts:all`, `bank_accounts:readonly`",
+    description="[Banking · Bank Accounts / Comptes bancaires] List bank accounts List bank_accounts > ℹ️ > This endpoint requires one of the following scopes: `bank_accounts:all`, `bank_accounts:readonly` Mots-clés FR: compte bancaire, IBAN, RIB.",
     input_schema={   'type': 'object',
         'properties': {   'cursor': {   'type': 'string',
                                         'description': 'Cursor for pagination. Use this to fetch the '
@@ -30,6 +30,7 @@ from ..client import PennylaneClient
                                                      'Example : `id` will sort by ascending order, '
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields : `id`\n'}}},
+    resource="bank_accounts",
 )
 async def get_bank_accounts(
     client: PennylaneClient,
@@ -45,13 +46,14 @@ async def get_bank_accounts(
 
 @tool(
     name="pennylane_post_bank_account",
-    description="Create a bank account. Create a bank account > ℹ️ > This endpoint requires the following scope: `bank_accounts:all`",
+    description="[Banking · Bank Accounts / Comptes bancaires] Create a bank account Create a bank account > ℹ️ > This endpoint requires the following scope: `bank_accounts:all` Mots-clés FR: compte bancaire, IBAN, RIB.",
     input_schema={   'type': 'object',
         'properties': {   'body': {   'type': 'object',
                                       'description': 'Request body payload. See the Pennylane API '
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['body']},
+    resource="bank_accounts",
 )
 async def post_bank_account(
     client: PennylaneClient,
@@ -64,8 +66,9 @@ async def post_bank_account(
 
 @tool(
     name="pennylane_get_bank_account",
-    description="Retrieve a bank account. Retrieve a bank account > ℹ️ > This endpoint requires one of the following scopes: `bank_accounts:all`, `bank_accounts:readonly`",
+    description="[Banking · Bank Accounts / Comptes bancaires] Retrieve a bank account Retrieve a bank account > ℹ️ > This endpoint requires one of the following scopes: `bank_accounts:all`, `bank_accounts:readonly` Mots-clés FR: compte bancaire, IBAN, RIB.",
     input_schema={'type': 'object', 'properties': {'id': {'type': 'integer'}}, 'required': ['id']},
+    resource="bank_accounts",
 )
 async def get_bank_account(
     client: PennylaneClient,

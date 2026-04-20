@@ -10,7 +10,7 @@ from ..client import PennylaneClient
 
 @tool(
     name="pennylane_get_customer_invoices_changes",
-    description="Get customer invoices changes events. Returns the list of changes based on the provided `start_date`. If no `start_date` is provided it returns the oldest set of recorded changes. Changes for the last 4 weeks are retained. The items will be returned using `processed_at` in ASC order (oldest first). > ℹ️ > This endpoint requires one of the following scopes: `customer_invoices:all`, `customer_invoices:readonly`",
+    description="[Admin · Changelogs (delta sync) / Changelogs (sync delta)] Get customer invoices changes events Returns the list of changes based on the provided `start_date`. If no `start_date` is provided it returns the oldest set of recorded changes. Changes for the last 4 weeks are retained. The items will be returned using `processed_at` in ASC order (oldest first). > ℹ️ > This endpoint requires one of the following scopes: `customer_invoices:all`, `customer_invoices:readonly` Mots-clés FR: changelog, synchronisation, delta, audit.",
     input_schema={   'type': 'object',
         'properties': {   'cursor': {   'type': 'string',
                                         'description': 'Cursor for pagination. Use this to fetch the '
@@ -30,6 +30,7 @@ from ..client import PennylaneClient
                                                            'a `start_date` older than that will result '
                                                            'in a 422 response. Providing both '
                                                            '`start_date` and `cur'}}},
+    resource="changelogs",
 )
 async def get_customer_invoices_changes(
     client: PennylaneClient,
@@ -45,7 +46,7 @@ async def get_customer_invoices_changes(
 
 @tool(
     name="pennylane_get_supplier_invoices_changes",
-    description="Get supplier invoices changes events. Returns the list of changes based on the provided `start_date`. If no `start_date` is provided it returns the oldest set of recorded changes. Changes for the last 4 weeks are retained. The items will be returned using `processed_at` in ASC order (oldest first). > ℹ️ > This endpoint requires one of the following scopes: `supplier_invoices:all`, `supplier_invoices:readonly`",
+    description="[Admin · Changelogs (delta sync) / Changelogs (sync delta)] Get supplier invoices changes events Returns the list of changes based on the provided `start_date`. If no `start_date` is provided it returns the oldest set of recorded changes. Changes for the last 4 weeks are retained. The items will be returned using `processed_at` in ASC order (oldest first). > ℹ️ > This endpoint requires one of the following scopes: `supplier_invoices:all`, `supplier_invoices:readonly` Mots-clés FR: changelog, synchronisation, delta, audit.",
     input_schema={   'type': 'object',
         'properties': {   'cursor': {   'type': 'string',
                                         'description': 'Cursor for pagination. Use this to fetch the '
@@ -65,6 +66,7 @@ async def get_customer_invoices_changes(
                                                            'a `start_date` older than that will result '
                                                            'in a 422 response. Providing both '
                                                            '`start_date` and `cur'}}},
+    resource="changelogs",
 )
 async def get_supplier_invoices_changes(
     client: PennylaneClient,
@@ -80,7 +82,7 @@ async def get_supplier_invoices_changes(
 
 @tool(
     name="pennylane_get_customer_changes",
-    description="Get customer changes events. Returns the list of changes based on the provided `start_date`. If no `start_date` is provided it returns the oldest set of recorded changes. Changes for the last 4 weeks are retained. The items will be returned using `processed_at` in ASC order (oldest first). > ℹ️ > This endpoint requires one of the following scopes: `customers:all`, `customers:readonly`",
+    description="[Admin · Changelogs (delta sync) / Changelogs (sync delta)] Get customer changes events Returns the list of changes based on the provided `start_date`. If no `start_date` is provided it returns the oldest set of recorded changes. Changes for the last 4 weeks are retained. The items will be returned using `processed_at` in ASC order (oldest first). > ℹ️ > This endpoint requires one of the following scopes: `customers:all`, `customers:readonly` Mots-clés FR: changelog, synchronisation, delta, audit.",
     input_schema={   'type': 'object',
         'properties': {   'cursor': {   'type': 'string',
                                         'description': 'Cursor for pagination. Use this to fetch the '
@@ -100,6 +102,7 @@ async def get_supplier_invoices_changes(
                                                            'a `start_date` older than that will result '
                                                            'in a 422 response. Providing both '
                                                            '`start_date` and `cur'}}},
+    resource="changelogs",
 )
 async def get_customer_changes(
     client: PennylaneClient,
@@ -115,7 +118,7 @@ async def get_customer_changes(
 
 @tool(
     name="pennylane_get_supplier_changes",
-    description="Get supplier changes events. Returns the list of changes based on the provided `start_date`. If no `start_date` is provided it returns the oldest set of recorded changes. Changes for the last 4 weeks are retained. The items will be returned using `processed_at` in ASC order (oldest first). > ℹ️ > This endpoint requires one of the following scopes: `suppliers:all`, `suppliers:readonly`",
+    description="[Admin · Changelogs (delta sync) / Changelogs (sync delta)] Get supplier changes events Returns the list of changes based on the provided `start_date`. If no `start_date` is provided it returns the oldest set of recorded changes. Changes for the last 4 weeks are retained. The items will be returned using `processed_at` in ASC order (oldest first). > ℹ️ > This endpoint requires one of the following scopes: `suppliers:all`, `suppliers:readonly` Mots-clés FR: changelog, synchronisation, delta, audit.",
     input_schema={   'type': 'object',
         'properties': {   'cursor': {   'type': 'string',
                                         'description': 'Cursor for pagination. Use this to fetch the '
@@ -135,6 +138,7 @@ async def get_customer_changes(
                                                            'a `start_date` older than that will result '
                                                            'in a 422 response. Providing both '
                                                            '`start_date` and `cur'}}},
+    resource="changelogs",
 )
 async def get_supplier_changes(
     client: PennylaneClient,
@@ -150,7 +154,7 @@ async def get_supplier_changes(
 
 @tool(
     name="pennylane_get_product_changes",
-    description="Get product change events. Returns the list of changes based on the provided `start_date`. If no `start_date` is provided it returns the oldest set of recorded changes. Changes for the last 4 weeks are retained. The items will be returned using `processed_at` in ASC order (oldest first). > ℹ️ > This endpoint requires one of the following scopes: `products:all`, `products:readonly`",
+    description="[Admin · Changelogs (delta sync) / Changelogs (sync delta)] Get product change events Returns the list of changes based on the provided `start_date`. If no `start_date` is provided it returns the oldest set of recorded changes. Changes for the last 4 weeks are retained. The items will be returned using `processed_at` in ASC order (oldest first). > ℹ️ > This endpoint requires one of the following scopes: `products:all`, `products:readonly` Mots-clés FR: changelog, synchronisation, delta, audit.",
     input_schema={   'type': 'object',
         'properties': {   'cursor': {   'type': 'string',
                                         'description': 'Cursor for pagination. Use this to fetch the '
@@ -170,6 +174,7 @@ async def get_supplier_changes(
                                                            'a `start_date` older than that will result '
                                                            'in a 422 response. Providing both '
                                                            '`start_date` and `cur'}}},
+    resource="changelogs",
 )
 async def get_product_changes(
     client: PennylaneClient,
@@ -185,7 +190,7 @@ async def get_product_changes(
 
 @tool(
     name="pennylane_get_ledger_entry_line_changes",
-    description="Get ledger entry line change events. Returns the list of changes based on the provided `start_date`. If no `start_date` is provided it returns the oldest set of recorded changes. Changes for the last 4 weeks are retained. The items will be returned using `processed_at` in ASC order (oldest first). **NEW BEHAVIOR :** The old `ledger` scope will only work on the old behavior system. As soon as you opt in to the new version, or when the sunset phase starts and you haven't explicitly opted out of the old behavior, the ledger scope w...",
+    description="[Admin · Changelogs (delta sync) / Changelogs (sync delta)] Get ledger entry line change events Returns the list of changes based on the provided `start_date`. If no `start_date` is provided it returns the oldest set of recorded changes. Changes for the last 4 weeks are retained. The items will be returned using `processed_at` in ASC order (oldest first). **NEW BEHAVIOR :** The old `ledger` scope will only work on the old behavior system. As soon as you opt in to the new version, or when ... Mots-clés FR: changelog, synchronisation, delta, audit.",
     input_schema={   'type': 'object',
         'properties': {   'use_2026_api_changes': {   'type': 'boolean',
                                                       'description': 'If you are already using the '
@@ -218,6 +223,7 @@ async def get_product_changes(
                                                            'a `start_date` older than that will result '
                                                            'in a 422 response. Providing both '
                                                            '`start_date` and `cur'}}},
+    resource="changelogs",
 )
 async def get_ledger_entry_line_changes(
     client: PennylaneClient,
@@ -234,7 +240,7 @@ async def get_ledger_entry_line_changes(
 
 @tool(
     name="pennylane_get_transaction_changes",
-    description="Get transaction change events. Returns the list of changes based on the provided `start_date`. If no `start_date` is provided it returns the oldest set of recorded changes. Changes for the last 4 weeks are retained. The items will be returned using `processed_at` in ASC order (oldest first). > ℹ️ > This endpoint requires one of the following scopes: `transactions:all`, `transactions:readonly`",
+    description="[Admin · Changelogs (delta sync) / Changelogs (sync delta)] Get transaction change events Returns the list of changes based on the provided `start_date`. If no `start_date` is provided it returns the oldest set of recorded changes. Changes for the last 4 weeks are retained. The items will be returned using `processed_at` in ASC order (oldest first). > ℹ️ > This endpoint requires one of the following scopes: `transactions:all`, `transactions:readonly` Mots-clés FR: changelog, synchronisation, delta, audit.",
     input_schema={   'type': 'object',
         'properties': {   'cursor': {   'type': 'string',
                                         'description': 'Cursor for pagination. Use this to fetch the '
@@ -254,6 +260,7 @@ async def get_ledger_entry_line_changes(
                                                            'a `start_date` older than that will result '
                                                            'in a 422 response. Providing both '
                                                            '`start_date` and `cur'}}},
+    resource="changelogs",
 )
 async def get_transaction_changes(
     client: PennylaneClient,
@@ -269,7 +276,7 @@ async def get_transaction_changes(
 
 @tool(
     name="pennylane_get_quote_changes",
-    description="Get quotes changes events. Returns the list of changes based on the provided `start_date`. If no `start_date` is provided it returns the oldest set of recorded changes. Changes for the last 4 weeks are retained. The items will be returned using `processed_at` in ASC order (oldest first). > ℹ️ > This endpoint requires one of the following scopes: `quotes:all`, `quotes:readonly`",
+    description="[Admin · Changelogs (delta sync) / Changelogs (sync delta)] Get quotes changes events Returns the list of changes based on the provided `start_date`. If no `start_date` is provided it returns the oldest set of recorded changes. Changes for the last 4 weeks are retained. The items will be returned using `processed_at` in ASC order (oldest first). > ℹ️ > This endpoint requires one of the following scopes: `quotes:all`, `quotes:readonly` Mots-clés FR: changelog, synchronisation, delta, audit.",
     input_schema={   'type': 'object',
         'properties': {   'cursor': {   'type': 'string',
                                         'description': 'Cursor for pagination. Use this to fetch the '
@@ -289,6 +296,7 @@ async def get_transaction_changes(
                                                            'a `start_date` older than that will result '
                                                            'in a 422 response. Providing both '
                                                            '`start_date` and `cur'}}},
+    resource="changelogs",
 )
 async def get_quote_changes(
     client: PennylaneClient,

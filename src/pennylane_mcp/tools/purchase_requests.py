@@ -10,13 +10,14 @@ from ..client import PennylaneClient
 
 @tool(
     name="pennylane_create_purchase_request_import",
-    description="Import a purchase order.. Import a purchase order. This will create a purchase request with an existing purchase order attached. The purchase request will be **automatically validated**. > ℹ️ > This endpoint requires the following scope: `purchase_requests:all`",
+    description="[Purchasing · Purchase Requests / Demandes d'achat] Import a purchase order. Import a purchase order. This will create a purchase request with an existing purchase order attached. The purchase request will be **automatically validated**. > ℹ️ > This endpoint requires the following scope: `purchase_requests:all` Mots-clés FR: demande d'achat, bon de commande interne, approvisionnement.",
     input_schema={   'type': 'object',
         'properties': {   'body': {   'type': 'object',
                                       'description': 'Request body payload. See the Pennylane API '
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['body']},
+    resource="purchase_requests",
 )
 async def create_purchase_request_import(
     client: PennylaneClient,
@@ -29,8 +30,9 @@ async def create_purchase_request_import(
 
 @tool(
     name="pennylane_get_purchase_request",
-    description="Retrieve a purchase request. Retrieve a purchase request > ℹ️ > This endpoint requires one of the following scopes: `purchase_requests:all`, `purchase_requests:readonly`",
+    description="[Purchasing · Purchase Requests / Demandes d'achat] Retrieve a purchase request Retrieve a purchase request > ℹ️ > This endpoint requires one of the following scopes: `purchase_requests:all`, `purchase_requests:readonly` Mots-clés FR: demande d'achat, bon de commande interne, approvisionnement.",
     input_schema={'type': 'object', 'properties': {'id': {'type': 'integer'}}, 'required': ['id']},
+    resource="purchase_requests",
 )
 async def get_purchase_request(
     client: PennylaneClient,
@@ -43,7 +45,7 @@ async def get_purchase_request(
 
 @tool(
     name="pennylane_get_purchase_requests",
-    description="List purchase requests. List purchase requests > ℹ️ > This endpoint requires one of the following scopes: `purchase_requests:all`, `purchase_requests:readonly`",
+    description="[Purchasing · Purchase Requests / Demandes d'achat] List purchase requests List purchase requests > ℹ️ > This endpoint requires one of the following scopes: `purchase_requests:all`, `purchase_requests:readonly` Mots-clés FR: demande d'achat, bon de commande interne, approvisionnement.",
     input_schema={   'type': 'object',
         'properties': {   'cursor': {   'type': 'string',
                                         'description': 'Cursor for pagination. Use this to fetch the '
@@ -74,6 +76,7 @@ async def get_purchase_request(
                                                      'Example : `id` will sort by ascending order, '
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields : `id`\n'}}},
+    resource="purchase_requests",
 )
 async def get_purchase_requests(
     client: PennylaneClient,

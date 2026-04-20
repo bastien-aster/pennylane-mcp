@@ -10,7 +10,7 @@ from ..client import PennylaneClient
 
 @tool(
     name="pennylane_get_supplier_invoice_lines",
-    description="List invoice lines for a supplier invoice. List invoice lines for a supplier invoice > ℹ️ > This endpoint requires one of the following scopes: `supplier_invoices:all`, `supplier_invoices:readonly`",
+    description="[Purchasing · Supplier Invoices / Factures fournisseurs] List invoice lines for a supplier invoice List invoice lines for a supplier invoice > ℹ️ > This endpoint requires one of the following scopes: `supplier_invoices:all`, `supplier_invoices:readonly` Mots-clés FR: facture fournisseur, achat, dépense, décaissement, avoir fournisseur.",
     input_schema={   'type': 'object',
         'properties': {   'supplier_invoice_id': {'type': 'integer'},
                           'cursor': {   'type': 'string',
@@ -32,6 +32,7 @@ from ..client import PennylaneClient
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields : `id`\n'}},
         'required': ['supplier_invoice_id']},
+    resource="supplier_invoices",
 )
 async def get_supplier_invoice_lines(
     client: PennylaneClient,
@@ -48,7 +49,7 @@ async def get_supplier_invoice_lines(
 
 @tool(
     name="pennylane_get_supplier_invoices",
-    description="List supplier invoices. This endpoint returns a list of supplier invoices. > ℹ️ > This endpoint requires one of the following scopes: `supplier_invoices:all`, `supplier_invoices:readonly`",
+    description="[Purchasing · Supplier Invoices / Factures fournisseurs] List supplier invoices This endpoint returns a list of supplier invoices. > ℹ️ > This endpoint requires one of the following scopes: `supplier_invoices:all`, `supplier_invoices:readonly` Mots-clés FR: facture fournisseur, achat, dépense, décaissement, avoir fournisseur.",
     input_schema={   'type': 'object',
         'properties': {   'use_2026_api_changes': {   'type': 'boolean',
                                                       'description': 'If you are already using the '
@@ -92,6 +93,7 @@ async def get_supplier_invoice_lines(
                                                      'Example : `id` will sort by ascending order, '
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields : `id`, `date`\n'}}},
+    resource="supplier_invoices",
 )
 async def get_supplier_invoices(
     client: PennylaneClient,
@@ -109,7 +111,7 @@ async def get_supplier_invoices(
 
 @tool(
     name="pennylane_get_supplier_invoice",
-    description="Retrieve a supplier invoice. This endpoint returns a supplier invoice. > ℹ️ > This endpoint requires one of the following scopes: `supplier_invoices:all`, `supplier_invoices:readonly`",
+    description="[Purchasing · Supplier Invoices / Factures fournisseurs] Retrieve a supplier invoice This endpoint returns a supplier invoice. > ℹ️ > This endpoint requires one of the following scopes: `supplier_invoices:all`, `supplier_invoices:readonly` Mots-clés FR: facture fournisseur, achat, dépense, décaissement, avoir fournisseur.",
     input_schema={   'type': 'object',
         'properties': {   'id': {'type': 'integer', 'description': 'Supplier invoice identifier'},
                           'use_2026_api_changes': {   'type': 'boolean',
@@ -126,6 +128,7 @@ async def get_supplier_invoices(
                                                                      'this parameter with `true` value '
                                                                      'to opt in directly t'}},
         'required': ['id']},
+    resource="supplier_invoices",
 )
 async def get_supplier_invoice(
     client: PennylaneClient,
@@ -140,7 +143,7 @@ async def get_supplier_invoice(
 
 @tool(
     name="pennylane_put_supplier_invoice",
-    description="Update a supplier invoice. This endpoint allows you to update a supplier invoice. > ℹ️ > This endpoint requires the following scope: `supplier_invoices:all`",
+    description="[Purchasing · Supplier Invoices / Factures fournisseurs] Update a supplier invoice This endpoint allows you to update a supplier invoice. > ℹ️ > This endpoint requires the following scope: `supplier_invoices:all` Mots-clés FR: facture fournisseur, achat, dépense, décaissement, avoir fournisseur.",
     input_schema={   'type': 'object',
         'properties': {   'id': {'type': 'integer', 'description': 'Supplier invoice identifier'},
                           'body': {   'type': 'object',
@@ -148,6 +151,7 @@ async def get_supplier_invoice(
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['id', 'body']},
+    resource="supplier_invoices",
 )
 async def put_supplier_invoice(
     client: PennylaneClient,
@@ -161,7 +165,7 @@ async def put_supplier_invoice(
 
 @tool(
     name="pennylane_get_supplier_invoice_categories",
-    description="List categories of a supplier invoice. List categories of a supplier invoice > ℹ️ > This endpoint requires one of the following scopes: `supplier_invoices:all`, `supplier_invoices:readonly`",
+    description="[Purchasing · Supplier Invoices / Factures fournisseurs] List categories of a supplier invoice List categories of a supplier invoice > ℹ️ > This endpoint requires one of the following scopes: `supplier_invoices:all`, `supplier_invoices:readonly` Mots-clés FR: facture fournisseur, achat, dépense, décaissement, avoir fournisseur.",
     input_schema={   'type': 'object',
         'properties': {   'supplier_invoice_id': {'type': 'integer'},
                           'cursor': {   'type': 'string',
@@ -175,6 +179,7 @@ async def put_supplier_invoice(
                                                       'Defaults to 20 if not specified.\n'
                                                       'Must be between 1 and 100.\n'}},
         'required': ['supplier_invoice_id']},
+    resource="supplier_invoices",
 )
 async def get_supplier_invoice_categories(
     client: PennylaneClient,
@@ -190,7 +195,7 @@ async def get_supplier_invoice_categories(
 
 @tool(
     name="pennylane_put_supplier_invoice_categories",
-    description="Categorize a supplier invoice. Update the categories of a supplier invoice. You can pass categories that don't belong to the same category group. The sum of categories of a same group must equal `1`. In the following example, the two first categories belong to the same category group A, the sum of the weights is `1`. The third category belongs to a category group B, its weight is `1`. ``` [ { 'id': 59, 'weight': '0.5' }, // category group A { 'id': 33, 'weight': '0.5' }, // category group A { 'id': 65, 'weight': '1' } // c...",
+    description="[Purchasing · Supplier Invoices / Factures fournisseurs] Categorize a supplier invoice Update the categories of a supplier invoice. You can pass categories that don't belong to the same category group. The sum of categories of a same group must equal `1`. In the following example, the two first categories belong to the same category group A, the sum of the weights is `1`. The third category belongs to a category group B, its weight is `1`. ``` [ { 'id': 59, 'weight': '0.5' }, // ... Mots-clés FR: facture fournisseur, achat, dépense, décaissement, avoir fournisseur.",
     input_schema={   'type': 'object',
         'properties': {   'supplier_invoice_id': {'type': 'integer'},
                           'body': {   'type': 'object',
@@ -198,6 +203,7 @@ async def get_supplier_invoice_categories(
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['supplier_invoice_id', 'body']},
+    resource="supplier_invoices",
 )
 async def put_supplier_invoice_categories(
     client: PennylaneClient,
@@ -211,7 +217,7 @@ async def put_supplier_invoice_categories(
 
 @tool(
     name="pennylane_get_supplier_invoice_payments",
-    description="List payments for a supplier invoice. List payments for a supplier invoice > ℹ️ > This endpoint requires one of the following scopes: `supplier_invoices:all`, `supplier_invoices:readonly`",
+    description="[Purchasing · Supplier Invoices / Factures fournisseurs] List payments for a supplier invoice List payments for a supplier invoice > ℹ️ > This endpoint requires one of the following scopes: `supplier_invoices:all`, `supplier_invoices:readonly` Mots-clés FR: facture fournisseur, achat, dépense, décaissement, avoir fournisseur.",
     input_schema={   'type': 'object',
         'properties': {   'supplier_invoice_id': {'type': 'integer'},
                           'cursor': {   'type': 'string',
@@ -233,6 +239,7 @@ async def put_supplier_invoice_categories(
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields : `id`\n'}},
         'required': ['supplier_invoice_id']},
+    resource="supplier_invoices",
 )
 async def get_supplier_invoice_payments(
     client: PennylaneClient,
@@ -249,7 +256,7 @@ async def get_supplier_invoice_payments(
 
 @tool(
     name="pennylane_update_supplier_invoice_payment_status",
-    description="Update a supplier invoice payment status. This endpoint allows you to update the payment status of a supplier invoice. > ℹ️ > This endpoint requires the following scope: `supplier_invoices:all`",
+    description="[Purchasing · Supplier Invoices / Factures fournisseurs] Update a supplier invoice payment status This endpoint allows you to update the payment status of a supplier invoice. > ℹ️ > This endpoint requires the following scope: `supplier_invoices:all` Mots-clés FR: facture fournisseur, achat, dépense, décaissement, avoir fournisseur.",
     input_schema={   'type': 'object',
         'properties': {   'supplier_invoice_id': {   'type': 'integer',
                                                      'description': 'Supplier invoice identifier'},
@@ -258,6 +265,7 @@ async def get_supplier_invoice_payments(
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['supplier_invoice_id', 'body']},
+    resource="supplier_invoices",
 )
 async def update_supplier_invoice_payment_status(
     client: PennylaneClient,
@@ -271,7 +279,7 @@ async def update_supplier_invoice_payment_status(
 
 @tool(
     name="pennylane_get_supplier_invoice_matched_transactions",
-    description="List matched transactions for a supplier invoice. List matched transactions for a supplier invoice > ℹ️ > This endpoint requires one of the following scopes: `supplier_invoices:all`, `supplier_invoices:readonly`",
+    description="[Purchasing · Supplier Invoices / Factures fournisseurs] List matched transactions for a supplier invoice List matched transactions for a supplier invoice > ℹ️ > This endpoint requires one of the following scopes: `supplier_invoices:all`, `supplier_invoices:readonly` Mots-clés FR: facture fournisseur, achat, dépense, décaissement, avoir fournisseur.",
     input_schema={   'type': 'object',
         'properties': {   'supplier_invoice_id': {'type': 'integer'},
                           'cursor': {   'type': 'string',
@@ -293,6 +301,7 @@ async def update_supplier_invoice_payment_status(
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields : `id`\n'}},
         'required': ['supplier_invoice_id']},
+    resource="supplier_invoices",
 )
 async def get_supplier_invoice_matched_transactions(
     client: PennylaneClient,
@@ -309,7 +318,7 @@ async def get_supplier_invoice_matched_transactions(
 
 @tool(
     name="pennylane_post_supplier_invoice_matched_transactions",
-    description="Match a transaction to a supplier invoice. This endpoint allows you to match a transaction to a supplier invoice. You can match one transaction with one supplier invoice at a time. To match multiple transactions to a supplier invoice, you need to call this endpoint multiple times. It's possible to match a transaction to multiple supplier invoices too. > ℹ️ > This endpoint requires the following scope: `supplier_invoices:all`",
+    description="[Purchasing · Supplier Invoices / Factures fournisseurs] Match a transaction to a supplier invoice This endpoint allows you to match a transaction to a supplier invoice. You can match one transaction with one supplier invoice at a time. To match multiple transactions to a supplier invoice, you need to call this endpoint multiple times. It's possible to match a transaction to multiple supplier invoices too. > ℹ️ > This endpoint requires the following scope: `supplier_invoices:all` Mots-clés FR: facture fournisseur, achat, dépense, décaissement, avoir fournisseur.",
     input_schema={   'type': 'object',
         'properties': {   'supplier_invoice_id': {'type': 'integer'},
                           'body': {   'type': 'object',
@@ -317,6 +326,7 @@ async def get_supplier_invoice_matched_transactions(
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['supplier_invoice_id', 'body']},
+    resource="supplier_invoices",
 )
 async def post_supplier_invoice_matched_transactions(
     client: PennylaneClient,
@@ -330,10 +340,11 @@ async def post_supplier_invoice_matched_transactions(
 
 @tool(
     name="pennylane_delete_supplier_invoice_matched_transactions",
-    description="Unmatch a transaction to a supplier invoice. This endpoint allows you to unmatch a transaction to a supplier invoice. > ℹ️ > This endpoint requires the following scope: `supplier_invoices:all`",
+    description="[Purchasing · Supplier Invoices / Factures fournisseurs] Unmatch a transaction to a supplier invoice This endpoint allows you to unmatch a transaction to a supplier invoice. > ℹ️ > This endpoint requires the following scope: `supplier_invoices:all` Mots-clés FR: facture fournisseur, achat, dépense, décaissement, avoir fournisseur.",
     input_schema={   'type': 'object',
         'properties': {'supplier_invoice_id': {'type': 'integer'}, 'id': {'type': 'integer'}},
         'required': ['supplier_invoice_id', 'id']},
+    resource="supplier_invoices",
 )
 async def delete_supplier_invoice_matched_transactions(
     client: PennylaneClient,
@@ -347,7 +358,7 @@ async def delete_supplier_invoice_matched_transactions(
 
 @tool(
     name="pennylane_post_supplier_invoice_linked_purchase_requests",
-    description="Link a purchase request to a supplier invoice. This endpoint allows you to link a purchase request to a supplier invoice. You can link one purchase request with one supplier invoice at a time. To link multiple purchase request to a supplier invoice, you need to call this endpoint multiple times. It's possible to link a purchase request to multiple supplier invoices too. > ℹ️ > This endpoint requires the following scope: `supplier_invoices:all`",
+    description="[Purchasing · Supplier Invoices / Factures fournisseurs] Link a purchase request to a supplier invoice This endpoint allows you to link a purchase request to a supplier invoice. You can link one purchase request with one supplier invoice at a time. To link multiple purchase request to a supplier invoice, you need to call this endpoint multiple times. It's possible to link a purchase request to multiple supplier invoices too. > ℹ️ > This endpoint requires the following scope: `supplier_invoices:all` Mots-clés FR: facture fournisseur, achat, dépense, décaissement, avoir fournisseur.",
     input_schema={   'type': 'object',
         'properties': {   'supplier_invoice_id': {'type': 'integer'},
                           'body': {   'type': 'object',
@@ -355,6 +366,7 @@ async def delete_supplier_invoice_matched_transactions(
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['supplier_invoice_id', 'body']},
+    resource="supplier_invoices",
 )
 async def post_supplier_invoice_linked_purchase_requests(
     client: PennylaneClient,
@@ -368,7 +380,7 @@ async def post_supplier_invoice_linked_purchase_requests(
 
 @tool(
     name="pennylane_import_supplier_invoice",
-    description="Import a supplier invoice with a file attached. This endpoint allows you to import a supplier invoice with a file attached. > ℹ️ > This endpoint requires the following scope: `supplier_invoices:all`",
+    description="[Purchasing · Supplier Invoices / Factures fournisseurs] Import a supplier invoice with a file attached This endpoint allows you to import a supplier invoice with a file attached. > ℹ️ > This endpoint requires the following scope: `supplier_invoices:all` Mots-clés FR: facture fournisseur, achat, dépense, décaissement, avoir fournisseur.",
     input_schema={   'type': 'object',
         'properties': {   'use_2026_api_changes': {   'type': 'boolean',
                                                       'description': 'If you are already using the '
@@ -388,6 +400,7 @@ async def post_supplier_invoice_linked_purchase_requests(
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['body']},
+    resource="supplier_invoices",
 )
 async def import_supplier_invoice(
     client: PennylaneClient,
@@ -402,13 +415,14 @@ async def import_supplier_invoice(
 
 @tool(
     name="pennylane_create_supplier_invoice_e_invoice_import",
-    description="Import a supplier e-invoice. Import a supplier invoice from an e-invoice file (Factur-X format). The file must be a valid Factur-X PDF. Optionally provide `invoice_options` to pre-fill supplier and line-level data. Invoice line `e_invoice_line_id` must match Factur-X BT-126 (LineID). > ℹ️ > This endpoint requires the following scope: `supplier_invoices:all`",
+    description="[Purchasing · Supplier Invoices / Factures fournisseurs] Import a supplier e-invoice Import a supplier invoice from an e-invoice file (Factur-X format). The file must be a valid Factur-X PDF. Optionally provide `invoice_options` to pre-fill supplier and line-level data. Invoice line `e_invoice_line_id` must match Factur-X BT-126 (LineID). > ℹ️ > This endpoint requires the following scope: `supplier_invoices:all` Mots-clés FR: facture fournisseur, achat, dépense, décaissement, avoir fournisseur.",
     input_schema={   'type': 'object',
         'properties': {   'body': {   'type': 'object',
                                       'description': 'Request body payload. See the Pennylane API '
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['body']},
+    resource="supplier_invoices",
 )
 async def create_supplier_invoice_e_invoice_import(
     client: PennylaneClient,
@@ -421,7 +435,7 @@ async def create_supplier_invoice_e_invoice_import(
 
 @tool(
     name="pennylane_validate_accounting_supplier_invoice",
-    description="Validate the accounting of a supplier invoice. Turn the supplier invoice into a Complete state. > ℹ️ > This endpoint requires the following scope: `supplier_invoices:all`",
+    description="[Purchasing · Supplier Invoices / Factures fournisseurs] Validate the accounting of a supplier invoice Turn the supplier invoice into a Complete state. > ℹ️ > This endpoint requires the following scope: `supplier_invoices:all` Mots-clés FR: facture fournisseur, achat, dépense, décaissement, avoir fournisseur.",
     input_schema={   'type': 'object',
         'properties': {   'id': {'type': 'integer'},
                           'use_2026_api_changes': {   'type': 'boolean',
@@ -438,6 +452,7 @@ async def create_supplier_invoice_e_invoice_import(
                                                                      'this parameter with `true` value '
                                                                      'to opt in directly t'}},
         'required': ['id']},
+    resource="supplier_invoices",
 )
 async def validate_accounting_supplier_invoice(
     client: PennylaneClient,
@@ -452,7 +467,7 @@ async def validate_accounting_supplier_invoice(
 
 @tool(
     name="pennylane_put_supplier_invoice_e_invoice_status",
-    description="Update e-invoice status for a supplier invoice. Applies an electronic invoicing lifecycle transition: dispute, refuse, or undispute (approved). Dispute and refuse require a reason. > ℹ️ > This endpoint requires the following scope: `supplier_invoices:all`",
+    description="[Purchasing · Supplier Invoices / Factures fournisseurs] Update e-invoice status for a supplier invoice Applies an electronic invoicing lifecycle transition: dispute, refuse, or undispute (approved). Dispute and refuse require a reason. > ℹ️ > This endpoint requires the following scope: `supplier_invoices:all` Mots-clés FR: facture fournisseur, achat, dépense, décaissement, avoir fournisseur.",
     input_schema={   'type': 'object',
         'properties': {   'supplier_invoice_id': {'type': 'integer'},
                           'body': {   'type': 'object',
@@ -460,6 +475,7 @@ async def validate_accounting_supplier_invoice(
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['supplier_invoice_id', 'body']},
+    resource="supplier_invoices",
 )
 async def put_supplier_invoice_e_invoice_status(
     client: PennylaneClient,

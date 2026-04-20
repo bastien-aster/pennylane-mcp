@@ -10,8 +10,9 @@ from ..client import PennylaneClient
 
 @tool(
     name="pennylane_get_me",
-    description="User Profile. This endpoint returns information about the company and the user associated to the token.",
+    description="[Admin · User Profile / Profil utilisateur] User Profile This endpoint returns information about the company and the user associated to the token. Mots-clés FR: profil, utilisateur courant, mon compte.",
     input_schema={'type': 'object', 'properties': {}},
+    resource="me",
 )
 async def get_me(
     client: PennylaneClient,

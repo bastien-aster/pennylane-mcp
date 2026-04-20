@@ -10,13 +10,14 @@ from ..client import PennylaneClient
 
 @tool(
     name="pennylane_post_billing_subscriptions",
-    description="Create a billing subscription. This endpoint allows you to create a subscription. Pennylane will generate the customer invoice each month. You can also link the subscription to a GoCardless mandate. > ℹ️ > This endpoint requires the following scope: `billing_subscriptions:all`",
+    description="[Admin · Billing Subscriptions / Abonnements récurrents] Create a billing subscription This endpoint allows you to create a subscription. Pennylane will generate the customer invoice each month. You can also link the subscription to a GoCardless mandate. > ℹ️ > This endpoint requires the following scope: `billing_subscriptions:all` Mots-clés FR: abonnement, facturation récurrente, subscription.",
     input_schema={   'type': 'object',
         'properties': {   'body': {   'type': 'object',
                                       'description': 'Request body payload. See the Pennylane API '
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['body']},
+    resource="billing_subscriptions",
 )
 async def post_billing_subscriptions(
     client: PennylaneClient,
@@ -29,7 +30,7 @@ async def post_billing_subscriptions(
 
 @tool(
     name="pennylane_get_billing_subscriptions",
-    description="List billing subscriptions. This endpoint returns a list of subscriptions. > ℹ️ > This endpoint requires one of the following scopes: `billing_subscriptions:all`, `billing_subscriptions:readonly`",
+    description="[Admin · Billing Subscriptions / Abonnements récurrents] List billing subscriptions This endpoint returns a list of subscriptions. > ℹ️ > This endpoint requires one of the following scopes: `billing_subscriptions:all`, `billing_subscriptions:readonly` Mots-clés FR: abonnement, facturation récurrente, subscription.",
     input_schema={   'type': 'object',
         'properties': {   'cursor': {   'type': 'string',
                                         'description': 'Cursor for pagination. Use this to fetch the '
@@ -56,6 +57,7 @@ async def post_billing_subscriptions(
                                                      'Example : `id` will sort by ascending order, '
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields : `id`\n'}}},
+    resource="billing_subscriptions",
 )
 async def get_billing_subscriptions(
     client: PennylaneClient,
@@ -72,7 +74,7 @@ async def get_billing_subscriptions(
 
 @tool(
     name="pennylane_get_billing_subscription",
-    description="Get a billing subscription. This endpoint returns a specific billing subscription. > ℹ️ > This endpoint requires one of the following scopes: `billing_subscriptions:all`, `billing_subscriptions:readonly`",
+    description="[Admin · Billing Subscriptions / Abonnements récurrents] Get a billing subscription This endpoint returns a specific billing subscription. > ℹ️ > This endpoint requires one of the following scopes: `billing_subscriptions:all`, `billing_subscriptions:readonly` Mots-clés FR: abonnement, facturation récurrente, subscription.",
     input_schema={   'type': 'object',
         'properties': {   'id': {   'type': 'integer',
                                     'description': 'The ID of the billing subscription to retrieve'},
@@ -90,6 +92,7 @@ async def get_billing_subscriptions(
                                                                      'this parameter with `true` value '
                                                                      'to opt in directly t'}},
         'required': ['id']},
+    resource="billing_subscriptions",
 )
 async def get_billing_subscription(
     client: PennylaneClient,
@@ -104,7 +107,7 @@ async def get_billing_subscription(
 
 @tool(
     name="pennylane_put_billing_subscriptions",
-    description="Update a billing subscription. Update a billing subscription > ℹ️ > This endpoint requires the following scope: `billing_subscriptions:all`",
+    description="[Admin · Billing Subscriptions / Abonnements récurrents] Update a billing subscription Update a billing subscription > ℹ️ > This endpoint requires the following scope: `billing_subscriptions:all` Mots-clés FR: abonnement, facturation récurrente, subscription.",
     input_schema={   'type': 'object',
         'properties': {   'id': {   'type': 'integer',
                                     'description': 'The ID of the billing subscription to retrieve'},
@@ -126,6 +129,7 @@ async def get_billing_subscription(
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['id', 'body']},
+    resource="billing_subscriptions",
 )
 async def put_billing_subscriptions(
     client: PennylaneClient,
@@ -141,7 +145,7 @@ async def put_billing_subscriptions(
 
 @tool(
     name="pennylane_get_billing_subscription_invoice_line_sections",
-    description="List the invoice line sections of a billing subscription. List the invoice line sections of a billing subscription > ℹ️ > This endpoint requires one of the following scopes: `billing_subscriptions:all`, `billing_subscriptions:readonly`",
+    description="[Admin · Billing Subscriptions / Abonnements récurrents] List the invoice line sections of a billing subscription List the invoice line sections of a billing subscription > ℹ️ > This endpoint requires one of the following scopes: `billing_subscriptions:all`, `billing_subscriptions:readonly` Mots-clés FR: abonnement, facturation récurrente, subscription.",
     input_schema={   'type': 'object',
         'properties': {   'billing_subscription_id': {'type': 'integer'},
                           'cursor': {   'type': 'string',
@@ -163,6 +167,7 @@ async def put_billing_subscriptions(
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields : `id`\n'}},
         'required': ['billing_subscription_id']},
+    resource="billing_subscriptions",
 )
 async def get_billing_subscription_invoice_line_sections(
     client: PennylaneClient,
@@ -179,7 +184,7 @@ async def get_billing_subscription_invoice_line_sections(
 
 @tool(
     name="pennylane_get_billing_subscription_invoice_lines",
-    description="List invoice lines for a billing subscription. List invoice lines for a billing subscription > ℹ️ > This endpoint requires one of the following scopes: `billing_subscriptions:all`, `billing_subscriptions:readonly`",
+    description="[Admin · Billing Subscriptions / Abonnements récurrents] List invoice lines for a billing subscription List invoice lines for a billing subscription > ℹ️ > This endpoint requires one of the following scopes: `billing_subscriptions:all`, `billing_subscriptions:readonly` Mots-clés FR: abonnement, facturation récurrente, subscription.",
     input_schema={   'type': 'object',
         'properties': {   'billing_subscription_id': {'type': 'integer'},
                           'cursor': {   'type': 'string',
@@ -201,6 +206,7 @@ async def get_billing_subscription_invoice_line_sections(
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields : `id`\n'}},
         'required': ['billing_subscription_id']},
+    resource="billing_subscriptions",
 )
 async def get_billing_subscription_invoice_lines(
     client: PennylaneClient,

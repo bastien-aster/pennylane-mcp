@@ -10,7 +10,7 @@ from ..client import PennylaneClient
 
 @tool(
     name="pennylane_get_trial_balance",
-    description="Get the trial balance. This endpoint returns the trial balance of the current company for the given period. **DEPRECATED BEHAVIOR:** `page` and `per_page` params are **deprecated**. Please use `cursor` and `limit` for pagination instead. For more details, see our API documentation https://pennylane.readme.io/docs/2026-api-changes-guide for migration instructions. > ℹ️ > This endpoint requires the following scope: `trial_balance:readonly`",
+    description="[Accounting · Trial Balance / Balance comptable] Get the trial balance This endpoint returns the trial balance of the current company for the given period. **DEPRECATED BEHAVIOR:** `page` and `per_page` params are **deprecated**. Please use `cursor` and `limit` for pagination instead. For more details, see our API documentation https://pennylane.readme.io/docs/2026-api-changes-guide for migration instructions. > ℹ️ > This endpoint requires the following scope: `tr... Mots-clés FR: balance, balance comptable, balance générale.",
     input_schema={   'type': 'object',
         'properties': {   'use_2026_api_changes': {   'type': 'boolean',
                                                       'description': 'If you are already using the '
@@ -69,6 +69,7 @@ from ..client import PennylaneClient
                                                       'Defaults to 20 if not specified.\n'
                                                       'Must be between 1 and 1000.\n'}},
         'required': ['period_start', 'period_end']},
+    resource="trial_balance",
 )
 async def get_trial_balance(
     client: PennylaneClient,

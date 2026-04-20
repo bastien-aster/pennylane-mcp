@@ -10,13 +10,14 @@ from ..client import PennylaneClient
 
 @tool(
     name="pennylane_post_file_attachments",
-    description="Upload a file. Upload a file to attach to any resource that provides a `file_attachment_id`. The maximum allowed file size is 100MB. Note that this will not upload a file into the DMS (GED). > ℹ️ > This endpoint requires the following scope: `file_attachments:all`",
+    description="[Purchasing · File Attachments / Pièces jointes] Upload a file Upload a file to attach to any resource that provides a `file_attachment_id`. The maximum allowed file size is 100MB. Note that this will not upload a file into the DMS (GED). > ℹ️ > This endpoint requires the following scope: `file_attachments:all` Mots-clés FR: pièce jointe, PJ, justificatif, document.",
     input_schema={   'type': 'object',
         'properties': {   'body': {   'type': 'object',
                                       'description': 'Request body payload. See the Pennylane API '
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
         'required': ['body']},
+    resource="file_attachments",
 )
 async def post_file_attachments(
     client: PennylaneClient,
@@ -29,7 +30,7 @@ async def post_file_attachments(
 
 @tool(
     name="pennylane_get_file_attachments",
-    description="List attachments. List attachments > ‼️ > This endpoint is **DEPRECATED** > ℹ️ > This endpoint requires one of the following scopes: `file_attachments:all`, `file_attachments:readonly`",
+    description="[Purchasing · File Attachments / Pièces jointes] List attachments List attachments > ‼️ > This endpoint is **DEPRECATED** > ℹ️ > This endpoint requires one of the following scopes: `file_attachments:all`, `file_attachments:readonly` Mots-clés FR: pièce jointe, PJ, justificatif, document.",
     input_schema={   'type': 'object',
         'properties': {   'cursor': {   'type': 'string',
                                         'description': 'Cursor for pagination. Use this to fetch the '
@@ -49,6 +50,7 @@ async def post_file_attachments(
                                                      'Example : `id` will sort by ascending order, '
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields : `id`\n'}}},
+    resource="file_attachments",
 )
 async def get_file_attachments(
     client: PennylaneClient,

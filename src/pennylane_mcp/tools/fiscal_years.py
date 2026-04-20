@@ -10,7 +10,7 @@ from ..client import PennylaneClient
 
 @tool(
     name="pennylane_company_fiscal_years",
-    description="List Company's Fiscal Years. This endpoint returns a list of fiscal years of the company. **DEPRECATED BEHAVIOR:** By default, returns fiscal years ordered by ascending `start` date. **NEW BEHAVIOR:** By default, returns fiscal years ordered by descending IDs A new `sort` query parameter is now available allowing to sort by `id` or `start` attributes. For more details, see our API documentation https://pennylane.readme.io/docs/2026-api-changes-guide for migration instructions. > ℹ️ > This endpoint requires the following ...",
+    description="[Accounting · Fiscal Years / Exercices fiscaux] List Company's Fiscal Years This endpoint returns a list of fiscal years of the company. **DEPRECATED BEHAVIOR:** By default, returns fiscal years ordered by ascending `start` date. **NEW BEHAVIOR:** By default, returns fiscal years ordered by descending IDs A new `sort` query parameter is now available allowing to sort by `id` or `start` attributes. For more details, see our API documentation https://pennylane.readme.io/... Mots-clés FR: exercice fiscal, année fiscale, clôture.",
     input_schema={   'type': 'object',
         'properties': {   'use_2026_api_changes': {   'type': 'boolean',
                                                       'description': 'If you are already using the '
@@ -68,6 +68,7 @@ from ..client import PennylaneClient
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields :\n'
                                                      '- `id`, `start`\n'}}},
+    resource="fiscal_years",
 )
 async def company_fiscal_years(
     client: PennylaneClient,
