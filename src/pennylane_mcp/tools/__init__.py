@@ -1,9 +1,35 @@
-"""Outils MCP pour Pennylane."""
+"""Pennylane MCP tools — auto-imported on package load to register handlers."""
 
-from . import invoices
-from . import customers
-from . import suppliers
-from . import transactions
-from . import accounting
-
-__all__ = ["invoices", "customers", "suppliers", "transactions", "accounting"]
+from . import bank_accounts  # noqa: F401
+from . import bank_establishments  # noqa: F401
+from . import billing_subscriptions  # noqa: F401
+from . import categories  # noqa: F401
+from . import category_groups  # noqa: F401
+from . import changelogs  # noqa: F401
+from . import commercial_documents  # noqa: F401
+from . import company_customers  # noqa: F401
+from . import customer_invoice_templates  # noqa: F401
+from . import customer_invoices  # noqa: F401
+from . import customers  # noqa: F401
+from . import e_invoices  # noqa: F401
+from . import exports  # noqa: F401
+from . import file_attachments  # noqa: F401
+from . import fiscal_years  # noqa: F401
+from . import gocardless_mandates  # noqa: F401
+from . import individual_customers  # noqa: F401
+from . import journals  # noqa: F401
+from . import ledger_accounts  # noqa: F401
+from . import ledger_attachments  # noqa: F401
+from . import ledger_entries  # noqa: F401
+from . import ledger_entry_lines  # noqa: F401
+from . import me  # noqa: F401
+from . import pa_registrations  # noqa: F401
+from . import pro_account  # noqa: F401
+from . import products  # noqa: F401
+from . import purchase_requests  # noqa: F401
+from . import quotes  # noqa: F401
+from . import sepa_mandates  # noqa: F401
+from . import supplier_invoices  # noqa: F401
+from . import suppliers  # noqa: F401
+from . import transactions  # noqa: F401
+from . import trial_balance  # noqa: F401

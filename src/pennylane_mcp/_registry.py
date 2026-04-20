@@ -1,0 +1,38 @@
+"""Decorator-based tool registry.
+
+Each tool module decorates its async handler with @tool(...) to register it
+without touching server.py. The server iterates TOOLS at startup.
+"""
+from __future__ import annotations
+
+from dataclasses import dataclass
+from typing import Any, Awaitable, Callable
+
+Handler = Callable[..., Awaitable[Any]]
+
+
+@dataclass(frozen=True)
+class ToolSpec:
+    name: str
+    description: str
+    input_schema: dict[str, Any]
+    handler: Handler
+
+
+TOOLS: list[ToolSpec] = []
+_NAMES: set[str] = set()
+
+
+def tool(*, name: str, description: str, input_schema: dict[str, Any]) -> Callable[[Handler], Handler]:
+    """Register an async handler as an MCP tool.
+
+    Raises if two handlers try to claim the same tool name.
+    """
+    def decorator(fn: Handler) -> Handler:
+        if name in _NAMES:
+            raise RuntimeError(f"Duplicate tool name: {name}")
+        _NAMES.add(name)
+        TOOLS.append(ToolSpec(name=name, description=description, input_schema=input_schema, handler=fn))
+        return fn
+
+    return decorator

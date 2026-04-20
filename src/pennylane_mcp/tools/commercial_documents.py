@@ -9,8 +9,8 @@ from ..client import PennylaneClient
 
 
 @tool(
-    name="pennylane_list_quotes",
-    description="List quotes. Lists quotes > ℹ️ > This endpoint requires one of the following scopes: `quotes:all`, `quotes:readonly`",
+    name="pennylane_list_commercial_documents",
+    description="List commercial documents. This endpoint lists commercial documents. > ℹ️ > This endpoint requires one of the following scopes: `commercial_documents:all`, `commercial_documents:readonly`",
     input_schema={   'type': 'object',
         'properties': {   'cursor': {   'type': 'string',
                                         'description': 'Cursor for pagination. Use this to fetch the '
@@ -28,11 +28,13 @@ from ..client import PennylaneClient
                                                        'Available fields and operators:\n'
                                                        '- `id`, `customer_id`: `lt`, `lteq`, `gt`, '
                                                        '`gteq`, `eq`, `not_eq`, `in`, `not_in`\n'
-                                                       '- `status`: `eq`, `not_eq`, `in`, `not_in`\n'
+                                                       '- `document_type`: `eq`, `not_eq`, `in`, '
+                                                       '`not_in`\n'
                                                        '\n'
-                                                       'Available statuses:\n'
-                                                       '- accepted: a quote that has been accepted\n'
-                                                       '- denied: a quote that has b'},
+                                                       'Available document_types:\n'
+                                                       '- proforma\n'
+                                                       '- shipping_order\n'
+                                                       '- purchasing_order\n'},
                           'sort': {   'type': 'string',
                                       'description': 'You can choose to sort items on specific '
                                                      'attributes\n'
@@ -42,78 +44,38 @@ from ..client import PennylaneClient
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields : `id`\n'}}},
 )
-async def list_quotes(
+async def list_commercial_documents(
     client: PennylaneClient,
     cursor: Optional[Any] = None,
     limit: Optional[Any] = None,
     filter: Optional[Any] = None,
     sort: Optional[Any] = None,
 ) -> Any:
-    url = "/quotes"
+    url = "/commercial_documents"
     params = {'cursor': cursor, 'limit': limit, 'filter': filter, 'sort': sort}
     params = {k: v for k, v in params.items() if v is not None}
     return await client.get(url, params=params)
 
 
 @tool(
-    name="pennylane_post_quotes",
-    description="Create a quote. This endpoint allows you to create a quote > ℹ️ > This endpoint requires the following scope: `quotes:all`",
-    input_schema={   'type': 'object',
-        'properties': {   'body': {   'type': 'object',
-                                      'description': 'Request body payload. See the Pennylane API '
-                                                     'reference for the exact schema of this endpoint.',
-                                      'additionalProperties': True}},
-        'required': ['body']},
-)
-async def post_quotes(
-    client: PennylaneClient,
-    body: Optional[dict[str, Any]] = None,
-) -> Any:
-    url = "/quotes"
-    params = None
-    return await client.post(url, data=body)
-
-
-@tool(
-    name="pennylane_get_quote",
-    description="Retrieve a quote. This endpoint retrieves a quote. > ℹ️ > This endpoint requires one of the following scopes: `quotes:all`, `quotes:readonly`",
+    name="pennylane_get_commercial_document",
+    description="Retrieve a commercial document. This endpoint retrieves a commercial document. > ℹ️ > This endpoint requires one of the following scopes: `commercial_documents:all`, `commercial_documents:readonly`",
     input_schema={'type': 'object', 'properties': {'id': {'type': 'integer'}}, 'required': ['id']},
 )
-async def get_quote(
+async def get_commercial_document(
     client: PennylaneClient,
     id: str,
 ) -> Any:
-    url = f"/quotes/{id}".format(id=id)
+    url = f"/commercial_documents/{id}".format(id=id)
     params = None
     return await client.get(url, params=params)
 
 
 @tool(
-    name="pennylane_update_quote",
-    description="Update a quote. This endpoint allows you to update a quote > ℹ️ > This endpoint requires the following scope: `quotes:all`",
+    name="pennylane_get_commercial_document_appendices",
+    description="List appendices of a commercial document. List appendices of a commercial document > ℹ️ > This endpoint requires one of the following scopes: `commercial_documents:all`, `commercial_documents:readonly`",
     input_schema={   'type': 'object',
-        'properties': {   'id': {'type': 'integer'},
-                          'body': {   'type': 'object',
-                                      'description': 'Request body payload. See the Pennylane API '
-                                                     'reference for the exact schema of this endpoint.',
-                                      'additionalProperties': True}},
-        'required': ['id', 'body']},
-)
-async def update_quote(
-    client: PennylaneClient,
-    id: str,
-    body: Optional[dict[str, Any]] = None,
-) -> Any:
-    url = f"/quotes/{id}".format(id=id)
-    params = None
-    return await client.put(url, data=body)
-
-
-@tool(
-    name="pennylane_get_quote_appendices",
-    description="List appendices of a quote. List appendices of a quote > ℹ️ > This endpoint requires one of the following scopes: `quotes:all`, `quotes:readonly`",
-    input_schema={   'type': 'object',
-        'properties': {   'quote_id': {'type': 'integer'},
+        'properties': {   'commercial_document_id': {'type': 'integer'},
                           'cursor': {   'type': 'string',
                                         'description': 'Cursor for pagination. Use this to fetch the '
                                                        'next set of results.\n'
@@ -124,46 +86,46 @@ async def update_quote(
                                        'description': 'Number of items to return per request.\n'
                                                       'Defaults to 20 if not specified.\n'
                                                       'Must be between 1 and 100.\n'}},
-        'required': ['quote_id']},
+        'required': ['commercial_document_id']},
 )
-async def get_quote_appendices(
+async def get_commercial_document_appendices(
     client: PennylaneClient,
-    quote_id: str,
+    commercial_document_id: str,
     cursor: Optional[Any] = None,
     limit: Optional[Any] = None,
 ) -> Any:
-    url = f"/quotes/{quote_id}/appendices".format(quote_id=quote_id)
+    url = f"/commercial_documents/{commercial_document_id}/appendices".format(commercial_document_id=commercial_document_id)
     params = {'cursor': cursor, 'limit': limit}
     params = {k: v for k, v in params.items() if v is not None}
     return await client.get(url, params=params)
 
 
 @tool(
-    name="pennylane_post_quote_appendices",
-    description="Upload an appendix for a quote. Upload a file that will be an appendix attached to a quote. Note that this will not upload a file into the DMS (GED). > ℹ️ > This endpoint requires the following scope: `quotes:all`",
+    name="pennylane_post_commercial_document_appendices",
+    description="Upload an appendix for a commercial document. Upload a file that will be an appendix attached to a commercial document. Note that this will not upload a file into the DMS (GED). > ℹ️ > This endpoint requires the following scope: `commercial_documents:all`",
     input_schema={   'type': 'object',
-        'properties': {   'quote_id': {'type': 'integer'},
+        'properties': {   'commercial_document_id': {'type': 'integer'},
                           'body': {   'type': 'object',
                                       'description': 'Request body payload. See the Pennylane API '
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
-        'required': ['quote_id', 'body']},
+        'required': ['commercial_document_id', 'body']},
 )
-async def post_quote_appendices(
+async def post_commercial_document_appendices(
     client: PennylaneClient,
-    quote_id: str,
+    commercial_document_id: str,
     body: Optional[dict[str, Any]] = None,
 ) -> Any:
-    url = f"/quotes/{quote_id}/appendices".format(quote_id=quote_id)
+    url = f"/commercial_documents/{commercial_document_id}/appendices".format(commercial_document_id=commercial_document_id)
     params = None
     return await client.post(url, data=body)
 
 
 @tool(
-    name="pennylane_get_quote_invoice_lines",
-    description="List invoice lines for a quote. List invoice lines for a quote > ℹ️ > This endpoint requires one of the following scopes: `quotes:all`, `quotes:readonly`",
+    name="pennylane_get_commercial_document_invoice_lines",
+    description="List invoice lines for a commercial document. List invoice lines for a commercial document > ℹ️ > This endpoint requires one of the following scopes: `commercial_documents:all`, `commercial_documents:readonly`",
     input_schema={   'type': 'object',
-        'properties': {   'quote_id': {'type': 'integer'},
+        'properties': {   'commercial_document_id': {'type': 'integer'},
                           'cursor': {   'type': 'string',
                                         'description': 'Cursor for pagination. Use this to fetch the '
                                                        'next set of results.\n'
@@ -182,26 +144,26 @@ async def post_quote_appendices(
                                                      'Example : `id` will sort by ascending order, '
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields : `id`\n'}},
-        'required': ['quote_id']},
+        'required': ['commercial_document_id']},
 )
-async def get_quote_invoice_lines(
+async def get_commercial_document_invoice_lines(
     client: PennylaneClient,
-    quote_id: str,
+    commercial_document_id: str,
     cursor: Optional[Any] = None,
     limit: Optional[Any] = None,
     sort: Optional[Any] = None,
 ) -> Any:
-    url = f"/quotes/{quote_id}/invoice_lines".format(quote_id=quote_id)
+    url = f"/commercial_documents/{commercial_document_id}/invoice_lines".format(commercial_document_id=commercial_document_id)
     params = {'cursor': cursor, 'limit': limit, 'sort': sort}
     params = {k: v for k, v in params.items() if v is not None}
     return await client.get(url, params=params)
 
 
 @tool(
-    name="pennylane_get_quote_invoice_line_sections",
-    description="List invoice line sections for a quote. List invoice line sections for a quote > ℹ️ > This endpoint requires one of the following scopes: `quotes:all`, `quotes:readonly`",
+    name="pennylane_get_commercial_document_invoice_line_sections",
+    description="List invoice line sections for a commercial document. List invoice line sections for a commercial document > ℹ️ > This endpoint requires one of the following scopes: `commercial_documents:all`, `commercial_documents:readonly`",
     input_schema={   'type': 'object',
-        'properties': {   'quote_id': {'type': 'integer'},
+        'properties': {   'commercial_document_id': {'type': 'integer'},
                           'cursor': {   'type': 'string',
                                         'description': 'Cursor for pagination. Use this to fetch the '
                                                        'next set of results.\n'
@@ -220,60 +182,18 @@ async def get_quote_invoice_lines(
                                                      'Example : `id` will sort by ascending order, '
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields : `id`\n'}},
-        'required': ['quote_id']},
+        'required': ['commercial_document_id']},
 )
-async def get_quote_invoice_line_sections(
+async def get_commercial_document_invoice_line_sections(
     client: PennylaneClient,
-    quote_id: str,
+    commercial_document_id: str,
     cursor: Optional[Any] = None,
     limit: Optional[Any] = None,
     sort: Optional[Any] = None,
 ) -> Any:
-    url = f"/quotes/{quote_id}/invoice_line_sections".format(quote_id=quote_id)
+    url = f"/commercial_documents/{commercial_document_id}/invoice_line_sections".format(commercial_document_id=commercial_document_id)
     params = {'cursor': cursor, 'limit': limit, 'sort': sort}
     params = {k: v for k, v in params.items() if v is not None}
     return await client.get(url, params=params)
-
-
-@tool(
-    name="pennylane_send_by_email_quote",
-    description="Send a quote by email. This endpoint allows you to send a quote by email to your customer. This requires that the PDF file for that document has been generated (this process can take a few minutes), so if you just created the quote in our system, we may return a 409 error. You should retry the request in a few minutes - if you receive a 204 response, that means that the email is on its way. For more information about email sending, please read \\[this guide\\](https://pennylane.readme.io/v2.0/docs/sending-documents-b...",
-    input_schema={   'type': 'object',
-        'properties': {   'id': {'type': 'integer'},
-                          'body': {   'type': 'object',
-                                      'description': 'Request body payload. See the Pennylane API '
-                                                     'reference for the exact schema of this endpoint.',
-                                      'additionalProperties': True}},
-        'required': ['id']},
-)
-async def send_by_email_quote(
-    client: PennylaneClient,
-    id: str,
-    body: Optional[dict[str, Any]] = None,
-) -> Any:
-    url = f"/quotes/{id}/send_by_email".format(id=id)
-    params = None
-    return await client.post(url, data=body)
-
-
-@tool(
-    name="pennylane_update_status_quote",
-    description="Update status of a quote. This endpoint allows you to update the status of a quote > ℹ️ > This endpoint requires the following scope: `quotes:all`",
-    input_schema={   'type': 'object',
-        'properties': {   'id': {'type': 'integer'},
-                          'body': {   'type': 'object',
-                                      'description': 'Request body payload. See the Pennylane API '
-                                                     'reference for the exact schema of this endpoint.',
-                                      'additionalProperties': True}},
-        'required': ['id', 'body']},
-)
-async def update_status_quote(
-    client: PennylaneClient,
-    id: str,
-    body: Optional[dict[str, Any]] = None,
-) -> Any:
-    url = f"/quotes/{id}/update_status".format(id=id)
-    params = None
-    return await client.put(url, data=body)
 
 

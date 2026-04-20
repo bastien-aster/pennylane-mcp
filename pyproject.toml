@@ -11,7 +11,7 @@ dependencies = [
 ]
 
 [project.scripts]
-pennylane-mcp = "pennylane_mcp.server:main"
+pennylane-mcp = "pennylane_mcp.server:_run"
 
 [build-system]
 requires = ["hatchling"]

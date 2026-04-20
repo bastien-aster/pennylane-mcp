@@ -9,8 +9,8 @@ from ..client import PennylaneClient
 
 
 @tool(
-    name="pennylane_get_suppliers",
-    description="List suppliers. List suppliers > ℹ️ > This endpoint requires one of the following scopes: `suppliers:all`, `suppliers:readonly`",
+    name="pennylane_get_gocardless_mandates",
+    description="List gocardless mandates. List gocardless mandates > ℹ️ > This endpoint requires one of the following scopes: `customer_mandates:all`, `customer_mandates:readonly`",
     input_schema={   'type': 'object',
         'properties': {   'cursor': {   'type': 'string',
                                         'description': 'Cursor for pagination. Use this to fetch the '
@@ -28,58 +28,53 @@ from ..client import PennylaneClient
                                                        'Available fields and values:\n'
                                                        '- `id`: `lt`, `lteq`, `gt`, `gteq`, `eq`, '
                                                        '`not_eq`, `in`, `not_in`\n'
-                                                       '- `ledger_account_id`: `eq`, `not_eq`\n'
-                                                       '- `name`: `start_with`\n'
-                                                       '- `external_reference`: `eq`, `not_eq`, `in`, '
-                                                       '`not_in`\n'
-                                                       '- `emails`: `in`\n'},
+                                                       '- `customer_id`: `lt`, `lteq`, `gt`, `gteq`, '
+                                                       '`eq`, `not_eq`, `in`, `not_in`\n'
+                                                       '- `external_reference`: `eq`\n'},
                           'sort': {   'type': 'string',
                                       'description': 'You can choose to sort items on specific '
-                                                     'attributes\n'
+                                                     'attributes.\n'
                                                      'Sort field may be prefixed with `-` for '
                                                      'descending order.\n'
-                                                     'Example : `id` will sort by ascending order, '
+                                                     'Example: `id` will sort by ascending order, '
                                                      '`-id` will sort by descending order.\n'
-                                                     'Available fields : `id`\n'}}},
+                                                     'Available fields: `id`\n'}}},
 )
-async def get_suppliers(
+async def get_gocardless_mandates(
     client: PennylaneClient,
     cursor: Optional[Any] = None,
     limit: Optional[Any] = None,
     filter: Optional[Any] = None,
     sort: Optional[Any] = None,
 ) -> Any:
-    url = "/suppliers"
+    url = "/gocardless_mandates"
     params = {'cursor': cursor, 'limit': limit, 'filter': filter, 'sort': sort}
     params = {k: v for k, v in params.items() if v is not None}
     return await client.get(url, params=params)
 
 
 @tool(
-    name="pennylane_post_supplier",
-    description="Create a Supplier. This endpoint returns the created supplier. > ℹ️ > This endpoint requires the following scope: `suppliers:all`",
+    name="pennylane_get_gocardless_mandate",
+    description="Get a Gocardless mandate. This endpoint allows you to retrieve a specific Gocardless mandate by ID. > ℹ️ > This endpoint requires one of the following scopes: `customer_mandates:all`, `customer_mandates:readonly`",
     input_schema={   'type': 'object',
-        'properties': {   'body': {   'type': 'object',
-                                      'description': 'Request body payload. See the Pennylane API '
-                                                     'reference for the exact schema of this endpoint.',
-                                      'additionalProperties': True}},
-        'required': ['body']},
+        'properties': {   'id': {   'type': 'integer',
+                                    'description': 'ID of the Gocardless mandate to retrieve'}},
+        'required': ['id']},
 )
-async def post_supplier(
+async def get_gocardless_mandate(
     client: PennylaneClient,
-    body: Optional[dict[str, Any]] = None,
+    id: str,
 ) -> Any:
-    url = "/suppliers"
+    url = f"/gocardless_mandates/{id}".format(id=id)
     params = None
-    return await client.post(url, data=body)
+    return await client.get(url, params=params)
 
 
 @tool(
-    name="pennylane_get_supplier",
-    description="Retrieve a supplier. This endpoint returns a supplier. > ℹ️ > This endpoint requires one of the following scopes: `suppliers:all`, `suppliers:readonly`",
+    name="pennylane_post_gocardless_mandate_mail_requests",
+    description="Send a GoCardless mandate email request. This endpoint allows you to send an email request for a GoCardless mandate to a recipient. > ℹ️ > This endpoint requires the following scope: `customer_mandates:all`",
     input_schema={   'type': 'object',
-        'properties': {   'id': {'type': 'integer', 'description': 'Supplier identifier'},
-                          'use_2026_api_changes': {   'type': 'boolean',
+        'properties': {   'use_2026_api_changes': {   'type': 'boolean',
                                                       'description': 'If you are already using the '
                                                                      '`X-Use-2026-API-Changes` header, '
                                                                      'you can ignore this parameter.\n'
@@ -91,25 +86,48 @@ async def post_supplier(
                                                                      '\n'
                                                                      '**For new user**, please use '
                                                                      'this parameter with `true` value '
-                                                                     'to opt in directly t'}},
-        'required': ['id']},
+                                                                     'to opt in directly t'},
+                          'body': {   'type': 'object',
+                                      'description': 'Request body payload. See the Pennylane API '
+                                                     'reference for the exact schema of this endpoint.',
+                                      'additionalProperties': True}},
+        'required': ['body']},
 )
-async def get_supplier(
+async def post_gocardless_mandate_mail_requests(
     client: PennylaneClient,
-    id: str,
     use_2026_api_changes: Optional[Any] = None,
+    body: Optional[dict[str, Any]] = None,
 ) -> Any:
-    url = f"/suppliers/{id}".format(id=id)
+    url = "/gocardless_mandates/mail_requests"
     params = {'use_2026_api_changes': use_2026_api_changes}
     params = {k: v for k, v in params.items() if v is not None}
-    return await client.get(url, params=params)
+    return await client.post(url, data=body)
 
 
 @tool(
-    name="pennylane_put_supplier",
-    description="Update a supplier. This endpoint returns the updated supplier. > ℹ️ > This endpoint requires the following scope: `suppliers:all`",
+    name="pennylane_post_gocardless_mandate_cancellations",
+    description="Cancel a Gocardless mandate. Cancels a specific Gocardless mandate by ID. The mandate must be in a cancellable state, having one of the following statuses: `pending_submission`, `submitted` or `active`. > ℹ️ > This endpoint requires the following scope: `customer_mandates:all`",
     input_schema={   'type': 'object',
-        'properties': {   'id': {'type': 'integer'},
+        'properties': {   'gocardless_mandate_id': {   'type': 'integer',
+                                                       'description': 'ID of the Gocardless mandate to '
+                                                                      'cancel'}},
+        'required': ['gocardless_mandate_id']},
+)
+async def post_gocardless_mandate_cancellations(
+    client: PennylaneClient,
+    gocardless_mandate_id: str,
+) -> Any:
+    url = f"/gocardless_mandates/{gocardless_mandate_id}/cancellations".format(gocardless_mandate_id=gocardless_mandate_id)
+    params = None
+    return await client.post(url, data=body)
+
+
+@tool(
+    name="pennylane_post_gocardless_mandate_associations",
+    description="Associate a GoCardless mandate to a customer. This endpoint allows you to associate a GoCardless mandate to a customer. > ℹ️ > This endpoint requires the following scope: `customer_mandates:all`",
+    input_schema={   'type': 'object',
+        'properties': {   'gocardless_mandate_id': {   'type': 'integer',
+                                                       'description': 'GoCardless Mandate identifier'},
                           'use_2026_api_changes': {   'type': 'boolean',
                                                       'description': 'If you are already using the '
                                                                      '`X-Use-2026-API-Changes` header, '
@@ -127,67 +145,17 @@ async def get_supplier(
                                       'description': 'Request body payload. See the Pennylane API '
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
-        'required': ['id', 'body']},
+        'required': ['gocardless_mandate_id', 'body']},
 )
-async def put_supplier(
+async def post_gocardless_mandate_associations(
     client: PennylaneClient,
-    id: str,
+    gocardless_mandate_id: str,
     use_2026_api_changes: Optional[Any] = None,
     body: Optional[dict[str, Any]] = None,
 ) -> Any:
-    url = f"/suppliers/{id}".format(id=id)
+    url = f"/gocardless_mandates/{gocardless_mandate_id}/associations".format(gocardless_mandate_id=gocardless_mandate_id)
     params = {'use_2026_api_changes': use_2026_api_changes}
     params = {k: v for k, v in params.items() if v is not None}
-    return await client.put(url, data=body)
-
-
-@tool(
-    name="pennylane_get_supplier_categories",
-    description="List categories of a supplier. List categories of a supplier > ℹ️ > This endpoint requires one of the following scopes: `suppliers:readonly`, `suppliers:all`",
-    input_schema={   'type': 'object',
-        'properties': {   'supplier_id': {'type': 'integer'},
-                          'cursor': {   'type': 'string',
-                                        'description': 'Cursor for pagination. Use this to fetch the '
-                                                       'next set of results.\n'
-                                                       'The cursor is an opaque string returned in the '
-                                                       "previous response's metadata.\n"
-                                                       'Leave empty for the first request.\n'},
-                          'limit': {   'type': 'integer',
-                                       'description': 'Number of items to return per request.\n'
-                                                      'Defaults to 20 if not specified.\n'
-                                                      'Must be between 1 and 100.\n'}},
-        'required': ['supplier_id']},
-)
-async def get_supplier_categories(
-    client: PennylaneClient,
-    supplier_id: str,
-    cursor: Optional[Any] = None,
-    limit: Optional[Any] = None,
-) -> Any:
-    url = f"/suppliers/{supplier_id}/categories".format(supplier_id=supplier_id)
-    params = {'cursor': cursor, 'limit': limit}
-    params = {k: v for k, v in params.items() if v is not None}
-    return await client.get(url, params=params)
-
-
-@tool(
-    name="pennylane_put_supplier_categories",
-    description="Categorize a supplier. Update the categories of a supplier. You can pass categories that don't belong to the same category group. The sum of categories of a same group must equal `1`. In the following example, the two first categories belong to the same category group A, the sum of the weights is `1`. The third category belongs to a category group B, its weight is `1`. ``` [ { 'id': 59, 'weight': '0.5' }, // category group A { 'id': 33, 'weight': '0.5' }, // category group A { 'id': 65, 'weight': '1' } // category ...",
-    input_schema={   'type': 'object',
-        'properties': {   'supplier_id': {'type': 'integer'},
-                          'body': {   'type': 'object',
-                                      'description': 'Request body payload. See the Pennylane API '
-                                                     'reference for the exact schema of this endpoint.',
-                                      'additionalProperties': True}},
-        'required': ['supplier_id', 'body']},
-)
-async def put_supplier_categories(
-    client: PennylaneClient,
-    supplier_id: str,
-    body: Optional[dict[str, Any]] = None,
-) -> Any:
-    url = f"/suppliers/{supplier_id}/categories".format(supplier_id=supplier_id)
-    params = None
-    return await client.put(url, data=body)
+    return await client.post(url, data=body)
 
 

@@ -2,7 +2,9 @@
 
 [English](#english) · [Français](#français)
 
-An MCP (Model Context Protocol) server that gives Claude direct access to your [Pennylane](https://pennylane.com) accounting data — invoices, customers, suppliers, transactions, ledger, and more.
+An MCP (Model Context Protocol) server that gives Claude direct access to your [Pennylane](https://pennylane.com) accounting data — invoices, customers, suppliers, transactions, ledger, exports, and more.
+
+**Covers 161 endpoints of the Pennylane Company API v2**, auto-generated from the [official OpenAPI spec](docs/pennylane-openapi.json).
 
 ---
 
@@ -12,17 +14,40 @@ An MCP (Model Context Protocol) server that gives Claude direct access to your [
 
 ### What it does
 
-This server exposes **38 tools** covering the Pennylane V2 API, letting Claude read and write invoices, manage customers and suppliers, query transactions, fetch the trial balance, and categorize entries on your behalf.
+This server exposes **161 tools** covering nearly the entire [Pennylane Company API v2](https://pennylane.readme.io/docs/api-overview), letting Claude read and write to your Pennylane workspace — invoices, quotes, customers, suppliers, transactions, ledger entries, mandates (SEPA + GoCardless), exports (FEC / AGL / General Ledger), billing subscriptions, commercial documents, and more.
 
-**Features**
-- Customer & supplier invoices (list, get, create, finalize, email, categorize)
-- Customer management (list, get, create — both companies and individuals)
-- Quote lifecycle (list, get, create, update, change status)
-- Suppliers (list, get, create)
-- Transactions (list, get, create, update, categorize, match/unmatch with invoices)
-- Accounting (trial balance, ledger accounts, categories, bank accounts)
+**Highlights**
+- Customer & supplier invoices: list, get, create, update, finalize, email, mark paid, import, match transactions, appendices, line sections, payments
+- Quotes (full lifecycle including appendices and email)
+- Customers: company, individual, contacts, categories
+- Suppliers & products: full CRUD + categorization
+- Ledger entries / entry lines / lettering / accounts
+- Exports: FEC, Analytical General Ledger, General Ledger
+- Billing subscriptions & commercial documents
+- SEPA mandates & GoCardless mandates
+- Bank accounts & bank establishments
+- Changelogs (delta sync endpoints for 8 domains)
+- Purchase requests, fiscal years, categories, journals, category groups
 - **Client-side rate limiting** (5 req/s, Pennylane's official limit)
 - **Exponential backoff retry** on 429 / 5xx, honoring `Retry-After`
+
+> Skipped on purpose: `webhook_subscription` — use [Make](https://make.com) or your own webhook infrastructure instead of letting Claude manage webhooks.
+
+### ⚠️ Which Pennylane API is this? Company vs Firm
+
+Pennylane exposes **two distinct APIs**. You must know which one you have before going further:
+
+| | **Company API** ← this MCP | Firm API |
+|---|---|---|
+| Who uses it | Companies using Pennylane for their own accounting | Accounting firms managing multiple client companies |
+| Authentication | Single API key scoped to one company | Firm-level key with per-client impersonation |
+| Base URL | `https://app.pennylane.com/api/external/v2` | Different base URL (see Pennylane Firm API docs) |
+| Token location | Pennylane dashboard → Settings → API | Firm admin panel |
+| **Docs** | https://pennylane.readme.io/ (current doc site) | https://firm-api.pennylane.com/docs (separate product) |
+
+**This MCP server only supports the Company API.** If you run a regular business and use Pennylane internally for your own accounting (like we do at Aster Développement), this is what you want. If you are an accountant managing multiple client books through Pennylane, you need the Firm API instead — which has a different schema and would require a separate MCP implementation.
+
+When in doubt: if you log into Pennylane and see **your own company's accounting**, you have Company API access. If you log in and see a **list of client companies**, you have the Firm API.
 
 ### Prerequisites
 
@@ -31,20 +56,25 @@ This server exposes **38 tools** covering the Pennylane V2 API, letting Claude r
 | Python ≥ 3.10 | Runtime | macOS: `brew install python@3.12` |
 | `uv` | Package manager (recommended) | `curl -LsSf https://astral.sh/uv/install.sh \| sh` |
 | Git | Cloning | `brew install git` |
-| Pennylane account | Obvious | [pennylane.com](https://pennylane.com) |
+| Pennylane Company account | Obvious | [pennylane.com](https://pennylane.com) |
 
 ### Step 1 — Get your Pennylane API key
 
-1. Log into Pennylane
+1. Log into [Pennylane](https://app.pennylane.com)
 2. Go to **Settings → API → API Keys**
 3. Click **Create a new key**
-4. Grant these scopes (check all that apply to what you want Claude to do):
+4. Grant these scopes (or only the subset you need):
    - `customers:all` · `products:all` · `customer_invoices:all` · `quotes:all`
    - `suppliers:all` · `supplier_invoices:all` · `ledger` · `trial_balance:readonly`
    - `categories:all` · `transactions:readonly` · `bank_accounts:readonly`
-5. **Copy the key immediately** — it's shown only once. Store it somewhere safe (password manager).
+   - `exports:fec` · `exports:agl` · `fiscal_years:readonly` · `file_attachments:all`
+   - `billing_subscriptions:all` · `commercial_documents:all`
+   - `customer_mandates:all` · `e_invoices:all`
+5. **Copy the key immediately** — it's shown only once. Store it in a password manager.
 
-> ⚠️ Never commit this key to git. The `.gitignore` in this repo blocks `.env` files, but double-check before pushing.
+📘 Official docs: [https://pennylane.readme.io/docs/api-overview](https://pennylane.readme.io/docs/api-overview)
+
+> ⚠️ Never commit this key to git. The `.gitignore` blocks `.env` files, but double-check before pushing.
 
 ### Step 2 — Clone & install
 
@@ -102,7 +132,7 @@ PENNYLANE_BASE_URL=https://app.pennylane.com/api/external/v2
 ```
 
 3. Save and **fully quit Claude Desktop** (⌘Q on macOS, not just close the window)
-4. Reopen Claude Desktop → the hammer/tool icon should now show Pennylane tools
+4. Reopen Claude Desktop → the tool icon now lists the 161 Pennylane tools
 
 ### Step 4B — Use with Claude Code
 
@@ -112,7 +142,7 @@ One command:
 claude mcp add pennylane --scope user -- uv --directory /absolute/path/to/pennylane-mcp run pennylane-mcp
 ```
 
-Then set your environment variables (Claude Code inherits your shell env):
+Then set your environment variables:
 
 ```bash
 export PENNYLANE_API_KEY="your_actual_key_here"
@@ -121,7 +151,7 @@ export PENNYLANE_BASE_URL="https://app.pennylane.com/api/external/v2"
 
 To make it permanent, add those `export` lines to your `~/.zshrc` or `~/.bashrc`.
 
-Verify with:
+Verify:
 
 ```bash
 claude mcp list
@@ -133,7 +163,7 @@ Open a new Claude conversation and ask:
 
 > "List my 5 most recent customer invoices from Pennylane."
 
-If Claude responds with real invoice data from your account, you're done 🎉
+If Claude returns real invoice data from your account, you're done 🎉
 
 ### Troubleshooting
 
@@ -142,9 +172,10 @@ If Claude responds with real invoice data from your account, you're done 🎉
 | `PENNYLANE_API_KEY environment variable is required` | `.env` file missing or key not set. Run `cp .env.example .env` and edit it. |
 | `API error: 401 - Unauthorized` | Key is wrong or revoked. Regenerate in Pennylane settings. |
 | `API error: 403 - Forbidden` | Key missing scopes. Create a new key with the required scopes (see Step 1). |
-| `API error: 429 - Too Many Requests` | Client rate limit shouldn't let this happen. If it does, wait 60s and retry — built-in retry handles it. |
+| `API error: 429 - Too Many Requests` | Client rate limit shouldn't let this happen. If it does, wait 60s — built-in retry handles it. |
 | `command not found: uv` | Install uv: `curl -LsSf https://astral.sh/uv/install.sh \| sh` |
-| Tools don't appear in Claude Desktop | Fully quit (⌘Q) and reopen. Check Claude Desktop → Settings → Developer → Logs for errors. |
+| Tools don't appear in Claude Desktop | Fully quit (⌘Q) and reopen. Check Claude Desktop → Settings → Developer → Logs. |
+| Too many tools, Claude picks the wrong one | Consider splitting the MCP into focused scopes per your use case — open an issue if you need this. |
 
 ### 🔒 Security
 
@@ -162,33 +193,33 @@ This fork has been audited before distribution:
 
 ### 🗺️ Roadmap & Updates
 
-Current coverage: **38 tools** across the 7 most-used Pennylane V2 API domains (invoices, customers, quotes, suppliers, transactions, accounting, bank accounts).
+The full Pennylane Company API v2 spec is pinned in [docs/pennylane-openapi.json](docs/pennylane-openapi.json) and the tool modules under `src/pennylane_mcp/tools/` are regenerated from it by running:
 
-**Not yet exposed — contributions welcome:**
+```bash
+python scripts/generate_tools.py
+```
 
-| Domain | Scopes needed |
-|---|---|
-| FEC / AGL exports | `exports:fec`, `exports:agl` |
-| Fiscal years | `fiscal_years:readonly` |
-| File attachments | `file_attachments:all` |
-| Billing subscriptions | `billing_subscriptions:all` |
-| Commercial documents | `commercial_documents:all` |
-| Customer mandates | `customer_mandates:all` |
-| E-invoicing | `e_invoices:all` |
-| Beneficial owners (RBE) | (see Pennylane docs) |
+When Pennylane ships new endpoints, update the spec file and rerun the script — no hand-editing needed.
 
-Each new tool follows the same pattern as those in `src/pennylane_mcp/tools/`: one function per endpoint, registered in `server.py`. Open an issue to request a specific endpoint or submit a PR.
+**What's NOT covered and by choice:**
+- `webhook_subscription` — use Make, n8n, or your own webhook infrastructure
+- Firm API — different product, requires a separate MCP implementation
+
+**Known limitations:**
+- Request bodies are passed through as free-form JSON. Claude figures out the right shape from the Pennylane docs — but for complex endpoints (e.g., creating a compound invoice with line items), point Claude at the [Pennylane docs page](https://pennylane.readme.io/reference) for the specific endpoint when the first try fails.
 
 ### Contributing
 
 PRs welcome — especially for:
-- Additional Pennylane V2 endpoints (see Roadmap above)
-- Tests
-- Improved error messages
+- Richer tool descriptions (auto-generated ones are terse)
+- Tests against a sandbox Pennylane account
+- A subset/profile system so users can enable only the scopes they need (e.g., "sales", "accounting", "exports")
 
 ### Credits & License
 
 Forked from [Akilinoxx/pennylane-mcp](https://github.com/Akilinoxx/pennylane-mcp). MIT License.
+
+Pennylane, Pennylane Company API, and related marks are trademarks of Pennylane. This project is not affiliated with or endorsed by Pennylane.
 
 ---
 
@@ -198,17 +229,40 @@ Forked from [Akilinoxx/pennylane-mcp](https://github.com/Akilinoxx/pennylane-mcp
 
 ### Ce que ça fait
 
-Ce serveur expose **38 outils** couvrant l'API Pennylane V2, permettant à Claude de lire et d'écrire des factures, gérer clients et fournisseurs, interroger des transactions, récupérer la balance, et catégoriser des écritures pour toi.
+Ce serveur expose **161 outils** couvrant quasiment toute la [Pennylane Company API v2](https://pennylane.readme.io/docs/api-overview), permettant à Claude de lire et d'écrire dans ton compte Pennylane — factures, devis, clients, fournisseurs, transactions, écritures comptables, mandats (SEPA + GoCardless), exports (FEC / AGL / Grand Livre), abonnements, documents commerciaux, et plus.
 
-**Fonctionnalités**
-- Factures clients & fournisseurs (liste, détail, création, finalisation, envoi par email, catégorisation)
-- Gestion clients (liste, détail, création — entreprises et particuliers)
-- Cycle de vie des devis (liste, détail, création, modification, changement de statut)
-- Fournisseurs (liste, détail, création)
-- Transactions (liste, détail, création, modification, catégorisation, rapprochement factures)
-- Comptabilité (balance, comptes du grand livre, catégories, comptes bancaires)
+**Points clés**
+- Factures clients & fournisseurs : liste, détail, création, modification, finalisation, envoi email, marquer payé, import, rapprochement transactions, pièces jointes, sections de lignes, paiements
+- Devis (cycle complet avec pièces jointes et envoi par email)
+- Clients : entreprises, particuliers, contacts, catégories
+- Fournisseurs & produits : CRUD complet + catégorisation
+- Écritures comptables / lignes / lettrage / comptes du grand livre
+- Exports : FEC, Grand Livre analytique, Grand Livre
+- Abonnements & documents commerciaux
+- Mandats SEPA & mandats GoCardless
+- Comptes bancaires & établissements bancaires
+- Changelogs (endpoints de sync delta sur 8 domaines)
+- Demandes d'achat, exercices fiscaux, catégories, journaux, groupes de catégories
 - **Rate limiting côté client** (5 req/s, limite officielle Pennylane)
 - **Retry avec backoff exponentiel** sur 429 / 5xx, respect du `Retry-After`
+
+> Volontairement non exposé : `webhook_subscription` — utilise [Make](https://make.com) ou ta propre infra webhook plutôt que de laisser Claude gérer ça.
+
+### ⚠️ Quelle API Pennylane ? Company vs Firm
+
+Pennylane expose **deux API distinctes**. Il faut savoir laquelle tu as avant d'aller plus loin :
+
+| | **Company API** ← ce MCP | Firm API |
+|---|---|---|
+| Utilisateur cible | Entreprises qui utilisent Pennylane pour leur propre compta | Cabinets d'expertise comptable gérant plusieurs clients |
+| Authentification | Clé API unique, limitée à une entreprise | Clé au niveau cabinet avec impersonation par client |
+| Base URL | `https://app.pennylane.com/api/external/v2` | Base URL différente (voir doc Firm API) |
+| Emplacement du token | Dashboard Pennylane → Paramètres → API | Admin cabinet |
+| **Documentation** | https://pennylane.readme.io/ (le site ci-dessus) | https://firm-api.pennylane.com/docs (produit séparé) |
+
+**Ce serveur MCP ne supporte que la Company API.** Si tu es une entreprise classique qui utilise Pennylane pour ta propre compta (comme nous chez Aster Développement), c'est exactement ce qu'il te faut. Si tu es comptable et que tu gères les livres de plusieurs clients via Pennylane, il te faut la Firm API — qui a un schéma différent et nécessite une implémentation MCP séparée.
+
+En cas de doute : si quand tu te connectes à Pennylane tu vois **ta propre compta d'entreprise**, tu as accès à la Company API. Si tu vois une **liste d'entreprises clientes**, tu as la Firm API.
 
 ### Prérequis
 
@@ -217,20 +271,25 @@ Ce serveur expose **38 outils** couvrant l'API Pennylane V2, permettant à Claud
 | Python ≥ 3.10 | Runtime | macOS : `brew install python@3.12` |
 | `uv` | Gestionnaire de paquets (recommandé) | `curl -LsSf https://astral.sh/uv/install.sh \| sh` |
 | Git | Pour cloner | `brew install git` |
-| Compte Pennylane | Évident | [pennylane.com](https://pennylane.com) |
+| Compte Pennylane Company | Évident | [pennylane.com](https://pennylane.com) |
 
 ### Étape 1 — Obtenir ta clé API Pennylane
 
-1. Connecte-toi à Pennylane
+1. Connecte-toi à [Pennylane](https://app.pennylane.com)
 2. Va dans **Paramètres → API → Clés API**
 3. Clique sur **Créer une nouvelle clé**
-4. Accorde ces scopes (coche ceux qui correspondent à ce que tu veux faire faire à Claude) :
+4. Accorde ces scopes (ou seulement le sous-ensemble dont tu as besoin) :
    - `customers:all` · `products:all` · `customer_invoices:all` · `quotes:all`
    - `suppliers:all` · `supplier_invoices:all` · `ledger` · `trial_balance:readonly`
    - `categories:all` · `transactions:readonly` · `bank_accounts:readonly`
+   - `exports:fec` · `exports:agl` · `fiscal_years:readonly` · `file_attachments:all`
+   - `billing_subscriptions:all` · `commercial_documents:all`
+   - `customer_mandates:all` · `e_invoices:all`
 5. **Copie la clé immédiatement** — elle n'est affichée qu'une fois. Stocke-la dans un gestionnaire de mots de passe.
 
-> ⚠️ Ne commit jamais cette clé sur git. Le `.gitignore` du repo bloque les fichiers `.env`, mais vérifie quand même avant tout push.
+📘 Documentation officielle : [https://pennylane.readme.io/docs/api-overview](https://pennylane.readme.io/docs/api-overview)
+
+> ⚠️ Ne commit jamais cette clé sur git. Le `.gitignore` bloque les `.env`, mais vérifie quand même avant tout push.
 
 ### Étape 2 — Cloner & installer
 
@@ -288,7 +347,7 @@ PENNYLANE_BASE_URL=https://app.pennylane.com/api/external/v2
 ```
 
 3. Enregistre et **quitte complètement Claude Desktop** (⌘Q sur macOS, pas juste fermer la fenêtre)
-4. Rouvre Claude Desktop → l'icône marteau/outils doit maintenant afficher les outils Pennylane
+4. Rouvre Claude Desktop → l'icône d'outils affiche maintenant les 161 outils Pennylane
 
 ### Étape 4B — Utilisation avec Claude Code
 
@@ -298,7 +357,7 @@ Une seule commande :
 claude mcp add pennylane --scope user -- uv --directory /chemin/absolu/vers/pennylane-mcp run pennylane-mcp
 ```
 
-Puis exporte tes variables d'environnement (Claude Code hérite de ton shell) :
+Puis exporte tes variables d'environnement :
 
 ```bash
 export PENNYLANE_API_KEY="ta_vraie_clé_ici"
@@ -307,7 +366,7 @@ export PENNYLANE_BASE_URL="https://app.pennylane.com/api/external/v2"
 
 Pour que ce soit permanent, ajoute ces lignes `export` à ton `~/.zshrc` ou `~/.bashrc`.
 
-Vérifie avec :
+Vérifie :
 
 ```bash
 claude mcp list
@@ -331,6 +390,7 @@ Si Claude te répond avec de vraies factures de ton compte, c'est bon 🎉
 | `API error: 429 - Too Many Requests` | Ne devrait pas arriver grâce au rate limiting client. Si ça arrive, attends 60s — le retry intégré gère. |
 | `command not found: uv` | Installe uv : `curl -LsSf https://astral.sh/uv/install.sh \| sh` |
 | Les outils n'apparaissent pas dans Claude Desktop | Quitte complètement (⌘Q) et rouvre. Vérifie les logs via Paramètres → Développeur. |
+| Trop d'outils, Claude choisit le mauvais | Envisage de splitter le MCP en scopes ciblés selon ton usage — ouvre une issue si tu as besoin de ça. |
 
 ### 🔒 Sécurité
 
@@ -348,30 +408,30 @@ Ce fork a été audité avant d'être distribué :
 
 ### 🗺️ Roadmap & Mises à jour
 
-Couverture actuelle : **38 outils** répartis sur les 7 domaines de l'API Pennylane V2 les plus utilisés (factures, clients, devis, fournisseurs, transactions, comptabilité, comptes bancaires).
+La spec OpenAPI complète de la Company API v2 est figée dans [docs/pennylane-openapi.json](docs/pennylane-openapi.json) et les modules d'outils sous `src/pennylane_mcp/tools/` sont générés à partir d'elle via :
 
-**Pas encore exposé — contributions bienvenues :**
+```bash
+python scripts/generate_tools.py
+```
 
-| Domaine | Scopes requis |
-|---|---|
-| Exports FEC / AGL | `exports:fec`, `exports:agl` |
-| Exercices fiscaux | `fiscal_years:readonly` |
-| Pièces jointes | `file_attachments:all` |
-| Abonnements | `billing_subscriptions:all` |
-| Documents commerciaux | `commercial_documents:all` |
-| Mandats clients | `customer_mandates:all` |
-| E-facturation | `e_invoices:all` |
-| Bénéficiaires effectifs (RBE) | (voir doc Pennylane) |
+Quand Pennylane livre de nouveaux endpoints, mets à jour le fichier de spec et relance le script — rien à éditer à la main.
 
-Chaque nouvel outil suit le même pattern que ceux de `src/pennylane_mcp/tools/` : une fonction par endpoint, enregistrée dans `server.py`. Ouvre une issue pour demander un endpoint précis ou soumets une PR.
+**Ce qui n'est PAS couvert, et pourquoi :**
+- `webhook_subscription` — utilise Make, n8n, ou ta propre infra webhook
+- Firm API — produit différent, nécessite une implémentation MCP séparée
+
+**Limitations connues :**
+- Les bodies de requêtes POST/PUT sont passés en JSON libre. Claude trouve la bonne forme grâce à la doc Pennylane — mais pour les endpoints complexes (ex: créer une facture composée avec lignes), pointe Claude vers la [page de doc Pennylane](https://pennylane.readme.io/reference) de l'endpoint spécifique si le premier essai échoue.
 
 ### Contribuer
 
 Les PR sont bienvenues — notamment pour :
-- Endpoints Pennylane V2 additionnels (voir Roadmap ci-dessus)
-- Tests
-- Messages d'erreur améliorés
+- Descriptions d'outils plus riches (l'auto-génération reste succincte)
+- Tests contre un compte sandbox Pennylane
+- Un système de profil/sous-ensemble pour n'activer que les scopes dont tu as besoin (ex: "ventes", "compta", "exports")
 
 ### Crédits & Licence
 
 Forké depuis [Akilinoxx/pennylane-mcp](https://github.com/Akilinoxx/pennylane-mcp). Licence MIT.
+
+Pennylane, Pennylane Company API et les marques associées sont des marques de Pennylane. Ce projet n'est ni affilié à ni soutenu par Pennylane.

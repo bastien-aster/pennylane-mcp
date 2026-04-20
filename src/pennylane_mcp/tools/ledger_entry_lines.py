@@ -1,0 +1,367 @@
+"""Auto-generated from docs/pennylane-openapi.json. Do not edit by hand.
+
+Regenerate with: python scripts/generate_tools.py
+"""
+from typing import Any, Optional
+
+from .._registry import tool
+from ..client import PennylaneClient
+
+
+@tool(
+    name="pennylane_get_ledger_entry_lines",
+    description="List ledger entry lines. List ledger entry lines > ℹ️ > This endpoint requires one of the following scopes: `ledger (DEPRECATED)`, `ledger_entries:readonly`, `ledger_entries:all`",
+    input_schema={   'type': 'object',
+        'properties': {   'use_2026_api_changes': {   'type': 'boolean',
+                                                      'description': 'If you are already using the '
+                                                                     '`X-Use-2026-API-Changes` header, '
+                                                                     'you can ignore this parameter.\n'
+                                                                     '\n'
+                                                                     'The Pennylane API is introducing '
+                                                                     'important changes, which will be '
+                                                                     'rolled out in three phases: '
+                                                                     'preview, sunset and cleanup.\n'
+                                                                     '\n'
+                                                                     '**For new user**, please use '
+                                                                     'this parameter with `true` value '
+                                                                     'to opt in directly t'},
+                          'cursor': {   'type': 'string',
+                                        'description': 'Cursor for pagination. Use this to fetch the '
+                                                       'next set of results.\n'
+                                                       'The cursor is an opaque string returned in the '
+                                                       "previous response's metadata.\n"
+                                                       'Leave empty for the first request.\n'},
+                          'limit': {   'type': 'integer',
+                                       'description': 'Number of items to return per request.\n'
+                                                      'Defaults to 20 if not specified.\n'
+                                                      'Must be between 1 and 100.\n'},
+                          'filter': {   'type': 'string',
+                                        'description': 'You can choose to filter items on specific '
+                                                       'fields.\n'
+                                                       'Available fields : `id`, `journal_id`, '
+                                                       '`ledger_account_id`, `date`\n'
+                                                       'Available operators : `lt`, `lteq`, `gt`, '
+                                                       '`gteq`, `eq`, `not_eq`, `in`, `not_in`\n'},
+                          'sort': {   'type': 'string',
+                                      'description': 'You can choose to sort items on specific '
+                                                     'attributes\n'
+                                                     'Sort field may be prefixed with `-` for '
+                                                     'descending order.\n'
+                                                     'Example : `id` will sort by ascending order, '
+                                                     '`-id` will sort by descending order.\n'
+                                                     'Available fields : `id`, `date`\n'}}},
+)
+async def get_ledger_entry_lines(
+    client: PennylaneClient,
+    use_2026_api_changes: Optional[Any] = None,
+    cursor: Optional[Any] = None,
+    limit: Optional[Any] = None,
+    filter: Optional[Any] = None,
+    sort: Optional[Any] = None,
+) -> Any:
+    url = "/ledger_entry_lines"
+    params = {'use_2026_api_changes': use_2026_api_changes, 'cursor': cursor, 'limit': limit, 'filter': filter, 'sort': sort}
+    params = {k: v for k, v in params.items() if v is not None}
+    return await client.get(url, params=params)
+
+
+@tool(
+    name="pennylane_get_ledger_entry_line",
+    description="Retrieve a Ledger entry line. Retrieve a ledger entry line > ℹ️ > This endpoint requires one of the following scopes: `ledger (DEPRECATED)`, `ledger_entries:readonly`, `ledger_entries:all`",
+    input_schema={   'type': 'object',
+        'properties': {   'id': {   'type': 'integer',
+                                    'description': 'The unique identifier of the ledger entry line'},
+                          'use_2026_api_changes': {   'type': 'boolean',
+                                                      'description': 'If you are already using the '
+                                                                     '`X-Use-2026-API-Changes` header, '
+                                                                     'you can ignore this parameter.\n'
+                                                                     '\n'
+                                                                     'The Pennylane API is introducing '
+                                                                     'important changes, which will be '
+                                                                     'rolled out in three phases: '
+                                                                     'preview, sunset and cleanup.\n'
+                                                                     '\n'
+                                                                     '**For new user**, please use '
+                                                                     'this parameter with `true` value '
+                                                                     'to opt in directly t'}},
+        'required': ['id']},
+)
+async def get_ledger_entry_line(
+    client: PennylaneClient,
+    id: str,
+    use_2026_api_changes: Optional[Any] = None,
+) -> Any:
+    url = f"/ledger_entry_lines/{id}".format(id=id)
+    params = {'use_2026_api_changes': use_2026_api_changes}
+    params = {k: v for k, v in params.items() if v is not None}
+    return await client.get(url, params=params)
+
+
+@tool(
+    name="pennylane_post_ledger_entry_lines_letter",
+    description="Letter ledger entry lines. This endpoint lets you letter ledger entry lines together. All received entry lines will be lettered together. If a passed entry line is already lettered, then the lettering will be applied to its associated lettered entry lines as well. > ℹ️ > This endpoint requires one of the following scopes: `ledger (DEPRECATED)`, `ledger_entries:all`",
+    input_schema={   'type': 'object',
+        'properties': {   'use_2026_api_changes': {   'type': 'boolean',
+                                                      'description': 'If you are already using the '
+                                                                     '`X-Use-2026-API-Changes` header, '
+                                                                     'you can ignore this parameter.\n'
+                                                                     '\n'
+                                                                     'The Pennylane API is introducing '
+                                                                     'important changes, which will be '
+                                                                     'rolled out in three phases: '
+                                                                     'preview, sunset and cleanup.\n'
+                                                                     '\n'
+                                                                     '**For new user**, please use '
+                                                                     'this parameter with `true` value '
+                                                                     'to opt in directly t'},
+                          'body': {   'type': 'object',
+                                      'description': 'Request body payload. See the Pennylane API '
+                                                     'reference for the exact schema of this endpoint.',
+                                      'additionalProperties': True}},
+        'required': ['body']},
+)
+async def post_ledger_entry_lines_letter(
+    client: PennylaneClient,
+    use_2026_api_changes: Optional[Any] = None,
+    body: Optional[dict[str, Any]] = None,
+) -> Any:
+    url = "/ledger_entry_lines/lettering"
+    params = {'use_2026_api_changes': use_2026_api_changes}
+    params = {k: v for k, v in params.items() if v is not None}
+    return await client.post(url, data=body)
+
+
+@tool(
+    name="pennylane_delete_ledger_entry_lines_unletter",
+    description="Unletter ledger entry lines. This endpoint lets you unletter ledger entry lines. > ℹ️ > This endpoint requires one of the following scopes: `ledger (DEPRECATED)`, `ledger_entries:all`",
+    input_schema={   'type': 'object',
+        'properties': {   'use_2026_api_changes': {   'type': 'boolean',
+                                                      'description': 'If you are already using the '
+                                                                     '`X-Use-2026-API-Changes` header, '
+                                                                     'you can ignore this parameter.\n'
+                                                                     '\n'
+                                                                     'The Pennylane API is introducing '
+                                                                     'important changes, which will be '
+                                                                     'rolled out in three phases: '
+                                                                     'preview, sunset and cleanup.\n'
+                                                                     '\n'
+                                                                     '**For new user**, please use '
+                                                                     'this parameter with `true` value '
+                                                                     'to opt in directly t'},
+                          'body': {   'type': 'object',
+                                      'description': 'Request body payload. See the Pennylane API '
+                                                     'reference for the exact schema of this endpoint.',
+                                      'additionalProperties': True}},
+        'required': ['body']},
+)
+async def delete_ledger_entry_lines_unletter(
+    client: PennylaneClient,
+    use_2026_api_changes: Optional[Any] = None,
+    body: Optional[dict[str, Any]] = None,
+) -> Any:
+    url = "/ledger_entry_lines/lettering"
+    params = {'use_2026_api_changes': use_2026_api_changes}
+    params = {k: v for k, v in params.items() if v is not None}
+    return await client.delete(url)
+
+
+@tool(
+    name="pennylane_get_ledger_entry_lines_lettered_ledger_entry_lines",
+    description="List ledger entry lines lettered to a given ledger entry line. List ledger entry lines lettered to a given ledger entry line **DEPRECATED BEHAVIOR:** The items rendered are sorted ordered by ascending `id`. **NEW BEHAVIOR:** The items rendered are sorted ordered by descending `id` by default. A new sort param is available to customize the sorting behavior (see 'sort' query parameter description). The old `ledger` scope will only work on the old behavior system. As soon as you opt in to the new version, or when the sunset phase starts and you haven't expl...",
+    input_schema={   'type': 'object',
+        'properties': {   'ledger_entry_line_id': {   'type': 'number',
+                                                      'description': 'Ledger Entry line (id)'},
+                          'use_2026_api_changes': {   'type': 'boolean',
+                                                      'description': 'If you are already using the '
+                                                                     '`X-Use-2026-API-Changes` header, '
+                                                                     'you can ignore this parameter.\n'
+                                                                     '\n'
+                                                                     'The Pennylane API is introducing '
+                                                                     'important changes, which will be '
+                                                                     'rolled out in three phases: '
+                                                                     'preview, sunset and cleanup.\n'
+                                                                     '\n'
+                                                                     '**For new user**, please use '
+                                                                     'this parameter with `true` value '
+                                                                     'to opt in directly t'},
+                          'page': {   'type': 'integer',
+                                      'description': 'This pagination system is **DEPRECATED**. For '
+                                                     'more details, see our API documentation '
+                                                     'https://pennylane.readme.io/docs/2026-api-changes-guide '
+                                                     'for migration instructions.\n'
+                                                     'Items are paginated, this is the current page '
+                                                     'which will be returned. The page index is '
+                                                     'starting at 1. This parameter is deprecate'},
+                          'per_page': {   'type': 'integer',
+                                          'description': 'This pagination system is **DEPRECATED**. '
+                                                         'For more details, see our API documentation '
+                                                         'https://pennylane.readme.io/docs/2026-api-changes-guide '
+                                                         'for migration instructions.\n'
+                                                         'Items are paginated. By default, you get 20 '
+                                                         'items per page. You can specify another '
+                                                         'number of items per page.\n'
+                                                         'deprecated: true'},
+                          'cursor': {   'type': 'string',
+                                        'description': 'This pagination system is only available in '
+                                                       'the new version of the API. For more details, '
+                                                       'see our API documentation '
+                                                       'https://pennylane.readme.io/docs/2026-api-changes-guide '
+                                                       'for migration instructions.\n'
+                                                       'Use this to fetch the next set of results. The '
+                                                       'cursor is an opaque string returned in the '
+                                                       'previous r'},
+                          'limit': {   'type': 'integer',
+                                       'description': 'This pagination system is only available in the '
+                                                      'new version of the API.\n'
+                                                      'For more details, see our API documentation '
+                                                      'https://pennylane.readme.io/docs/2026-api-changes-guide '
+                                                      'for migration instructions.\n'
+                                                      'Number of items to return per request.\n'
+                                                      'Defaults to 20 if not specified.\n'
+                                                      'Must be between 1 and 100.\n'},
+                          'sort': {   'type': 'string',
+                                      'description': 'Only available in the new version of the API.\n'
+                                                     'For more details, see our API documentation '
+                                                     'https://pennylane.readme.io/docs/2026-api-changes-guide '
+                                                     'for migration instructions.\n'
+                                                     '\n'
+                                                     'You can choose to sort items on specific '
+                                                     'attributes\n'
+                                                     'Sort field may be prefixed with `-` for '
+                                                     'descending order.\n'
+                                                     'Example : `id` '}},
+        'required': ['ledger_entry_line_id']},
+)
+async def get_ledger_entry_lines_lettered_ledger_entry_lines(
+    client: PennylaneClient,
+    ledger_entry_line_id: str,
+    use_2026_api_changes: Optional[Any] = None,
+    page: Optional[Any] = None,
+    per_page: Optional[Any] = None,
+    cursor: Optional[Any] = None,
+    limit: Optional[Any] = None,
+    sort: Optional[Any] = None,
+) -> Any:
+    url = f"/ledger_entry_lines/{ledger_entry_line_id}/lettered_ledger_entry_lines".format(ledger_entry_line_id=ledger_entry_line_id)
+    params = {'use_2026_api_changes': use_2026_api_changes, 'page': page, 'per_page': per_page, 'cursor': cursor, 'limit': limit, 'sort': sort}
+    params = {k: v for k, v in params.items() if v is not None}
+    return await client.get(url, params=params)
+
+
+@tool(
+    name="pennylane_get_ledger_entry_lines_categories",
+    description="List categories of a Ledger Entry line. List categories of a Ledger Entry line **NEW BEHAVIOR :** The old `ledger` scope will only work on the old behavior system. As soon as you opt in to the new version, or when the sunset phase starts and you haven't explicitly opted out of the old behavior, the ledger scope will no longer work. For more details, see our API documentation https://pennylane.readme.io/docs/2026-api-changes-guide for migration instructions. > ℹ️ > This endpoint requires one of the following scopes: `ledger (DEPRECA...",
+    input_schema={   'type': 'object',
+        'properties': {   'ledger_entry_line_id': {   'type': 'integer',
+                                                      'description': 'Existing Ledger Entry line (id)'},
+                          'use_2026_api_changes': {   'type': 'boolean',
+                                                      'description': 'If you are already using the '
+                                                                     '`X-Use-2026-API-Changes` header, '
+                                                                     'you can ignore this parameter.\n'
+                                                                     '\n'
+                                                                     'The Pennylane API is introducing '
+                                                                     'important changes, which will be '
+                                                                     'rolled out in three phases: '
+                                                                     'preview, sunset and cleanup.\n'
+                                                                     '\n'
+                                                                     '**For new user**, please use '
+                                                                     'this parameter with `true` value '
+                                                                     'to opt in directly t'},
+                          'page': {   'type': 'integer',
+                                      'description': 'This pagination system is **DEPRECATED**. For '
+                                                     'more details, see our API documentation '
+                                                     'https://pennylane.readme.io/docs/2026-api-changes-guide '
+                                                     'for migration instructions.\n'
+                                                     'Items are paginated, this is the current page '
+                                                     'which will be returned. The page index is '
+                                                     'starting at 1.'},
+                          'per_page': {   'type': 'integer',
+                                          'description': 'This pagination system is **DEPRECATED**. '
+                                                         'For more details, see our API documentation '
+                                                         'https://pennylane.readme.io/docs/2026-api-changes-guide '
+                                                         'for migration instructions.\n'
+                                                         'Items are paginated. By default, you get 20 '
+                                                         'items per page. You can specify another '
+                                                         'number of items per page.'},
+                          'cursor': {   'type': 'string',
+                                        'description': 'This pagination system is only available in '
+                                                       'the new version of the API. For more details, '
+                                                       'see our API documentation '
+                                                       'https://pennylane.readme.io/docs/2026-api-changes-guide '
+                                                       'for migration instructions.\n'
+                                                       'Use this to fetch the next set of results. The '
+                                                       'cursor is an opaque string returned in the '
+                                                       'previous r'},
+                          'limit': {   'type': 'integer',
+                                       'description': 'This pagination system is only available in the '
+                                                      'new version of the API.\n'
+                                                      'For more details, see our API documentation '
+                                                      'https://pennylane.readme.io/docs/2026-api-changes-guide '
+                                                      'for migration instructions.\n'
+                                                      'Number of items to return per request.\n'
+                                                      'Defaults to 20 if not specified.\n'
+                                                      'Must be between 1 and 100.\n'},
+                          'sort': {   'type': 'string',
+                                      'description': 'You can choose to sort items on specific '
+                                                     'attributes\n'
+                                                     'Sort field may be prefixed with `-` for '
+                                                     'descending order.\n'
+                                                     'Example : `id` will sort by ascending order, '
+                                                     '`-id` will sort by descending order.\n'
+                                                     'Available fields :\n'
+                                                     '- `id`\n'}},
+        'required': ['ledger_entry_line_id']},
+)
+async def get_ledger_entry_lines_categories(
+    client: PennylaneClient,
+    ledger_entry_line_id: str,
+    use_2026_api_changes: Optional[Any] = None,
+    page: Optional[Any] = None,
+    per_page: Optional[Any] = None,
+    cursor: Optional[Any] = None,
+    limit: Optional[Any] = None,
+    sort: Optional[Any] = None,
+) -> Any:
+    url = f"/ledger_entry_lines/{ledger_entry_line_id}/categories".format(ledger_entry_line_id=ledger_entry_line_id)
+    params = {'use_2026_api_changes': use_2026_api_changes, 'page': page, 'per_page': per_page, 'cursor': cursor, 'limit': limit, 'sort': sort}
+    params = {k: v for k, v in params.items() if v is not None}
+    return await client.get(url, params=params)
+
+
+@tool(
+    name="pennylane_put_ledger_entry_lines_categories",
+    description="Link Analytical Categories to a Ledger Entry line. This endpoint replaces already existing categories on the Ledger Entry line with new values. If an empty array of categories_ids is provided, it will remove all categories from the Ledger Entry line. **NEW BEHAVIOR :** The old `ledger` scope will only work on the old behavior system. As soon as you opt in to the new version, or when the sunset phase starts and you haven't explicitly opted out of the old behavior, the ledger scope will no longer work. For more details, see our API documentatio...",
+    input_schema={   'type': 'object',
+        'properties': {   'ledger_entry_line_id': {   'type': 'number',
+                                                      'description': 'Existing Ledger Entry line (id)'},
+                          'use_2026_api_changes': {   'type': 'boolean',
+                                                      'description': 'If you are already using the '
+                                                                     '`X-Use-2026-API-Changes` header, '
+                                                                     'you can ignore this parameter.\n'
+                                                                     '\n'
+                                                                     'The Pennylane API is introducing '
+                                                                     'important changes, which will be '
+                                                                     'rolled out in three phases: '
+                                                                     'preview, sunset and cleanup.\n'
+                                                                     '\n'
+                                                                     '**For new user**, please use '
+                                                                     'this parameter with `true` value '
+                                                                     'to opt in directly t'},
+                          'body': {   'type': 'object',
+                                      'description': 'Request body payload. See the Pennylane API '
+                                                     'reference for the exact schema of this endpoint.',
+                                      'additionalProperties': True}},
+        'required': ['ledger_entry_line_id', 'body']},
+)
+async def put_ledger_entry_lines_categories(
+    client: PennylaneClient,
+    ledger_entry_line_id: str,
+    use_2026_api_changes: Optional[Any] = None,
+    body: Optional[dict[str, Any]] = None,
+) -> Any:
+    url = f"/ledger_entry_lines/{ledger_entry_line_id}/categories".format(ledger_entry_line_id=ledger_entry_line_id)
+    params = {'use_2026_api_changes': use_2026_api_changes}
+    params = {k: v for k, v in params.items() if v is not None}
+    return await client.put(url, data=body)
+
+

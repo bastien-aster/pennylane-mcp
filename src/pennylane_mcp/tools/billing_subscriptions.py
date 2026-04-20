@@ -9,8 +9,27 @@ from ..client import PennylaneClient
 
 
 @tool(
-    name="pennylane_get_customers",
-    description="List customers (company and individual). This endpoint returns a list of both company and individual customers > ℹ️ > This endpoint requires one of the following scopes: `customers:all`, `customers:readonly`",
+    name="pennylane_post_billing_subscriptions",
+    description="Create a billing subscription. This endpoint allows you to create a subscription. Pennylane will generate the customer invoice each month. You can also link the subscription to a GoCardless mandate. > ℹ️ > This endpoint requires the following scope: `billing_subscriptions:all`",
+    input_schema={   'type': 'object',
+        'properties': {   'body': {   'type': 'object',
+                                      'description': 'Request body payload. See the Pennylane API '
+                                                     'reference for the exact schema of this endpoint.',
+                                      'additionalProperties': True}},
+        'required': ['body']},
+)
+async def post_billing_subscriptions(
+    client: PennylaneClient,
+    body: Optional[dict[str, Any]] = None,
+) -> Any:
+    url = "/billing_subscriptions"
+    params = None
+    return await client.post(url, data=body)
+
+
+@tool(
+    name="pennylane_get_billing_subscriptions",
+    description="List billing subscriptions. This endpoint returns a list of subscriptions. > ℹ️ > This endpoint requires one of the following scopes: `billing_subscriptions:all`, `billing_subscriptions:readonly`",
     input_schema={   'type': 'object',
         'properties': {   'cursor': {   'type': 'string',
                                         'description': 'Cursor for pagination. Use this to fetch the '
@@ -26,13 +45,9 @@ from ..client import PennylaneClient
                                         'description': 'You can choose to filter items on specific '
                                                        'fields.\n'
                                                        'Available fields and values:\n'
-                                                       '- `id`: `lt`, `lteq`, `gt`, `gteq`, `eq`, '
-                                                       '`not_eq`, `in`, `not_in`\n'
-                                                       '- `customer_type`: `eq`, `not_eq`\n'
-                                                       '- `ledger_account_id`: `eq`, `not_eq`\n'
-                                                       '- `name`: `start_with`, `eq`\n'
-                                                       '- `external_reference`: `start_with`, `eq`, '
-                                                       '`not_eq`'},
+                                                       '- `id`, `start`, `customer_id`: `lt`, `lteq`, '
+                                                       '`gt`, `gteq`, `eq`, `not_eq`, `in`, `not_in`\n'
+                                                       '- `status`: `eq`, `not_eq`, `in`, `not_in`\n'},
                           'sort': {   'type': 'string',
                                       'description': 'You can choose to sort items on specific '
                                                      'attributes\n'
@@ -42,24 +57,25 @@ from ..client import PennylaneClient
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields : `id`\n'}}},
 )
-async def get_customers(
+async def get_billing_subscriptions(
     client: PennylaneClient,
     cursor: Optional[Any] = None,
     limit: Optional[Any] = None,
     filter: Optional[Any] = None,
     sort: Optional[Any] = None,
 ) -> Any:
-    url = "/customers"
+    url = "/billing_subscriptions"
     params = {'cursor': cursor, 'limit': limit, 'filter': filter, 'sort': sort}
     params = {k: v for k, v in params.items() if v is not None}
     return await client.get(url, params=params)
 
 
 @tool(
-    name="pennylane_get_customer",
-    description="Retrieve a customer. This endpoint returns a customer. > ℹ️ > This endpoint requires one of the following scopes: `customers:all`, `customers:readonly`",
+    name="pennylane_get_billing_subscription",
+    description="Get a billing subscription. This endpoint returns a specific billing subscription. > ℹ️ > This endpoint requires one of the following scopes: `billing_subscriptions:all`, `billing_subscriptions:readonly`",
     input_schema={   'type': 'object',
-        'properties': {   'id': {'type': 'integer', 'description': 'Customer identifier'},
+        'properties': {   'id': {   'type': 'integer',
+                                    'description': 'The ID of the billing subscription to retrieve'},
                           'use_2026_api_changes': {   'type': 'boolean',
                                                       'description': 'If you are already using the '
                                                                      '`X-Use-2026-API-Changes` header, '
@@ -75,72 +91,59 @@ async def get_customers(
                                                                      'to opt in directly t'}},
         'required': ['id']},
 )
-async def get_customer(
+async def get_billing_subscription(
     client: PennylaneClient,
     id: str,
     use_2026_api_changes: Optional[Any] = None,
 ) -> Any:
-    url = f"/customers/{id}".format(id=id)
+    url = f"/billing_subscriptions/{id}".format(id=id)
     params = {'use_2026_api_changes': use_2026_api_changes}
     params = {k: v for k, v in params.items() if v is not None}
     return await client.get(url, params=params)
 
 
 @tool(
-    name="pennylane_get_customer_categories",
-    description="List categories of a customer. List categories of a customer > ℹ️ > This endpoint requires one of the following scopes: `customers:readonly`, `customers:all`",
+    name="pennylane_put_billing_subscriptions",
+    description="Update a billing subscription. Update a billing subscription > ℹ️ > This endpoint requires the following scope: `billing_subscriptions:all`",
     input_schema={   'type': 'object',
-        'properties': {   'customer_id': {'type': 'integer'},
-                          'cursor': {   'type': 'string',
-                                        'description': 'Cursor for pagination. Use this to fetch the '
-                                                       'next set of results.\n'
-                                                       'The cursor is an opaque string returned in the '
-                                                       "previous response's metadata.\n"
-                                                       'Leave empty for the first request.\n'},
-                          'limit': {   'type': 'integer',
-                                       'description': 'Number of items to return per request.\n'
-                                                      'Defaults to 20 if not specified.\n'
-                                                      'Must be between 1 and 100.\n'}},
-        'required': ['customer_id']},
-)
-async def get_customer_categories(
-    client: PennylaneClient,
-    customer_id: str,
-    cursor: Optional[Any] = None,
-    limit: Optional[Any] = None,
-) -> Any:
-    url = f"/customers/{customer_id}/categories".format(customer_id=customer_id)
-    params = {'cursor': cursor, 'limit': limit}
-    params = {k: v for k, v in params.items() if v is not None}
-    return await client.get(url, params=params)
-
-
-@tool(
-    name="pennylane_put_customer_categories",
-    description="Categorize a customer. Update the categories of a customer. You can pass categories that don't belong to the same category group. The sum of categories of a same group must equal `1`. In the following example, the two first categories belong to the same category group A, the sum of the weights is `1`. The third category belongs to a category group B, its weight is `1`. ``` [ { 'id': 59, 'weight': '0.5' }, // category group A { 'id': 33, 'weight': '0.5' }, // category group A { 'id': 65, 'weight': '1' } // category ...",
-    input_schema={   'type': 'object',
-        'properties': {   'customer_id': {'type': 'integer'},
+        'properties': {   'id': {   'type': 'integer',
+                                    'description': 'The ID of the billing subscription to retrieve'},
+                          'use_2026_api_changes': {   'type': 'boolean',
+                                                      'description': 'If you are already using the '
+                                                                     '`X-Use-2026-API-Changes` header, '
+                                                                     'you can ignore this parameter.\n'
+                                                                     '\n'
+                                                                     'The Pennylane API is introducing '
+                                                                     'important changes, which will be '
+                                                                     'rolled out in three phases: '
+                                                                     'preview, sunset and cleanup.\n'
+                                                                     '\n'
+                                                                     '**For new user**, please use '
+                                                                     'this parameter with `true` value '
+                                                                     'to opt in directly t'},
                           'body': {   'type': 'object',
                                       'description': 'Request body payload. See the Pennylane API '
                                                      'reference for the exact schema of this endpoint.',
                                       'additionalProperties': True}},
-        'required': ['customer_id', 'body']},
+        'required': ['id', 'body']},
 )
-async def put_customer_categories(
+async def put_billing_subscriptions(
     client: PennylaneClient,
-    customer_id: str,
+    id: str,
+    use_2026_api_changes: Optional[Any] = None,
     body: Optional[dict[str, Any]] = None,
 ) -> Any:
-    url = f"/customers/{customer_id}/categories".format(customer_id=customer_id)
-    params = None
+    url = f"/billing_subscriptions/{id}".format(id=id)
+    params = {'use_2026_api_changes': use_2026_api_changes}
+    params = {k: v for k, v in params.items() if v is not None}
     return await client.put(url, data=body)
 
 
 @tool(
-    name="pennylane_get_customer_contacts",
-    description="List contacts of a customer. List contacts of a customer > ℹ️ > This endpoint requires one of the following scopes: `customers:all`, `customers:readonly`",
+    name="pennylane_get_billing_subscription_invoice_line_sections",
+    description="List the invoice line sections of a billing subscription. List the invoice line sections of a billing subscription > ℹ️ > This endpoint requires one of the following scopes: `billing_subscriptions:all`, `billing_subscriptions:readonly`",
     input_schema={   'type': 'object',
-        'properties': {   'customer_id': {'type': 'integer'},
+        'properties': {   'billing_subscription_id': {'type': 'integer'},
                           'cursor': {   'type': 'string',
                                         'description': 'Cursor for pagination. Use this to fetch the '
                                                        'next set of results.\n'
@@ -159,16 +162,54 @@ async def put_customer_categories(
                                                      'Example : `id` will sort by ascending order, '
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields : `id`\n'}},
-        'required': ['customer_id']},
+        'required': ['billing_subscription_id']},
 )
-async def get_customer_contacts(
+async def get_billing_subscription_invoice_line_sections(
     client: PennylaneClient,
-    customer_id: str,
+    billing_subscription_id: str,
     cursor: Optional[Any] = None,
     limit: Optional[Any] = None,
     sort: Optional[Any] = None,
 ) -> Any:
-    url = f"/customers/{customer_id}/contacts".format(customer_id=customer_id)
+    url = f"/billing_subscriptions/{billing_subscription_id}/invoice_line_sections".format(billing_subscription_id=billing_subscription_id)
+    params = {'cursor': cursor, 'limit': limit, 'sort': sort}
+    params = {k: v for k, v in params.items() if v is not None}
+    return await client.get(url, params=params)
+
+
+@tool(
+    name="pennylane_get_billing_subscription_invoice_lines",
+    description="List invoice lines for a billing subscription. List invoice lines for a billing subscription > ℹ️ > This endpoint requires one of the following scopes: `billing_subscriptions:all`, `billing_subscriptions:readonly`",
+    input_schema={   'type': 'object',
+        'properties': {   'billing_subscription_id': {'type': 'integer'},
+                          'cursor': {   'type': 'string',
+                                        'description': 'Cursor for pagination. Use this to fetch the '
+                                                       'next set of results.\n'
+                                                       'The cursor is an opaque string returned in the '
+                                                       "previous response's metadata.\n"
+                                                       'Leave empty for the first request.\n'},
+                          'limit': {   'type': 'integer',
+                                       'description': 'Number of items to return per request.\n'
+                                                      'Defaults to 20 if not specified.\n'
+                                                      'Must be between 1 and 100.\n'},
+                          'sort': {   'type': 'string',
+                                      'description': 'You can choose to sort items on specific '
+                                                     'attributes\n'
+                                                     'Sort field may be prefixed with `-` for '
+                                                     'descending order.\n'
+                                                     'Example : `id` will sort by ascending order, '
+                                                     '`-id` will sort by descending order.\n'
+                                                     'Available fields : `id`\n'}},
+        'required': ['billing_subscription_id']},
+)
+async def get_billing_subscription_invoice_lines(
+    client: PennylaneClient,
+    billing_subscription_id: str,
+    cursor: Optional[Any] = None,
+    limit: Optional[Any] = None,
+    sort: Optional[Any] = None,
+) -> Any:
+    url = f"/billing_subscriptions/{billing_subscription_id}/invoice_lines".format(billing_subscription_id=billing_subscription_id)
     params = {'cursor': cursor, 'limit': limit, 'sort': sort}
     params = {k: v for k, v in params.items() if v is not None}
     return await client.get(url, params=params)
