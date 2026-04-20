@@ -79,7 +79,7 @@ Tape dans le Terminal :
 whoami
 ```
 
-**Note le résultat** (ex: `bastienfp`). Tu vas en avoir besoin à l'étape suivante.
+**Note le résultat** (ex: `jamesbond`). Tu vas en avoir besoin à l'étape suivante.
 
 ---
 
@@ -302,7 +302,7 @@ Type in the Terminal:
 whoami
 ```
 
-**Note the output** (e.g. `bastienfp`). You'll need it in the next step.
+**Note the output** (e.g. `jamesbond`). You'll need it in the next step.
 
 ---
 
