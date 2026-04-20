@@ -31,6 +31,7 @@ from ..client import PennylaneClient
                                                            'in a 422 response. Providing both '
                                                            '`start_date` and `cur'}}},
     resource="changelogs",
+    readonly=True,
 )
 async def get_customer_invoices_changes(
     client: PennylaneClient,
@@ -67,6 +68,7 @@ async def get_customer_invoices_changes(
                                                            'in a 422 response. Providing both '
                                                            '`start_date` and `cur'}}},
     resource="changelogs",
+    readonly=True,
 )
 async def get_supplier_invoices_changes(
     client: PennylaneClient,
@@ -103,6 +105,7 @@ async def get_supplier_invoices_changes(
                                                            'in a 422 response. Providing both '
                                                            '`start_date` and `cur'}}},
     resource="changelogs",
+    readonly=True,
 )
 async def get_customer_changes(
     client: PennylaneClient,
@@ -139,6 +142,7 @@ async def get_customer_changes(
                                                            'in a 422 response. Providing both '
                                                            '`start_date` and `cur'}}},
     resource="changelogs",
+    readonly=True,
 )
 async def get_supplier_changes(
     client: PennylaneClient,
@@ -175,6 +179,7 @@ async def get_supplier_changes(
                                                            'in a 422 response. Providing both '
                                                            '`start_date` and `cur'}}},
     resource="changelogs",
+    readonly=True,
 )
 async def get_product_changes(
     client: PennylaneClient,
@@ -224,6 +229,7 @@ async def get_product_changes(
                                                            'in a 422 response. Providing both '
                                                            '`start_date` and `cur'}}},
     resource="changelogs",
+    readonly=True,
 )
 async def get_ledger_entry_line_changes(
     client: PennylaneClient,
@@ -261,6 +267,7 @@ async def get_ledger_entry_line_changes(
                                                            'in a 422 response. Providing both '
                                                            '`start_date` and `cur'}}},
     resource="changelogs",
+    readonly=True,
 )
 async def get_transaction_changes(
     client: PennylaneClient,
@@ -297,6 +304,7 @@ async def get_transaction_changes(
                                                            'in a 422 response. Providing both '
                                                            '`start_date` and `cur'}}},
     resource="changelogs",
+    readonly=True,
 )
 async def get_quote_changes(
     client: PennylaneClient,

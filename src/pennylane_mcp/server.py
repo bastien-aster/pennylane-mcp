@@ -53,11 +53,18 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
         return [TextContent(type="text", text=f"Error executing {name}: {exc}")]
 
 
+def _env_truthy(value: str | None) -> bool:
+    return (value or "").strip().lower() in ("1", "true", "yes", "on")
+
+
 def _select_tools() -> list[ToolSpec]:
     allowed = resolve_allowed_resources(os.getenv("PENNYLANE_TOOLS"))
-    if allowed is None:
-        return list(TOOLS)
-    return [t for t in TOOLS if t.resource in allowed]
+    readonly_only = _env_truthy(os.getenv("PENNYLANE_READONLY"))
+
+    selected = list(TOOLS) if allowed is None else [t for t in TOOLS if t.resource in allowed]
+    if readonly_only:
+        selected = [t for t in selected if t.readonly]
+    return selected
 
 
 async def main() -> None:
@@ -72,8 +79,10 @@ async def main() -> None:
     _active_tools = _select_tools()
     pennylane_client = PennylaneClient(api_key, base_url)
     logger.info(
-        "Pennylane MCP server starting — %d/%d tools active (PENNYLANE_TOOLS=%s)",
-        len(_active_tools), len(TOOLS), os.getenv("PENNYLANE_TOOLS", "all"),
+        "Pennylane MCP server starting — %d/%d tools active (PENNYLANE_TOOLS=%s, PENNYLANE_READONLY=%s)",
+        len(_active_tools), len(TOOLS),
+        os.getenv("PENNYLANE_TOOLS", "all"),
+        os.getenv("PENNYLANE_READONLY", "false"),
     )
     logger.info("Base URL: %s", base_url)
 

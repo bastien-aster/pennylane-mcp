@@ -18,6 +18,7 @@ class ToolSpec:
     description: str
     input_schema: dict[str, Any]
     resource: str
+    readonly: bool
     handler: Handler
 
 
@@ -31,8 +32,13 @@ def tool(
     description: str,
     input_schema: dict[str, Any],
     resource: str,
+    readonly: bool = False,
 ) -> Callable[[Handler], Handler]:
-    """Register an async handler as an MCP tool."""
+    """Register an async handler as an MCP tool.
+
+    readonly=True flags safe GET-equivalent operations for the
+    PENNYLANE_READONLY filter.
+    """
     def decorator(fn: Handler) -> Handler:
         if name in _NAMES:
             raise RuntimeError(f"Duplicate tool name: {name}")
@@ -43,6 +49,7 @@ def tool(
                 description=description,
                 input_schema=input_schema,
                 resource=resource,
+                readonly=readonly,
                 handler=fn,
             )
         )

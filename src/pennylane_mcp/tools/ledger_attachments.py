@@ -21,6 +21,7 @@ from ..client import PennylaneClient
                                                          'get 20 attachments per page. You can specify '
                                                          'another number of attachments per page.'}}},
     resource="ledger_attachments",
+    readonly=True,
 )
 async def get_ledger_attachments(
     client: PennylaneClient,
@@ -43,6 +44,7 @@ async def get_ledger_attachments(
                                       'additionalProperties': True}},
         'required': ['body']},
     resource="ledger_attachments",
+    readonly=False,
 )
 async def post_ledger_attachments(
     client: PennylaneClient,

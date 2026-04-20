@@ -42,6 +42,7 @@ from ..client import PennylaneClient
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields : `id`\n'}}},
     resource="quotes",
+    readonly=True,
 )
 async def list_quotes(
     client: PennylaneClient,
@@ -66,6 +67,7 @@ async def list_quotes(
                                       'additionalProperties': True}},
         'required': ['body']},
     resource="quotes",
+    readonly=False,
 )
 async def post_quotes(
     client: PennylaneClient,
@@ -81,6 +83,7 @@ async def post_quotes(
     description="[Sales · Quotes / Devis] Retrieve a quote This endpoint retrieves a quote. > ℹ️ > This endpoint requires one of the following scopes: `quotes:all`, `quotes:readonly` Mots-clés FR: devis, proposition commerciale, offre.",
     input_schema={'type': 'object', 'properties': {'id': {'type': 'integer'}}, 'required': ['id']},
     resource="quotes",
+    readonly=True,
 )
 async def get_quote(
     client: PennylaneClient,
@@ -102,6 +105,7 @@ async def get_quote(
                                       'additionalProperties': True}},
         'required': ['id', 'body']},
     resource="quotes",
+    readonly=False,
 )
 async def update_quote(
     client: PennylaneClient,
@@ -130,6 +134,7 @@ async def update_quote(
                                                       'Must be between 1 and 100.\n'}},
         'required': ['quote_id']},
     resource="quotes",
+    readonly=True,
 )
 async def get_quote_appendices(
     client: PennylaneClient,
@@ -154,6 +159,7 @@ async def get_quote_appendices(
                                       'additionalProperties': True}},
         'required': ['quote_id', 'body']},
     resource="quotes",
+    readonly=False,
 )
 async def post_quote_appendices(
     client: PennylaneClient,
@@ -190,6 +196,7 @@ async def post_quote_appendices(
                                                      'Available fields : `id`\n'}},
         'required': ['quote_id']},
     resource="quotes",
+    readonly=True,
 )
 async def get_quote_invoice_lines(
     client: PennylaneClient,
@@ -229,6 +236,7 @@ async def get_quote_invoice_lines(
                                                      'Available fields : `id`\n'}},
         'required': ['quote_id']},
     resource="quotes",
+    readonly=True,
 )
 async def get_quote_invoice_line_sections(
     client: PennylaneClient,
@@ -254,6 +262,7 @@ async def get_quote_invoice_line_sections(
                                       'additionalProperties': True}},
         'required': ['id']},
     resource="quotes",
+    readonly=False,
 )
 async def send_by_email_quote(
     client: PennylaneClient,
@@ -276,6 +285,7 @@ async def send_by_email_quote(
                                       'additionalProperties': True}},
         'required': ['id', 'body']},
     resource="quotes",
+    readonly=False,
 )
 async def update_status_quote(
     client: PennylaneClient,

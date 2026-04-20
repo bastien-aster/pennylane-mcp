@@ -44,6 +44,7 @@ from ..client import PennylaneClient
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields : `id`\n'}}},
     resource="commercial_documents",
+    readonly=True,
 )
 async def list_commercial_documents(
     client: PennylaneClient,
@@ -63,6 +64,7 @@ async def list_commercial_documents(
     description="[Sales · Commercial Documents / Documents commerciaux] Retrieve a commercial document This endpoint retrieves a commercial document. > ℹ️ > This endpoint requires one of the following scopes: `commercial_documents:all`, `commercial_documents:readonly` Mots-clés FR: bon de commande, bon de livraison, document commercial.",
     input_schema={'type': 'object', 'properties': {'id': {'type': 'integer'}}, 'required': ['id']},
     resource="commercial_documents",
+    readonly=True,
 )
 async def get_commercial_document(
     client: PennylaneClient,
@@ -90,6 +92,7 @@ async def get_commercial_document(
                                                       'Must be between 1 and 100.\n'}},
         'required': ['commercial_document_id']},
     resource="commercial_documents",
+    readonly=True,
 )
 async def get_commercial_document_appendices(
     client: PennylaneClient,
@@ -114,6 +117,7 @@ async def get_commercial_document_appendices(
                                       'additionalProperties': True}},
         'required': ['commercial_document_id', 'body']},
     resource="commercial_documents",
+    readonly=False,
 )
 async def post_commercial_document_appendices(
     client: PennylaneClient,
@@ -150,6 +154,7 @@ async def post_commercial_document_appendices(
                                                      'Available fields : `id`\n'}},
         'required': ['commercial_document_id']},
     resource="commercial_documents",
+    readonly=True,
 )
 async def get_commercial_document_invoice_lines(
     client: PennylaneClient,
@@ -189,6 +194,7 @@ async def get_commercial_document_invoice_lines(
                                                      'Available fields : `id`\n'}},
         'required': ['commercial_document_id']},
     resource="commercial_documents",
+    readonly=True,
 )
 async def get_commercial_document_invoice_line_sections(
     client: PennylaneClient,

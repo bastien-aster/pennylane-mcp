@@ -13,6 +13,7 @@ from ..client import PennylaneClient
     description="[Admin · User Profile / Profil utilisateur] User Profile This endpoint returns information about the company and the user associated to the token. Mots-clés FR: profil, utilisateur courant, mon compte.",
     input_schema={'type': 'object', 'properties': {}},
     resource="me",
+    readonly=True,
 )
 async def get_me(
     client: PennylaneClient,

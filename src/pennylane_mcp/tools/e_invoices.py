@@ -18,6 +18,7 @@ from ..client import PennylaneClient
                                       'additionalProperties': True}},
         'required': ['body']},
     resource="e_invoices",
+    readonly=False,
 )
 async def create_e_invoice_import(
     client: PennylaneClient,

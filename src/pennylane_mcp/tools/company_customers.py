@@ -18,6 +18,7 @@ from ..client import PennylaneClient
                                       'additionalProperties': True}},
         'required': ['body']},
     resource="company_customers",
+    readonly=False,
 )
 async def post_company_customer(
     client: PennylaneClient,
@@ -48,6 +49,7 @@ async def post_company_customer(
                                                                      'to opt in directly t'}},
         'required': ['id']},
     resource="company_customers",
+    readonly=True,
 )
 async def get_company_customer(
     client: PennylaneClient,
@@ -84,6 +86,7 @@ async def get_company_customer(
                                       'additionalProperties': True}},
         'required': ['id', 'body']},
     resource="company_customers",
+    readonly=False,
 )
 async def put_company_customer(
     client: PennylaneClient,

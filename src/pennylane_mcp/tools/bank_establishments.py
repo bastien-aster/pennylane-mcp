@@ -37,6 +37,7 @@ from ..client import PennylaneClient
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields : `id`\n'}}},
     resource="bank_establishments",
+    readonly=True,
 )
 async def get_bank_establishments(
     client: PennylaneClient,

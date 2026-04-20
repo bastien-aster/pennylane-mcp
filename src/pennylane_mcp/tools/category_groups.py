@@ -23,6 +23,7 @@ from ..client import PennylaneClient
                                                       'Defaults to 20 if not specified.\n'
                                                       'Must be between 1 and 100.\n'}}},
     resource="category_groups",
+    readonly=True,
 )
 async def get_category_groups(
     client: PennylaneClient,
@@ -43,6 +44,7 @@ async def get_category_groups(
                                     'description': 'The unique identifier of the category group'}},
         'required': ['id']},
     resource="category_groups",
+    readonly=True,
 )
 async def get_category_group(
     client: PennylaneClient,
@@ -72,6 +74,7 @@ async def get_category_group(
                                                       'Must be between 1 and 100.\n'}},
         'required': ['category_group_id']},
     resource="category_groups",
+    readonly=True,
 )
 async def get_category_group_categories(
     client: PennylaneClient,

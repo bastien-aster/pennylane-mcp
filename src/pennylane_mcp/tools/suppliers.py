@@ -42,6 +42,7 @@ from ..client import PennylaneClient
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields : `id`\n'}}},
     resource="suppliers",
+    readonly=True,
 )
 async def get_suppliers(
     client: PennylaneClient,
@@ -66,6 +67,7 @@ async def get_suppliers(
                                       'additionalProperties': True}},
         'required': ['body']},
     resource="suppliers",
+    readonly=False,
 )
 async def post_supplier(
     client: PennylaneClient,
@@ -96,6 +98,7 @@ async def post_supplier(
                                                                      'to opt in directly t'}},
         'required': ['id']},
     resource="suppliers",
+    readonly=True,
 )
 async def get_supplier(
     client: PennylaneClient,
@@ -132,6 +135,7 @@ async def get_supplier(
                                       'additionalProperties': True}},
         'required': ['id', 'body']},
     resource="suppliers",
+    readonly=False,
 )
 async def put_supplier(
     client: PennylaneClient,
@@ -162,6 +166,7 @@ async def put_supplier(
                                                       'Must be between 1 and 100.\n'}},
         'required': ['supplier_id']},
     resource="suppliers",
+    readonly=True,
 )
 async def get_supplier_categories(
     client: PennylaneClient,
@@ -186,6 +191,7 @@ async def get_supplier_categories(
                                       'additionalProperties': True}},
         'required': ['supplier_id', 'body']},
     resource="suppliers",
+    readonly=False,
 )
 async def put_supplier_categories(
     client: PennylaneClient,

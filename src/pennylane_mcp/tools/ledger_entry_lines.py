@@ -51,6 +51,7 @@ from ..client import PennylaneClient
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields : `id`, `date`\n'}}},
     resource="ledger_entry_lines",
+    readonly=True,
 )
 async def get_ledger_entry_lines(
     client: PennylaneClient,
@@ -87,6 +88,7 @@ async def get_ledger_entry_lines(
                                                                      'to opt in directly t'}},
         'required': ['id']},
     resource="ledger_entry_lines",
+    readonly=True,
 )
 async def get_ledger_entry_line(
     client: PennylaneClient,
@@ -122,6 +124,7 @@ async def get_ledger_entry_line(
                                       'additionalProperties': True}},
         'required': ['body']},
     resource="ledger_entry_lines",
+    readonly=False,
 )
 async def post_ledger_entry_lines_letter(
     client: PennylaneClient,
@@ -157,6 +160,7 @@ async def post_ledger_entry_lines_letter(
                                       'additionalProperties': True}},
         'required': ['body']},
     resource="ledger_entry_lines",
+    readonly=False,
 )
 async def delete_ledger_entry_lines_unletter(
     client: PennylaneClient,
@@ -236,6 +240,7 @@ async def delete_ledger_entry_lines_unletter(
                                                      'Example : `id` '}},
         'required': ['ledger_entry_line_id']},
     resource="ledger_entry_lines",
+    readonly=True,
 )
 async def get_ledger_entry_lines_lettered_ledger_entry_lines(
     client: PennylaneClient,
@@ -317,6 +322,7 @@ async def get_ledger_entry_lines_lettered_ledger_entry_lines(
                                                      '- `id`\n'}},
         'required': ['ledger_entry_line_id']},
     resource="ledger_entry_lines",
+    readonly=True,
 )
 async def get_ledger_entry_lines_categories(
     client: PennylaneClient,
@@ -359,6 +365,7 @@ async def get_ledger_entry_lines_categories(
                                       'additionalProperties': True}},
         'required': ['ledger_entry_line_id', 'body']},
     resource="ledger_entry_lines",
+    readonly=False,
 )
 async def put_ledger_entry_lines_categories(
     client: PennylaneClient,

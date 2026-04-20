@@ -18,6 +18,7 @@ from ..client import PennylaneClient
                                       'additionalProperties': True}},
         'required': ['body']},
     resource="exports",
+    readonly=False,
 )
 async def export_analytical_general_ledger(
     client: PennylaneClient,
@@ -35,6 +36,7 @@ async def export_analytical_general_ledger(
         'properties': {'id': {'type': 'integer', 'description': 'Existing export identifier (id)'}},
         'required': ['id']},
     resource="exports",
+    readonly=True,
 )
 async def get_analytical_general_ledger_export(
     client: PennylaneClient,
@@ -55,6 +57,7 @@ async def get_analytical_general_ledger_export(
                                       'additionalProperties': True}},
         'required': ['body']},
     resource="exports",
+    readonly=False,
 )
 async def export_fec(
     client: PennylaneClient,
@@ -72,6 +75,7 @@ async def export_fec(
         'properties': {'id': {'type': 'integer', 'description': 'Existing export identifier (id)'}},
         'required': ['id']},
     resource="exports",
+    readonly=True,
 )
 async def get_fec_export(
     client: PennylaneClient,
@@ -92,6 +96,7 @@ async def get_fec_export(
                                       'additionalProperties': True}},
         'required': ['body']},
     resource="exports",
+    readonly=False,
 )
 async def export_general_ledger(
     client: PennylaneClient,
@@ -109,6 +114,7 @@ async def export_general_ledger(
         'properties': {'id': {'type': 'integer', 'description': 'Existing export identifier (id)'}},
         'required': ['id']},
     resource="exports",
+    readonly=True,
 )
 async def get_general_ledger_export(
     client: PennylaneClient,

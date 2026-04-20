@@ -18,6 +18,7 @@ from ..client import PennylaneClient
                                       'additionalProperties': True}},
         'required': ['body']},
     resource="billing_subscriptions",
+    readonly=False,
 )
 async def post_billing_subscriptions(
     client: PennylaneClient,
@@ -58,6 +59,7 @@ async def post_billing_subscriptions(
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields : `id`\n'}}},
     resource="billing_subscriptions",
+    readonly=True,
 )
 async def get_billing_subscriptions(
     client: PennylaneClient,
@@ -93,6 +95,7 @@ async def get_billing_subscriptions(
                                                                      'to opt in directly t'}},
         'required': ['id']},
     resource="billing_subscriptions",
+    readonly=True,
 )
 async def get_billing_subscription(
     client: PennylaneClient,
@@ -130,6 +133,7 @@ async def get_billing_subscription(
                                       'additionalProperties': True}},
         'required': ['id', 'body']},
     resource="billing_subscriptions",
+    readonly=False,
 )
 async def put_billing_subscriptions(
     client: PennylaneClient,
@@ -168,6 +172,7 @@ async def put_billing_subscriptions(
                                                      'Available fields : `id`\n'}},
         'required': ['billing_subscription_id']},
     resource="billing_subscriptions",
+    readonly=True,
 )
 async def get_billing_subscription_invoice_line_sections(
     client: PennylaneClient,
@@ -207,6 +212,7 @@ async def get_billing_subscription_invoice_line_sections(
                                                      'Available fields : `id`\n'}},
         'required': ['billing_subscription_id']},
     resource="billing_subscriptions",
+    readonly=True,
 )
 async def get_billing_subscription_invoice_lines(
     client: PennylaneClient,

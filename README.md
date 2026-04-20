@@ -156,6 +156,18 @@ Si tu trouves que Claude se perd parmi 161 outils, tu peux n'en activer qu'une p
 
 Tu peux combiner : `PENNYLANE_TOOLS=sales,banking,mandates`. Relance Claude Desktop après modification.
 
+**Mode read-only** (aucun outil qui écrit/modifie/supprime) :
+
+```json
+"env": {
+  "PENNYLANE_API_KEY": "TA_CLÉ_ICI",
+  "PENNYLANE_BASE_URL": "https://app.pennylane.com/api/external/v2",
+  "PENNYLANE_READONLY": "true"
+}
+```
+
+Active uniquement les 89 outils en lecture seule (GET). Utile si tu veux donner accès à Claude à ta compta sans risque qu'il crée/modifie/supprime quoi que ce soit. Combinable avec `PENNYLANE_TOOLS`.
+
 </details>
 
 ---
@@ -409,6 +421,18 @@ If Claude gets lost among 161 tools, you can enable only a subset. Add the `PENN
 | `all` | 161 | Everything (default when the variable isn't set) |
 
 You can combine: `PENNYLANE_TOOLS=sales,banking,mandates`. Restart Claude Desktop after editing.
+
+**Read-only mode** (no write/update/delete tools at all):
+
+```json
+"env": {
+  "PENNYLANE_API_KEY": "YOUR_KEY_HERE",
+  "PENNYLANE_BASE_URL": "https://app.pennylane.com/api/external/v2",
+  "PENNYLANE_READONLY": "true"
+}
+```
+
+Enables only the 89 read-only (GET) tools. Useful when you want Claude to have access to your accounting without any risk of it creating, updating or deleting anything. Combinable with `PENNYLANE_TOOLS`.
 
 </details>
 

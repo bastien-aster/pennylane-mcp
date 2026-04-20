@@ -39,6 +39,7 @@ from ..client import PennylaneClient
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields: `id`\n'}}},
     resource="sepa_mandates",
+    readonly=True,
 )
 async def get_sepa_mandates(
     client: PennylaneClient,
@@ -76,6 +77,7 @@ async def get_sepa_mandates(
                                       'additionalProperties': True}},
         'required': ['body']},
     resource="sepa_mandates",
+    readonly=False,
 )
 async def post_sepa_mandates(
     client: PennylaneClient,
@@ -95,6 +97,7 @@ async def post_sepa_mandates(
         'properties': {'id': {'type': 'integer', 'description': 'ID of the SEPA mandate to retrieve'}},
         'required': ['id']},
     resource="sepa_mandates",
+    readonly=True,
 )
 async def get_sepa_mandate(
     client: PennylaneClient,
@@ -129,6 +132,7 @@ async def get_sepa_mandate(
                                       'additionalProperties': True}},
         'required': ['id', 'body']},
     resource="sepa_mandates",
+    readonly=False,
 )
 async def put_sepa_mandate(
     client: PennylaneClient,
@@ -149,6 +153,7 @@ async def put_sepa_mandate(
         'properties': {'id': {'type': 'integer', 'description': 'ID of the SEPA mandate to delete'}},
         'required': ['id']},
     resource="sepa_mandates",
+    readonly=False,
 )
 async def delete_sepa_mandate(
     client: PennylaneClient,

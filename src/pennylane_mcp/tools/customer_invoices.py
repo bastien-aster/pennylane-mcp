@@ -31,6 +31,7 @@ from ..client import PennylaneClient
                                       'additionalProperties': True}},
         'required': ['body']},
     resource="customer_invoices",
+    readonly=False,
 )
 async def post_customer_invoices(
     client: PennylaneClient,
@@ -102,6 +103,7 @@ async def post_customer_invoices(
                                                         'future releases.\n'
                                                         'We'}}},
     resource="customer_invoices",
+    readonly=True,
 )
 async def get_customer_invoices(
     client: PennylaneClient,
@@ -141,6 +143,7 @@ async def get_customer_invoices(
                                       'additionalProperties': True}},
         'required': ['body']},
     resource="customer_invoices",
+    readonly=False,
 )
 async def import_customer_invoices(
     client: PennylaneClient,
@@ -163,6 +166,7 @@ async def import_customer_invoices(
                                       'additionalProperties': True}},
         'required': ['body']},
     resource="customer_invoices",
+    readonly=False,
 )
 async def create_customer_invoice_e_invoice_import(
     client: PennylaneClient,
@@ -196,6 +200,7 @@ async def create_customer_invoice_e_invoice_import(
                                       'additionalProperties': True}},
         'required': ['body']},
     resource="customer_invoices",
+    readonly=False,
 )
 async def create_customer_invoice_from_quote(
     client: PennylaneClient,
@@ -233,6 +238,7 @@ async def create_customer_invoice_from_quote(
                                                      'Available fields : `id`\n'}},
         'required': ['customer_invoice_id']},
     resource="customer_invoices",
+    readonly=True,
 )
 async def get_customer_invoice_invoice_line_sections(
     client: PennylaneClient,
@@ -272,6 +278,7 @@ async def get_customer_invoice_invoice_line_sections(
                                                      'Available fields : `id`, `rank`\n'}},
         'required': ['customer_invoice_id']},
     resource="customer_invoices",
+    readonly=True,
 )
 async def get_customer_invoice_invoice_lines(
     client: PennylaneClient,
@@ -311,6 +318,7 @@ async def get_customer_invoice_invoice_lines(
                                                      'Available fields : `id`\n'}},
         'required': ['customer_invoice_id']},
     resource="customer_invoices",
+    readonly=True,
 )
 async def get_customer_invoice_payments(
     client: PennylaneClient,
@@ -350,6 +358,7 @@ async def get_customer_invoice_payments(
                                                      'Available fields : `id`\n'}},
         'required': ['customer_invoice_id']},
     resource="customer_invoices",
+    readonly=True,
 )
 async def get_customer_invoice_matched_transactions(
     client: PennylaneClient,
@@ -375,6 +384,7 @@ async def get_customer_invoice_matched_transactions(
                                       'additionalProperties': True}},
         'required': ['customer_invoice_id', 'body']},
     resource="customer_invoices",
+    readonly=False,
 )
 async def post_customer_invoice_matched_transactions(
     client: PennylaneClient,
@@ -393,6 +403,7 @@ async def post_customer_invoice_matched_transactions(
         'properties': {'customer_invoice_id': {'type': 'integer'}, 'id': {'type': 'integer'}},
         'required': ['customer_invoice_id', 'id']},
     resource="customer_invoices",
+    readonly=False,
 )
 async def delete_customer_invoice_matched_transactions(
     client: PennylaneClient,
@@ -421,6 +432,7 @@ async def delete_customer_invoice_matched_transactions(
                                                       'Must be between 1 and 100.\n'}},
         'required': ['customer_invoice_id']},
     resource="customer_invoices",
+    readonly=True,
 )
 async def get_customer_invoice_appendices(
     client: PennylaneClient,
@@ -445,6 +457,7 @@ async def get_customer_invoice_appendices(
                                       'additionalProperties': True}},
         'required': ['customer_invoice_id', 'body']},
     resource="customer_invoices",
+    readonly=False,
 )
 async def post_customer_invoice_appendices(
     client: PennylaneClient,
@@ -477,6 +490,7 @@ async def post_customer_invoice_appendices(
                                                                      'to opt in directly t'}},
         'required': ['id']},
     resource="customer_invoices",
+    readonly=True,
 )
 async def get_customer_invoice(
     client: PennylaneClient,
@@ -514,6 +528,7 @@ async def get_customer_invoice(
                                       'additionalProperties': True}},
         'required': ['id', 'body']},
     resource="customer_invoices",
+    readonly=False,
 )
 async def update_customer_invoice(
     client: PennylaneClient,
@@ -535,6 +550,7 @@ async def update_customer_invoice(
                                     'description': 'The unique identifier of the customer invoice'}},
         'required': ['id']},
     resource="customer_invoices",
+    readonly=False,
 )
 async def delete_customer_invoices(
     client: PennylaneClient,
@@ -553,6 +569,7 @@ async def delete_customer_invoices(
                                     'description': 'The unique identifier of the customer invoice'}},
         'required': ['id']},
     resource="customer_invoices",
+    readonly=False,
 )
 async def mark_as_paid_customer_invoice(
     client: PennylaneClient,
@@ -575,6 +592,7 @@ async def mark_as_paid_customer_invoice(
                                       'additionalProperties': True}},
         'required': ['id']},
     resource="customer_invoices",
+    readonly=False,
 )
 async def send_by_email_customer_invoice(
     client: PennylaneClient,
@@ -603,6 +621,7 @@ async def send_by_email_customer_invoice(
                                                       'Must be between 1 and 100.\n'}},
         'required': ['customer_invoice_id']},
     resource="customer_invoices",
+    readonly=True,
 )
 async def get_customer_invoice_categories(
     client: PennylaneClient,
@@ -627,6 +646,7 @@ async def get_customer_invoice_categories(
                                       'additionalProperties': True}},
         'required': ['customer_invoice_id', 'body']},
     resource="customer_invoices",
+    readonly=False,
 )
 async def put_customer_invoice_categories(
     client: PennylaneClient,
@@ -663,6 +683,7 @@ async def put_customer_invoice_categories(
                                       'additionalProperties': True}},
         'required': ['id', 'body']},
     resource="customer_invoices",
+    readonly=False,
 )
 async def update_imported_customer_invoice(
     client: PennylaneClient,
@@ -697,6 +718,7 @@ async def update_imported_customer_invoice(
                                                                      'to opt in directly t'}},
         'required': ['id']},
     resource="customer_invoices",
+    readonly=False,
 )
 async def finalize_customer_invoice(
     client: PennylaneClient,
@@ -734,6 +756,7 @@ async def finalize_customer_invoice(
                                       'additionalProperties': True}},
         'required': ['id', 'body']},
     resource="customer_invoices",
+    readonly=False,
 )
 async def link_credit_note(
     client: PennylaneClient,
@@ -772,6 +795,7 @@ async def link_credit_note(
                                                      'Available fields : `id`\n'}},
         'required': ['customer_invoice_id']},
     resource="customer_invoices",
+    readonly=True,
 )
 async def get_customer_invoice_custom_header_fields(
     client: PennylaneClient,

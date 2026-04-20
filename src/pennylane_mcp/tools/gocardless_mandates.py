@@ -40,6 +40,7 @@ from ..client import PennylaneClient
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields: `id`\n'}}},
     resource="gocardless_mandates",
+    readonly=True,
 )
 async def get_gocardless_mandates(
     client: PennylaneClient,
@@ -62,6 +63,7 @@ async def get_gocardless_mandates(
                                     'description': 'ID of the Gocardless mandate to retrieve'}},
         'required': ['id']},
     resource="gocardless_mandates",
+    readonly=True,
 )
 async def get_gocardless_mandate(
     client: PennylaneClient,
@@ -95,6 +97,7 @@ async def get_gocardless_mandate(
                                       'additionalProperties': True}},
         'required': ['body']},
     resource="gocardless_mandates",
+    readonly=False,
 )
 async def post_gocardless_mandate_mail_requests(
     client: PennylaneClient,
@@ -116,6 +119,7 @@ async def post_gocardless_mandate_mail_requests(
                                                                       'cancel'}},
         'required': ['gocardless_mandate_id']},
     resource="gocardless_mandates",
+    readonly=False,
 )
 async def post_gocardless_mandate_cancellations(
     client: PennylaneClient,
@@ -151,6 +155,7 @@ async def post_gocardless_mandate_cancellations(
                                       'additionalProperties': True}},
         'required': ['gocardless_mandate_id', 'body']},
     resource="gocardless_mandates",
+    readonly=False,
 )
 async def post_gocardless_mandate_associations(
     client: PennylaneClient,

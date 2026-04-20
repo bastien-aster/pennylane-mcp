@@ -33,6 +33,7 @@ from ..client import PennylaneClient
                                                      'Available fields : `id`\n'}},
         'required': ['supplier_invoice_id']},
     resource="supplier_invoices",
+    readonly=True,
 )
 async def get_supplier_invoice_lines(
     client: PennylaneClient,
@@ -94,6 +95,7 @@ async def get_supplier_invoice_lines(
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields : `id`, `date`\n'}}},
     resource="supplier_invoices",
+    readonly=True,
 )
 async def get_supplier_invoices(
     client: PennylaneClient,
@@ -129,6 +131,7 @@ async def get_supplier_invoices(
                                                                      'to opt in directly t'}},
         'required': ['id']},
     resource="supplier_invoices",
+    readonly=True,
 )
 async def get_supplier_invoice(
     client: PennylaneClient,
@@ -152,6 +155,7 @@ async def get_supplier_invoice(
                                       'additionalProperties': True}},
         'required': ['id', 'body']},
     resource="supplier_invoices",
+    readonly=False,
 )
 async def put_supplier_invoice(
     client: PennylaneClient,
@@ -180,6 +184,7 @@ async def put_supplier_invoice(
                                                       'Must be between 1 and 100.\n'}},
         'required': ['supplier_invoice_id']},
     resource="supplier_invoices",
+    readonly=True,
 )
 async def get_supplier_invoice_categories(
     client: PennylaneClient,
@@ -204,6 +209,7 @@ async def get_supplier_invoice_categories(
                                       'additionalProperties': True}},
         'required': ['supplier_invoice_id', 'body']},
     resource="supplier_invoices",
+    readonly=False,
 )
 async def put_supplier_invoice_categories(
     client: PennylaneClient,
@@ -240,6 +246,7 @@ async def put_supplier_invoice_categories(
                                                      'Available fields : `id`\n'}},
         'required': ['supplier_invoice_id']},
     resource="supplier_invoices",
+    readonly=True,
 )
 async def get_supplier_invoice_payments(
     client: PennylaneClient,
@@ -266,6 +273,7 @@ async def get_supplier_invoice_payments(
                                       'additionalProperties': True}},
         'required': ['supplier_invoice_id', 'body']},
     resource="supplier_invoices",
+    readonly=False,
 )
 async def update_supplier_invoice_payment_status(
     client: PennylaneClient,
@@ -302,6 +310,7 @@ async def update_supplier_invoice_payment_status(
                                                      'Available fields : `id`\n'}},
         'required': ['supplier_invoice_id']},
     resource="supplier_invoices",
+    readonly=True,
 )
 async def get_supplier_invoice_matched_transactions(
     client: PennylaneClient,
@@ -327,6 +336,7 @@ async def get_supplier_invoice_matched_transactions(
                                       'additionalProperties': True}},
         'required': ['supplier_invoice_id', 'body']},
     resource="supplier_invoices",
+    readonly=False,
 )
 async def post_supplier_invoice_matched_transactions(
     client: PennylaneClient,
@@ -345,6 +355,7 @@ async def post_supplier_invoice_matched_transactions(
         'properties': {'supplier_invoice_id': {'type': 'integer'}, 'id': {'type': 'integer'}},
         'required': ['supplier_invoice_id', 'id']},
     resource="supplier_invoices",
+    readonly=False,
 )
 async def delete_supplier_invoice_matched_transactions(
     client: PennylaneClient,
@@ -367,6 +378,7 @@ async def delete_supplier_invoice_matched_transactions(
                                       'additionalProperties': True}},
         'required': ['supplier_invoice_id', 'body']},
     resource="supplier_invoices",
+    readonly=False,
 )
 async def post_supplier_invoice_linked_purchase_requests(
     client: PennylaneClient,
@@ -401,6 +413,7 @@ async def post_supplier_invoice_linked_purchase_requests(
                                       'additionalProperties': True}},
         'required': ['body']},
     resource="supplier_invoices",
+    readonly=False,
 )
 async def import_supplier_invoice(
     client: PennylaneClient,
@@ -423,6 +436,7 @@ async def import_supplier_invoice(
                                       'additionalProperties': True}},
         'required': ['body']},
     resource="supplier_invoices",
+    readonly=False,
 )
 async def create_supplier_invoice_e_invoice_import(
     client: PennylaneClient,
@@ -453,6 +467,7 @@ async def create_supplier_invoice_e_invoice_import(
                                                                      'to opt in directly t'}},
         'required': ['id']},
     resource="supplier_invoices",
+    readonly=False,
 )
 async def validate_accounting_supplier_invoice(
     client: PennylaneClient,
@@ -476,6 +491,7 @@ async def validate_accounting_supplier_invoice(
                                       'additionalProperties': True}},
         'required': ['supplier_invoice_id', 'body']},
     resource="supplier_invoices",
+    readonly=False,
 )
 async def put_supplier_invoice_e_invoice_status(
     client: PennylaneClient,

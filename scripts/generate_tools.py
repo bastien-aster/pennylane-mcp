@@ -217,12 +217,14 @@ def generate_handler(
         sig_parts.append("body: Optional[dict[str, Any]] = None")
     signature = ",\n    ".join(sig_parts)
 
+    readonly_flag = "True" if method == "get" else "False"
     return (
         f"@tool(\n"
         f"    name=\"{tool_name}\",\n"
         f"    description={json.dumps(full_desc, ensure_ascii=False)},\n"
         f"    input_schema={schema_repr},\n"
         f"    resource=\"{resource}\",\n"
+        f"    readonly={readonly_flag},\n"
         f")\n"
         f"async def {fn_name}(\n    {signature},\n) -> Any:\n"
         f"{path_lines[0]}\n"

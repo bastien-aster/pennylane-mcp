@@ -69,6 +69,7 @@ from ..client import PennylaneClient
                                                      'Available fields :\n'
                                                      '- `id`, `start`\n'}}},
     resource="fiscal_years",
+    readonly=True,
 )
 async def company_fiscal_years(
     client: PennylaneClient,

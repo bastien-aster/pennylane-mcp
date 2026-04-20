@@ -18,6 +18,7 @@ from ..client import PennylaneClient
                                       'additionalProperties': True}},
         'required': ['body']},
     resource="purchase_requests",
+    readonly=False,
 )
 async def create_purchase_request_import(
     client: PennylaneClient,
@@ -33,6 +34,7 @@ async def create_purchase_request_import(
     description="[Purchasing · Purchase Requests / Demandes d'achat] Retrieve a purchase request Retrieve a purchase request > ℹ️ > This endpoint requires one of the following scopes: `purchase_requests:all`, `purchase_requests:readonly` Mots-clés FR: demande d'achat, bon de commande interne, approvisionnement.",
     input_schema={'type': 'object', 'properties': {'id': {'type': 'integer'}}, 'required': ['id']},
     resource="purchase_requests",
+    readonly=True,
 )
 async def get_purchase_request(
     client: PennylaneClient,
@@ -77,6 +79,7 @@ async def get_purchase_request(
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields : `id`\n'}}},
     resource="purchase_requests",
+    readonly=True,
 )
 async def get_purchase_requests(
     client: PennylaneClient,

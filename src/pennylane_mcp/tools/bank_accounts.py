@@ -31,6 +31,7 @@ from ..client import PennylaneClient
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields : `id`\n'}}},
     resource="bank_accounts",
+    readonly=True,
 )
 async def get_bank_accounts(
     client: PennylaneClient,
@@ -54,6 +55,7 @@ async def get_bank_accounts(
                                       'additionalProperties': True}},
         'required': ['body']},
     resource="bank_accounts",
+    readonly=False,
 )
 async def post_bank_account(
     client: PennylaneClient,
@@ -69,6 +71,7 @@ async def post_bank_account(
     description="[Banking · Bank Accounts / Comptes bancaires] Retrieve a bank account Retrieve a bank account > ℹ️ > This endpoint requires one of the following scopes: `bank_accounts:all`, `bank_accounts:readonly` Mots-clés FR: compte bancaire, IBAN, RIB.",
     input_schema={'type': 'object', 'properties': {'id': {'type': 'integer'}}, 'required': ['id']},
     resource="bank_accounts",
+    readonly=True,
 )
 async def get_bank_account(
     client: PennylaneClient,

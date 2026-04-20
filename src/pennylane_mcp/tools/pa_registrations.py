@@ -13,6 +13,7 @@ from ..client import PennylaneClient
     description="[Admin · Portail Anaf Registrations / Inscriptions Portail Anaf] List PA Registrations Returns all PA (Plateforme Agrée) registrations for the company, including activation status and exchange direction. Use this to determine whether the company has completed PA onboarding. Records with an empty `siret` represent the SIREN-level (head office), other records represent establishments. > ℹ️ > This endpoint requires the following scope: `pa_registrations:readonly` Mots-clés FR: Portail Anaf, Pro Account registration.",
     input_schema={'type': 'object', 'properties': {}},
     resource="pa_registrations",
+    readonly=True,
 )
 async def get_pa_registrations(
     client: PennylaneClient,

@@ -81,6 +81,7 @@ from ..client import PennylaneClient
                                                      '- 🆕 `id` (only available on the new version of '
                                                      'the API : For more details, see our AP'}}},
     resource="ledger_entries",
+    readonly=True,
 )
 async def get_ledger_entries(
     client: PennylaneClient,
@@ -121,6 +122,7 @@ async def get_ledger_entries(
                                       'additionalProperties': True}},
         'required': ['body']},
     resource="ledger_entries",
+    readonly=False,
 )
 async def post_ledger_entries(
     client: PennylaneClient,
@@ -154,6 +156,7 @@ async def post_ledger_entries(
                                                                      'to opt in directly t'}},
         'required': ['id']},
     resource="ledger_entries",
+    readonly=True,
 )
 async def get_ledger_entry(
     client: PennylaneClient,
@@ -191,6 +194,7 @@ async def get_ledger_entry(
                                       'additionalProperties': True}},
         'required': ['id', 'body']},
     resource="ledger_entries",
+    readonly=False,
 )
 async def put_ledger_entries(
     client: PennylaneClient,
@@ -274,6 +278,7 @@ async def put_ledger_entries(
                                                      '- `id`\n'}},
         'required': ['ledger_entry_id']},
     resource="ledger_entries",
+    readonly=True,
 )
 async def get_ledger_entries_ledger_entry_lines(
     client: PennylaneClient,

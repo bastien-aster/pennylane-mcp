@@ -42,6 +42,7 @@ from ..client import PennylaneClient
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields : `id`\n'}}},
     resource="transactions",
+    readonly=True,
 )
 async def get_transactions(
     client: PennylaneClient,
@@ -66,6 +67,7 @@ async def get_transactions(
                                       'additionalProperties': True}},
         'required': ['body']},
     resource="transactions",
+    readonly=False,
 )
 async def create_transaction(
     client: PennylaneClient,
@@ -81,6 +83,7 @@ async def create_transaction(
     description="[Banking · Bank Transactions / Transactions bancaires] Retrieve a transaction Retrieve a transaction > ℹ️ > This endpoint requires one of the following scopes: `transactions:readonly`, `transactions:all` Mots-clés FR: transaction bancaire, opération bancaire, mouvement.",
     input_schema={'type': 'object', 'properties': {'id': {'type': 'integer'}}, 'required': ['id']},
     resource="transactions",
+    readonly=True,
 )
 async def get_transaction(
     client: PennylaneClient,
@@ -102,6 +105,7 @@ async def get_transaction(
                                       'additionalProperties': True}},
         'required': ['id', 'body']},
     resource="transactions",
+    readonly=False,
 )
 async def update_transaction(
     client: PennylaneClient,
@@ -130,6 +134,7 @@ async def update_transaction(
                                                       'Must be between 1 and 100.\n'}},
         'required': ['transaction_id']},
     resource="transactions",
+    readonly=True,
 )
 async def get_transaction_categories(
     client: PennylaneClient,
@@ -154,6 +159,7 @@ async def get_transaction_categories(
                                       'additionalProperties': True}},
         'required': ['transaction_id', 'body']},
     resource="transactions",
+    readonly=False,
 )
 async def put_transaction_categories(
     client: PennylaneClient,
@@ -182,6 +188,7 @@ async def put_transaction_categories(
                                                       'Must be between 1 and 100.\n'}},
         'required': ['transaction_id']},
     resource="transactions",
+    readonly=True,
 )
 async def get_transaction_matched_invoices(
     client: PennylaneClient,

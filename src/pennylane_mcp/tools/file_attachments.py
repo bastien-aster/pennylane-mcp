@@ -18,6 +18,7 @@ from ..client import PennylaneClient
                                       'additionalProperties': True}},
         'required': ['body']},
     resource="file_attachments",
+    readonly=False,
 )
 async def post_file_attachments(
     client: PennylaneClient,
@@ -51,6 +52,7 @@ async def post_file_attachments(
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields : `id`\n'}}},
     resource="file_attachments",
+    readonly=True,
 )
 async def get_file_attachments(
     client: PennylaneClient,

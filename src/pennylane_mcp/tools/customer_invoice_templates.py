@@ -31,6 +31,7 @@ from ..client import PennylaneClient
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields : `id`\n'}}},
     resource="customer_invoice_templates",
+    readonly=True,
 )
 async def get_customer_invoice_templates(
     client: PennylaneClient,

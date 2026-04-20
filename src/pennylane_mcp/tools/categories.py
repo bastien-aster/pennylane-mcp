@@ -41,6 +41,7 @@ from ..client import PennylaneClient
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields : `id`\n'}}},
     resource="categories",
+    readonly=True,
 )
 async def get_categories(
     client: PennylaneClient,
@@ -65,6 +66,7 @@ async def get_categories(
                                       'additionalProperties': True}},
         'required': ['body']},
     resource="categories",
+    readonly=False,
 )
 async def post_categories(
     client: PennylaneClient,
@@ -83,6 +85,7 @@ async def post_categories(
                                     'description': 'The unique identifier of the category'}},
         'required': ['id']},
     resource="categories",
+    readonly=True,
 )
 async def get_category(
     client: PennylaneClient,
@@ -105,6 +108,7 @@ async def get_category(
                                       'additionalProperties': True}},
         'required': ['id', 'body']},
     resource="categories",
+    readonly=False,
 )
 async def update_category(
     client: PennylaneClient,

@@ -77,6 +77,7 @@ from ..client import PennylaneClient
                                                      'Available fields :\n'
                                                      '- `id`\n'}}},
     resource="ledger_accounts",
+    readonly=True,
 )
 async def get_ledger_accounts(
     client: PennylaneClient,
@@ -117,6 +118,7 @@ async def get_ledger_accounts(
                                       'additionalProperties': True}},
         'required': ['body']},
     resource="ledger_accounts",
+    readonly=False,
 )
 async def post_ledger_accounts(
     client: PennylaneClient,
@@ -149,6 +151,7 @@ async def post_ledger_accounts(
                                                                      'to opt in directly t'}},
         'required': ['id']},
     resource="ledger_accounts",
+    readonly=True,
 )
 async def get_ledger_account(
     client: PennylaneClient,
@@ -185,6 +188,7 @@ async def get_ledger_account(
                                       'additionalProperties': True}},
         'required': ['id', 'body']},
     resource="ledger_accounts",
+    readonly=False,
 )
 async def update_ledger_account(
     client: PennylaneClient,

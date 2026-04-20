@@ -18,6 +18,7 @@ from ..client import PennylaneClient
                                       'additionalProperties': True}},
         'required': ['body']},
     resource="products",
+    readonly=False,
 )
 async def post_products(
     client: PennylaneClient,
@@ -61,6 +62,7 @@ async def post_products(
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields : `id`\n'}}},
     resource="products",
+    readonly=True,
 )
 async def get_products(
     client: PennylaneClient,
@@ -86,6 +88,7 @@ async def get_products(
                                       'additionalProperties': True}},
         'required': ['id', 'body']},
     resource="products",
+    readonly=False,
 )
 async def put_product(
     client: PennylaneClient,
@@ -102,6 +105,7 @@ async def put_product(
     description="[Sales · Products / Produits] Retrieve a product Retrieve a product > ℹ️ > This endpoint requires one of the following scopes: `products:all`, `products:readonly` Mots-clés FR: produit, catalogue, article, référence.",
     input_schema={'type': 'object', 'properties': {'id': {'type': 'integer'}}, 'required': ['id']},
     resource="products",
+    readonly=True,
 )
 async def get_product(
     client: PennylaneClient,

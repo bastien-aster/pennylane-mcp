@@ -18,6 +18,7 @@ from ..client import PennylaneClient
                                       'additionalProperties': True}},
         'required': ['body']},
     resource="pro_account",
+    readonly=False,
 )
 async def post_pro_account_mandate_mail_requests(
     client: PennylaneClient,
@@ -59,6 +60,7 @@ async def post_pro_account_mandate_mail_requests(
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields: `id`\n'}}},
     resource="pro_account",
+    readonly=True,
 )
 async def get_pro_account_mandate_migrations(
     client: PennylaneClient,
@@ -83,6 +85,7 @@ async def get_pro_account_mandate_migrations(
                                       'additionalProperties': True}},
         'required': ['body']},
     resource="pro_account",
+    readonly=False,
 )
 async def post_pro_account_mandate_migrations(
     client: PennylaneClient,
@@ -123,6 +126,7 @@ async def post_pro_account_mandate_migrations(
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields: `id`\n'}}},
     resource="pro_account",
+    readonly=True,
 )
 async def get_pro_account_mandates(
     client: PennylaneClient,

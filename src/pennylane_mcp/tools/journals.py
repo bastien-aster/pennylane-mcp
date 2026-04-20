@@ -75,6 +75,7 @@ from ..client import PennylaneClient
                                                      'Available fields :\n'
                                                      '- `id`\n'}}},
     resource="journals",
+    readonly=True,
 )
 async def get_journals(
     client: PennylaneClient,
@@ -115,6 +116,7 @@ async def get_journals(
                                       'additionalProperties': True}},
         'required': ['body']},
     resource="journals",
+    readonly=False,
 )
 async def post_journals(
     client: PennylaneClient,
@@ -148,6 +150,7 @@ async def post_journals(
                                                                      'to opt in directly t'}},
         'required': ['id']},
     resource="journals",
+    readonly=True,
 )
 async def get_journal(
     client: PennylaneClient,

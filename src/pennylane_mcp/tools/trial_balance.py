@@ -70,6 +70,7 @@ from ..client import PennylaneClient
                                                       'Must be between 1 and 1000.\n'}},
         'required': ['period_start', 'period_end']},
     resource="trial_balance",
+    readonly=True,
 )
 async def get_trial_balance(
     client: PennylaneClient,

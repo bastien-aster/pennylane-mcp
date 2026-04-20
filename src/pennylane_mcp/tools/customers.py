@@ -42,6 +42,7 @@ from ..client import PennylaneClient
                                                      '`-id` will sort by descending order.\n'
                                                      'Available fields : `id`\n'}}},
     resource="customers",
+    readonly=True,
 )
 async def get_customers(
     client: PennylaneClient,
@@ -76,6 +77,7 @@ async def get_customers(
                                                                      'to opt in directly t'}},
         'required': ['id']},
     resource="customers",
+    readonly=True,
 )
 async def get_customer(
     client: PennylaneClient,
@@ -105,6 +107,7 @@ async def get_customer(
                                                       'Must be between 1 and 100.\n'}},
         'required': ['customer_id']},
     resource="customers",
+    readonly=True,
 )
 async def get_customer_categories(
     client: PennylaneClient,
@@ -129,6 +132,7 @@ async def get_customer_categories(
                                       'additionalProperties': True}},
         'required': ['customer_id', 'body']},
     resource="customers",
+    readonly=False,
 )
 async def put_customer_categories(
     client: PennylaneClient,
@@ -165,6 +169,7 @@ async def put_customer_categories(
                                                      'Available fields : `id`\n'}},
         'required': ['customer_id']},
     resource="customers",
+    readonly=True,
 )
 async def get_customer_contacts(
     client: PennylaneClient,
